@@ -99,56 +99,76 @@ class MyScaffold extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 50,),
-              Text("Recently Played",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w400),),
+              Text("Recently Played",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w400,fontFamily: "Nunito",),),
               
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
+                  
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                  Container(
-                    width: 101.0,
-                    height: 81.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.white),
-                    
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 101.0,
+                          height: 81.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.white),
+                          
+                        ),
+                      ),
+                    ],
                   ),
                 
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Container(
-                      
-                      width: 101.0,
-                      height: 81.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white),
-                      
-                    ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          
+                          width: 101.0,
+                          height: 81.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.white),
+                          
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Container(
-                      width: 101.0,
-                      height: 81.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: Colors.white),
-                      
-                    ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 101.0,
+                          height: 81.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.white),
+                          
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Container(
-                      
-                      width: 101.0,
-                      height: 81.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.white),
-                      
-                    ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          
+                          width: 101.0,
+                          height: 81.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: Colors.white),
+                          
+                        ),
+                      ),
+                    ],
                   ),
                 ]),
               )
