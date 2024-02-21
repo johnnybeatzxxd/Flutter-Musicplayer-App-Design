@@ -86,7 +86,7 @@ class MyScaffold extends StatelessWidget {
                         decoration: InputDecoration(
                             prefix: Icon(Icons.search, size: 18),
                             focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white70),
+                                borderSide: BorderSide(color: Colors.grey.shade700),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(60))),
                             hintText: "    Search Music",
@@ -116,10 +116,11 @@ class MyScaffold extends StatelessWidget {
                           height: 81.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white),
+                            color: Colors.grey),
                           
                         ),
                       ),
+                      Text("The triangle")
                     ],
                   ),
                 
@@ -133,10 +134,11 @@ class MyScaffold extends StatelessWidget {
                           height: 81.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white),
+                            color: Colors.grey),
                           
                         ),
                       ),
+                      Text("Dune Of Visa")
                     ],
                   ),
                   Column(
@@ -148,29 +150,124 @@ class MyScaffold extends StatelessWidget {
                           height: 81.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white),
+                            color: Colors.grey),
                           
                         ),
                       ),
+                      Text("Riskitall")
                     ],
                   ),
                   Column(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          
-                          width: 101.0,
-                          height: 81.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white),
-                          
+                        child: Column(
+                          children: [
+                            Container(
+                              
+                              width: 101.0,
+                              height: 81.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: Colors.grey),
+                              
+                            ),
+                            
+                          ],
                         ),
                       ),
+                      Text("hello")
                     ],
                   ),
                 ]),
+              ),
+              
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0,24,0,0),
+                  child: Text("Recommend for you",style: TextStyle(fontSize: 18,),),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0,12,10,12),
+                          child: Container(          
+                                    width: 88.0,
+                                    height: 88.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.grey),
+                                    
+                                  ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 25,),
+                            Text("Take care of you",style: TextStyle(fontSize:17 ),),
+                            Text("Admina Thembi",style: TextStyle(fontSize:13 ),),
+                            Text("114k / steams",style: TextStyle(fontSize:13 ),),
+                          ],)
+                      ],
+                    ),
+                    
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0,12,10,12),
+                          child: Container(          
+                                    width: 88.0,
+                                    height: 88.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.grey),
+                                    
+                                  ),
+                                  
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 25,),
+                            Text("The stranger inside you",style: TextStyle(fontSize:17 ),),
+                            Text("Jeane Lebras",style: TextStyle(fontSize:13 ),),
+                            Text("60.5k / steams",style: TextStyle(fontSize:13 ),),
+                          ],)
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0,12,10,12),
+                          child: Container(          
+                                    width: 88.0,
+                                    height: 88.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.grey),
+                                    
+                                  ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 25,),
+                            Text("Edwall of beauty mind ",style: TextStyle(fontSize:17 ),),
+                            Text("Jacob Givson",style: TextStyle(fontSize:13 ),),
+                            Text("44.3k / steams",style: TextStyle(fontSize:13 ),),
+                          ],)
+                      ],
+                    ),
+                    
+                  ],
+                ),
               )
             ],
           ),
