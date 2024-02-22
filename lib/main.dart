@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicplayer_app/Theme/theme.dart';
@@ -34,7 +36,7 @@ class MyScaffold extends StatelessWidget {
               height: 40,
               width: 40,
               child: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/profile.png'),
+                child: Image.asset("images/profile.png"),
               )),
           title: const Column(
             children: [
@@ -59,14 +61,16 @@ class MyScaffold extends StatelessWidget {
             ),
           ],
         ),
-        body:  Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                     Text(
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
                       'Listen The\nLatest Musics',
                       style: TextStyle(
                           fontSize: 26,
@@ -75,201 +79,248 @@ class MyScaffold extends StatelessWidget {
                               FontWeight.w400 // Adjust text color for contrast
                           ),
                     ),
-                  
-                  SizedBox(
-                    width: 16,
-                  ),
-                  SizedBox(
-                      width: 180,
-                      height: 48,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            prefix: Icon(Icons.search, size: 18),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.grey.shade700),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(60))),
-                            hintText: "    Search Music",
-                            hintStyle: TextStyle(fontSize: 14),
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white70),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(60)))),
-                      ))
-                ],
-              ),
-              SizedBox(height: 50,),
-              Text("Recently Played",style: TextStyle(fontSize: 22,fontWeight: FontWeight.w400,fontFamily: "Nunito",),),
-              
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 101.0,
-                          height: 81.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.grey),
-                          
-                        ),
-                      ),
-                      Text("The triangle")
-                    ],
-                  ),
-                
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          
-                          width: 101.0,
-                          height: 81.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.grey),
-                          
-                        ),
-                      ),
-                      Text("Dune Of Visa")
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 101.0,
-                          height: 81.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.grey),
-                          
-                        ),
-                      ),
-                      Text("Riskitall")
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Container(
-                              
-                              width: 101.0,
-                              height: 81.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: Colors.grey),
-                              
-                            ),
-                            
-                          ],
-                        ),
-                      ),
-                      Text("hello")
-                    ],
-                  ),
-                ]),
-              ),
-              
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0,24,0,0),
-                  child: Text("Recommend for you",style: TextStyle(fontSize: 18,),),
-                ),
-              ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0,12,10,12),
-                          child: Container(          
-                                    width: 88.0,
-                                    height: 88.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.grey),
-                                    
-                                  ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 25,),
-                            Text("Take care of you",style: TextStyle(fontSize:17 ),),
-                            Text("Admina Thembi",style: TextStyle(fontSize:13 ),),
-                            Text("114k / steams",style: TextStyle(fontSize:13 ),),
-                          ],)
-                      ],
+                    SizedBox(
+                      width: 16,
                     ),
-                    
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0,12,10,12),
-                          child: Container(          
-                                    width: 88.0,
-                                    height: 88.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.grey),
-                                    
-                                  ),
-                                  
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 25,),
-                            Text("The stranger inside you",style: TextStyle(fontSize:17 ),),
-                            Text("Jeane Lebras",style: TextStyle(fontSize:13 ),),
-                            Text("60.5k / steams",style: TextStyle(fontSize:13 ),),
-                          ],)
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0,12,10,12),
-                          child: Container(          
-                                    width: 88.0,
-                                    height: 88.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.grey),
-                                    
-                                  ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 25,),
-                            Text("Edwall of beauty mind ",style: TextStyle(fontSize:17 ),),
-                            Text("Jacob Givson",style: TextStyle(fontSize:13 ),),
-                            Text("44.3k / steams",style: TextStyle(fontSize:13 ),),
-                          ],)
-                      ],
-                    ),
-                    
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: SizedBox(
+                          width: 180,
+                          height: 48,
+                          child: TextField(
+                            decoration: InputDecoration(
+                                prefix: Icon(Icons.search, size: 18),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.grey.shade700),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(60))),
+                                hintText: "    Search Music",
+                                hintStyle: TextStyle(fontSize: 14),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.white70),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(60)))),
+                          )),
+                    )
                   ],
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 35,
+                ),
+                Text(
+                  "Recently Played",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Nunito",
+                  ),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 101.0,
+                                height: 81.0,
+                                child: Image.asset("images/Rectangle18.png"),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.grey),
+                              ),
+                            ),
+                            Text("The triangle")
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 101.0,
+                                height: 81.0,
+                                child: Image.asset("images/Rectangle17.png"),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.grey),
+                              ),
+                            ),
+                            Text("Dune Of Visa")
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                width: 101.0,
+                                height: 81.0,
+                                child: Image.asset("images/Rectangle16.png"),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.grey),
+                              ),
+                            ),
+                            Text("Riskitall")
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 101.0,
+                                    height: 81.0,
+                                    child:
+                                        Image.asset("images/Rectangle18.png"),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text("hello")
+                          ],
+                        ),
+                      ]),
+                ),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                    child: Text(
+                      "Recommend for you",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 12, 10, 12),
+                            child: Container(
+                              width: 88.0,
+                              height: 88.0,
+                              child: Image.asset("images/rectangle7.png"),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.grey),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text(
+                                "Take care of you",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              Text(
+                                "Admina Thembi",
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              Text(
+                                "114k / steams",
+                                style: TextStyle(fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 12, 10, 12),
+                            child: Container(
+                              width: 88.0,
+                              height: 88.0,
+                              child: Image.asset("images/Rectangle8.png"),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.grey),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text(
+                                "The stranger inside you",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              Text(
+                                "Jeane Lebras",
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              Text(
+                                "60.5k / steams",
+                                style: TextStyle(fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 12, 10, 12),
+                            child: Container(
+                              width: 88.0,
+                              height: 88.0,
+                              child: Image.asset("images/Rectangle9.png"),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  color: Colors.grey),
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text(
+                                "Edwall of beauty mind ",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              Text(
+                                "Jacob Givson",
+                                style: TextStyle(fontSize: 13),
+                              ),
+                              Text(
+                                "44.3k / steams",
+                                style: TextStyle(fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
