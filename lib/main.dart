@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicplayer_app/Theme/theme.dart';
+import 'package:musicplayer_app/components/myicons.dart';
 
 void main() {
   runApp(MyApp());
@@ -346,7 +347,7 @@ class MyScaffold extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   height: kBottomNavigationBarHeight * 1.5,
                   decoration: BoxDecoration(
@@ -356,8 +357,7 @@ class MyScaffold extends StatelessWidget {
                       BoxShadow(
                         color: Color.fromARGB(124, 158, 158, 158),
                         blurRadius: 6.0,
-                        offset: Offset(
-                            0, -1.0), 
+                        offset: Offset(0, -1.0),
                       ),
                     ],
                   ),
@@ -366,15 +366,23 @@ class MyScaffold extends StatelessWidget {
                         top: Radius.circular(50), bottom: Radius.zero),
                     child: BottomNavigationBar(
                       type: BottomNavigationBarType.fixed,
+                      selectedIconTheme:
+                          IconThemeData(color: Color.fromRGBO(97, 86, 226, 1)),
+                      selectedLabelStyle:
+                          TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
                       items: [
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.home), label: "Home"),
+                            icon: MyCustomIcon('assets/icons/home.png'),
+                            label: "home"),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.music_note), label: "House"),
+                            icon: MyCustomIcon("assets/icons/heart.png"),
+                            label: "heart"),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.heart_broken), label: "House"),
+                            icon: MyCustomIcon("assets/icons/map.png"),
+                            label: "map"),
                         BottomNavigationBarItem(
-                            icon: Icon(Icons.home), label: "House")
+                            icon: MyCustomIcon("assets/icons/music.png"),
+                            label: "music")
                       ],
                     ),
                   ),
