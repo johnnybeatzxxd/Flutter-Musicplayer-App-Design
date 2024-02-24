@@ -375,14 +375,15 @@ class MyScaffold extends StatelessWidget {
                             icon: MyCustomIcon('assets/icons/home.png'),
                             label: "home"),
                         BottomNavigationBarItem(
+                            icon: MyCustomIcon("assets/icons/music.png"),
+                            label: "music"),
+                        BottomNavigationBarItem(
                             icon: MyCustomIcon("assets/icons/heart.png"),
                             label: "heart"),
                         BottomNavigationBarItem(
                             icon: MyCustomIcon("assets/icons/map.png"),
                             label: "map"),
-                        BottomNavigationBarItem(
-                            icon: MyCustomIcon("assets/icons/music.png"),
-                            label: "music")
+                       
                       ],
                     ),
                   ),
