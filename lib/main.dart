@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import "Pages/home.dart";
-import "Theme/theme.dart";
+import 'index.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,10 +26,9 @@ class MyScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      darkTheme: darkTheme(),
-      debugShowCheckedModeBanner: false, // Ensure MaterialApp is present
-      theme: darkTheme(),
-      home: Homepage()
-    );
+        darkTheme: darkTheme(),
+        debugShowCheckedModeBanner: false, // Ensure MaterialApp is present
+        theme: darkTheme(),
+        home: Homepage());
   }
 }
