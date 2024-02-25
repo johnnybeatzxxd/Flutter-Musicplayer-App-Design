@@ -119,9 +119,7 @@ class Playground extends StatelessWidget {
                       top: Radius.circular(50), bottom: Radius.zero),
                   child: BottomNavigationBar(
                     onTap: (value) =>
-                        (Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Homepage(),
-                    ))),
+                        (Navigator.of(context).pop()),
                     type: BottomNavigationBarType.fixed,
                     selectedIconTheme: const IconThemeData(
                         color: Color.fromRGBO(97, 86, 226, 1)),
