@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:musicplayer_app/Pages/playground.dart';
 import 'package:musicplayer_app/Theme/theme.dart';
 import 'package:musicplayer_app/components/myicons.dart';
 
@@ -342,6 +343,10 @@ class Homepage extends StatelessWidget {
                     borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(50), bottom: Radius.zero),
                     child: BottomNavigationBar(
+                      onTap: (value) =>
+                        (Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Playground(),
+                    ))),
                       type: BottomNavigationBarType.fixed,
                       selectedIconTheme:
                           const IconThemeData(color: Color.fromRGBO(97, 86, 226, 1)),
