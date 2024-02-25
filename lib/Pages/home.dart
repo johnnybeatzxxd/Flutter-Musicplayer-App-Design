@@ -33,9 +33,9 @@ class Homepage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(
-                icon: Icon(Icons.notifications_none),
+                icon: const Icon(Icons.notifications_none),
                 onPressed: () {},
-                color: Color.fromRGBO(142, 142, 142, 1),
+                color: const Color.fromRGBO(142, 142, 142, 1),
               ),
             ),
           ],
@@ -54,7 +54,7 @@ class Homepage extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Listen The\nLatest Musics',
                             style: TextStyle(
                                 fontSize: 26,
@@ -63,7 +63,7 @@ class Homepage extends StatelessWidget {
                                     .w400 // Adjust text color for contrast
                                 ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 16,
                           ),
                           Align(
@@ -76,13 +76,13 @@ class Homepage extends StatelessWidget {
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade700),
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.circular(60))),
                                       hintText: "       Search Music",
-                                      hintStyle: TextStyle(
+                                      hintStyle: const TextStyle(
                                         fontSize: 14,
                                       ),
-                                      border: OutlineInputBorder(
+                                      border: const OutlineInputBorder(
                                           borderSide:
                                               BorderSide(color: Colors.white70),
                                           borderRadius: BorderRadius.all(
@@ -91,10 +91,10 @@ class Homepage extends StatelessWidget {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
-                      Text(
+                      const Text(
                         "Recently Played",
                         style: TextStyle(
                           fontSize: 22,
@@ -122,7 +122,7 @@ class Homepage extends StatelessWidget {
                                           color: Colors.grey),
                                     ),
                                   ),
-                                  Text("The triangle")
+                                  const Text("The triangle")
                                 ],
                               ),
                               Column(
@@ -140,7 +140,7 @@ class Homepage extends StatelessWidget {
                                           color: Colors.grey),
                                     ),
                                   ),
-                                  Text("Dune Of Visa")
+                                  const Text("Dune Of Visa")
                                 ],
                               ),
                               Column(
@@ -158,7 +158,7 @@ class Homepage extends StatelessWidget {
                                           color: Colors.grey),
                                     ),
                                   ),
-                                  Text("Riskitall")
+                                  const Text("Riskitall")
                                 ],
                               ),
                               Column(
@@ -180,14 +180,14 @@ class Homepage extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  Text("hello")
+                                  const Text("hello")
                                 ],
                               ),
                             ]),
                       ),
-                      SingleChildScrollView(
+                      const SingleChildScrollView(
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+                          padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
                           child: Text(
                             "Recommend for you",
                             style: TextStyle(
@@ -215,7 +215,7 @@ class Homepage extends StatelessWidget {
                                         color: Colors.grey),
                                   ),
                                 ),
-                                Column(
+                                const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
@@ -253,7 +253,7 @@ class Homepage extends StatelessWidget {
                                         color: Colors.grey),
                                   ),
                                 ),
-                                Column(
+                                const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
@@ -291,7 +291,7 @@ class Homepage extends StatelessWidget {
                                         color: Colors.grey),
                                   ),
                                 ),
-                                Column(
+                                const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
@@ -327,7 +327,7 @@ class Homepage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   height: kBottomNavigationBarHeight * 1.5,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(50)),
                     boxShadow: [
@@ -339,26 +339,26 @@ class Homepage extends StatelessWidget {
                     ],
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.vertical(
+                    borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(50), bottom: Radius.zero),
                     child: BottomNavigationBar(
                       type: BottomNavigationBarType.fixed,
                       selectedIconTheme:
-                          IconThemeData(color: Color.fromRGBO(97, 86, 226, 1)),
+                          const IconThemeData(color: Color.fromRGBO(97, 86, 226, 1)),
                       selectedLabelStyle:
-                          TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
+                          const TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
                       items: [
                         BottomNavigationBarItem(
-                            icon: MyCustomIcon('assets/icons/home.png'),
+                            icon: MyCustomIcon('assets/icons/home.svg',color: Colors.blue),
                             label: "home"),
                         BottomNavigationBarItem(
-                            icon: MyCustomIcon("assets/icons/music.png"),
+                            icon: MyCustomIcon("assets/icons/music.svg"),
                             label: "music"),
                         BottomNavigationBarItem(
-                            icon: MyCustomIcon("assets/icons/heart.png"),
+                            icon: MyCustomIcon("assets/icons/heart.svg"),
                             label: "heart"),
                         BottomNavigationBarItem(
-                            icon: MyCustomIcon("assets/icons/map.png"),
+                            icon: MyCustomIcon("assets/icons/map.svg"),
                             label: "map"),
                        
                       ],
