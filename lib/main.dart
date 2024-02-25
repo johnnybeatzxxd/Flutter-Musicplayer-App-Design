@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: darkTheme(),
         title: 'Musica',
-        home: Playground());
+        home: Homepage());
   }
 }
 
