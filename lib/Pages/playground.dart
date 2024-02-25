@@ -8,7 +8,10 @@ class Playground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text("Song name"),
+          actions: [MyCustomIcon("assets/icons/heart.svg")] ,
+        ),
         body: Stack(alignment: AlignmentDirectional.bottomStart, children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
