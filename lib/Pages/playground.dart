@@ -12,12 +12,12 @@ class Playground extends StatelessWidget {
           title: Center(child: Text("Song name")),
           actions: [
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: MyCustomIcon("assets/icons/heart.svg"),
+              padding: const EdgeInsets.all(20.0),
+              child: Icon(Icons.heart_broken_rounded),
             )
           ],
         ),
-        body: Stack(alignment: AlignmentDirectional.bottomStart, children: [
+        body: Stack(alignment: AlignmentDirectional.topCenter, children: [
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
@@ -79,7 +79,7 @@ class Playground extends StatelessWidget {
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.grey,
-                                blurRadius: 20.0,
+                                blurRadius: 15.0,
                                 offset: Offset(0, 0),
                               ),
                             ],
