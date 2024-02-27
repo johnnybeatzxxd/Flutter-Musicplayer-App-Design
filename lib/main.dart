@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Import services package
+import 'package:flutter/services.dart'; 
 import 'index.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensure plugin services are initialized
-  SystemChrome.setPreferredOrientations([ // Lock orientation to portrait
+  WidgetsFlutterBinding.ensureInitialized(); 
+  SystemChrome.setPreferredOrientations([ 
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
