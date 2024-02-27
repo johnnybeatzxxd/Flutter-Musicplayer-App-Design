@@ -12,6 +12,7 @@ class FavoritePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 50),
             Row(
@@ -72,6 +73,45 @@ class FavoritePage extends StatelessWidget {
                 ),
               ],
             ),
+          SizedBox(height: 80),
+          Text(
+            "Favourite Ablum",
+            style: TextStyle(
+              fontSize: 18,
+            ),
+          ),
+         SingleChildScrollView(
+          controller: ScrollController(initialScrollOffset: 0.0),
+          scrollDirection: Axis.horizontal,
+          child:Row(
+            children: [
+              Column(
+               
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child:Image.asset("images/Rectangle24.png", width: 106, height: 111),),
+                    
+                ],
+              ),Column(
+               
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child:Image.asset("images/Rectangle23.png", width: 106, height: 111),),
+                    
+                ],
+              ),Column(
+               
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(8),
+                    child:Image.asset("images/Rectangle22.png", width: 106, height: 111),),
+                    
+                ],
+              ),
+            ],)
+            )
           ],
         ),
       ),
