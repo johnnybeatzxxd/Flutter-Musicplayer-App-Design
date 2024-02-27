@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import services package
 import 'index.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized(); // Ensure plugin services are initialized
+  SystemChrome.setPreferredOrientations([ // Lock orientation to portrait
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -14,13 +21,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: darkTheme(),
       title: 'Musica',
-      // Define initial route
       initialRoute: '/home',
-      // Define named routes
       routes: {
-        '/home': (context) => Homepage(), // Home route
-        '/music': (context) => PlaygroundPage(), // Example route
-        '/favourite': (context) => FavoritePage(), // Another example route
+        '/home': (context) => Homepage(),
+        '/music': (context) => PlaygroundPage(),
+        '/favourite': (context) => FavoritePage(),
         // Add more routes for your pages here
       },
     );
