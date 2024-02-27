@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "package:musicplayer_app/components/myicons.dart";
 import "package:musicplayer_app/index.dart";
 
-class Playground extends StatelessWidget {
-  const Playground({super.key});
+class PlaygroundPage extends StatelessWidget {
+  const PlaygroundPage({super.key});
 
   @override
   Widget build(BuildContext context) {
