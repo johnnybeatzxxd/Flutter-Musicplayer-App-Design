@@ -90,7 +90,14 @@ class FavoritePage extends StatelessWidget {
                 children: [
                   Container(
                     padding: EdgeInsets.all(8),
-                    child:Image.asset("images/Rectangle24.png", width: 106, height: 111),),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset("images/Rectangle24.png", width: 106, height: 111),
+                    ),
+                  ),
                     
                 ],
               ),Column(
@@ -98,16 +105,30 @@ class FavoritePage extends StatelessWidget {
                 children: [
                   Container(
                     padding: EdgeInsets.all(8),
-                    child:Image.asset("images/Rectangle23.png", width: 106, height: 111),),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset("images/Rectangle23.png", width: 106, height: 111),
+                    ),
+                  ),
                     
                 ],
-              ),Column(
+              ),
+              Column(
                
                 children: [
                   Container(
                     padding: EdgeInsets.all(8),
-                    child:Image.asset("images/Rectangle22.png", width: 106, height: 111),),
-                    
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset("images/Rectangle22.png", width: 106, height: 111),
+                    ),
+                  ),
                 ],
               ),
             ],)
