@@ -316,7 +316,8 @@ class Homepage extends StatelessWidget {
                             ),
                           ],
                         ),
-                      )
+                      ),
+                    SizedBox(height: kBottomNavigationBarHeight * 1.4,)
                     ],
                   ),
                 ),

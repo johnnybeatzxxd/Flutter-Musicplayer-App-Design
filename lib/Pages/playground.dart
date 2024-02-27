@@ -105,6 +105,7 @@ class Playground extends StatelessWidget {
                       Icon(Icons.repeat),
                     ],
                   ),
+                SizedBox(height: kBottomNavigationBarHeight * 1.5,)
                 ],
               ),
             ),
