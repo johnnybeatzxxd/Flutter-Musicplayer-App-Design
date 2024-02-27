@@ -84,9 +84,10 @@ class FavoritePage extends StatelessWidget {
           controller: ScrollController(initialScrollOffset: 0.0),
           scrollDirection: Axis.horizontal,
           child:Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            
             children: [
               Column(
-               
                 children: [
                   Container(
                     padding: EdgeInsets.all(8),
@@ -98,10 +99,10 @@ class FavoritePage extends StatelessWidget {
                       child: Image.asset("images/Rectangle24.png", width: 106, height: 111),
                     ),
                   ),
-                    
+                  Text("Album 1", style: TextStyle(color: Colors.white)),
                 ],
-              ),Column(
-               
+              ),
+              Column(
                 children: [
                   Container(
                     padding: EdgeInsets.all(8),
@@ -113,11 +114,10 @@ class FavoritePage extends StatelessWidget {
                       child: Image.asset("images/Rectangle23.png", width: 106, height: 111),
                     ),
                   ),
-                    
+                  Text("Album 2", style: TextStyle(color: Colors.white)),
                 ],
               ),
               Column(
-               
                 children: [
                   Container(
                     padding: EdgeInsets.all(8),
@@ -129,6 +129,7 @@ class FavoritePage extends StatelessWidget {
                       child: Image.asset("images/Rectangle22.png", width: 106, height: 111),
                     ),
                   ),
+                  Text("Album 3", style: TextStyle(color: Colors.white)),
                 ],
               ),
             ],)
