@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musicplayer_app/Pages/favourite.dart';
 import 'package:musicplayer_app/Pages/playground.dart';
 import 'index.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         darkTheme: darkTheme(),
         title: 'Musica',
-        home: Homepage());
+        home: FavoritePage());
   }
 }
 
