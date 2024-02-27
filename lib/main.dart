@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:musicplayer_app/Pages/favourite.dart';
-import 'package:musicplayer_app/Pages/playground.dart';
 import 'index.dart';
 
 void main() {
@@ -10,14 +8,22 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-        debugShowCheckedModeBanner: false,
-        darkTheme: darkTheme(),
-        title: 'Musica',
-        home: FavoritePage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      darkTheme: darkTheme(),
+      title: 'Musica',
+      // Define initial route
+      initialRoute: '/home',
+      // Define named routes
+      routes: {
+        '/home': (context) => Homepage(), // Home route
+        '/music': (context) => PlaygroundPage(), // Example route
+        '/favourite': (context) => FavoritePage(), // Another example route
+        // Add more routes for your pages here
+      },
+    );
   }
 }
 
