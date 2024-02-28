@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:musicplayer_app/Providers/mainProvider.dart";
 import "package:musicplayer_app/index.dart";
+import "package:provider/provider.dart";
 
 class ButtomNavBar extends StatelessWidget {
   int currentIndex = 0;
@@ -28,44 +30,29 @@ class ButtomNavBar extends StatelessWidget {
                 top: Radius.circular(50), bottom: Radius.zero),
             child: BottomNavigationBar(
               onTap: (int index) {
-                  switch (index) {
-                  case 0:
-                    this.currentIndex = 0;
-                    Navigator.pushNamed(context, '/home');
-                    break;
-                  case 1:
-                    currentIndex = 1;
-                    Navigator.pushNamed(context, '/music');
-                    break;
-                  case 2:
-                    currentIndex = 2;
-                    Navigator.pushNamed(context, '/favourite');
-                    break;
-                  case 3:
-                    currentIndex = 3;
-                    Navigator.pushNamed(context, '/home');
-                    break;
-                }
+                Provider.of<MainProvider>(context,listen: false).currentPage(index);
               },
               type: BottomNavigationBarType.fixed,
-              currentIndex: currentIndex,
-              selectedIconTheme:
-                  const IconThemeData(color: Color.fromRGBO(97, 86, 226, 1)),
+              currentIndex: Provider.of<MainProvider>(context,listen: true).currentPageIndex,
               selectedLabelStyle:
-                  const TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
+                   TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
               items: [
                 BottomNavigationBarItem(
-                    icon: MyCustomIcon('assets/icons/home.svg',),
+                    activeIcon: MyCustomIcon('assets/icons/home.svg',color: Color.fromRGBO(97, 86, 226, 1)),
+                    icon: MyCustomIcon('assets/icons/home.svg'),
                     label: "home"),
                 BottomNavigationBarItem(
+                    activeIcon: MyCustomIcon("assets/icons/music.svg",color: Color.fromRGBO(97, 86, 226, 1),),
                     icon: MyCustomIcon("assets/icons/music.svg"),
                     label: "music"),
                 BottomNavigationBarItem(
-                  activeIcon:MyCustomIcon('assets/icons/music.svg',) ,
+                    activeIcon: MyCustomIcon("assets/icons/heart.svg",color: Color.fromRGBO(97, 86, 226, 1),),
                     icon: MyCustomIcon("assets/icons/heart.svg"),
                     label: "heart"),
                 BottomNavigationBarItem(
-                    icon: MyCustomIcon("assets/icons/map.svg"), label: "map"),
+                    activeIcon: MyCustomIcon("assets/icons/map.svg",color: Color.fromRGBO(97, 86, 226, 1),),
+                    icon: MyCustomIcon("assets/icons/map.svg"),
+                    label: "map"),
               ],
             ),
           ),
