@@ -2,7 +2,8 @@ import "package:flutter/material.dart";
 import "package:musicplayer_app/index.dart";
 
 class ButtomNavBar extends StatelessWidget {
-  const ButtomNavBar({super.key});
+  int currentIndex = 0;
+  ButtomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,32 +28,34 @@ class ButtomNavBar extends StatelessWidget {
                 top: Radius.circular(50), bottom: Radius.zero),
             child: BottomNavigationBar(
               onTap: (int index) {
-                switch (index) {
+                                switch (index) {
                   case 0:
+                    this.currentIndex = 0;
                     Navigator.pushNamed(context, '/home');
-                    break;
+                                        break;
                   case 1:
+                    this.currentIndex = 1;
                     Navigator.pushNamed(context, '/music');
-                    break;
+                                        break;
                   case 2:
+                    this.currentIndex = 2;
                     Navigator.pushNamed(context, '/favourite');
-                    break;
+                                        break;
                   case 3:
+                    currentIndex = 3;
                     Navigator.pushNamed(context, '/home');
-                    break;
+                                        break;
                 }
               },
               type: BottomNavigationBarType.fixed,
+              currentIndex: this.currentIndex,
               selectedIconTheme:
                   const IconThemeData(color: Color.fromRGBO(97, 86, 226, 1)),
               selectedLabelStyle:
                   const TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
               items: [
                 BottomNavigationBarItem(
-                    icon: MyCustomIcon(
-                      'assets/icons/home.svg',
-                      color: Color.fromRGBO(97, 86, 226, 1),
-                    ),
+                    icon: MyCustomIcon('assets/icons/home.svg',),
                     label: "home"),
                 BottomNavigationBarItem(
                     icon: MyCustomIcon("assets/icons/music.svg"),
