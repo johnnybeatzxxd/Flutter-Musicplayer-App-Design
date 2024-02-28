@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => Homepage(),
         '/music': (context) => PlaygroundPage(),
         '/favourite': (context) => FavoritePage(),
-        // Add more routes for your pages here
+        
       },
     );
   }

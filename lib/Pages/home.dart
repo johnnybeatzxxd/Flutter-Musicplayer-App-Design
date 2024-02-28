@@ -10,6 +10,12 @@ class Homepage extends StatelessWidget {
     {"name": "Riskitall", "image": "images/Rectangle16.png"},
     {"name": "The triangle", "image": "images/Rectangle18.png"}
   ];
+  final List<Map> recommendations = [
+    {"name":"Take care of you","image":"images/rectangle7.png","artist":"Admina Thembi","views":"114k/stream",},
+    {"name":"The stranger inside you","image":"images/Rectangle8.png","artist":"Jeane Lebras","views":"60.5k/stream",},
+    {"name":"Edwall of beauty mind","image":"images/Rectangle9.png","artist":"Jacob Givson","views":"44.3k/stream",},
+    {"name":"Take care of you","image":"images/rectangle7.png","artist":"Admina Thembi","views":"114k/stream",}
+    ];
   Homepage({super.key});
 
   @override
@@ -68,9 +74,7 @@ class Homepage extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 26,
                               fontFamily: "Nunito",
-                              fontWeight: FontWeight
-                                  .w400 
-                              ),
+                              fontWeight: FontWeight.w400),
                         ),
                         const SizedBox(
                           width: 16,
@@ -118,26 +122,24 @@ class Homepage extends StatelessWidget {
                           children: [
                             for (var music in recentlyPlayed)
                               GestureDetector(
-                                onTap: () {
-                                  print("pressed!");
-                                },
+                                onTap: () {},
                                 child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          width: 101.0,
-                                          height: 81.0,
-                                          child: Image.asset(music["image"]),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              color: Colors.grey),
-                                        ),
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 101.0,
+                                        height: 81.0,
+                                        child: Image.asset(music["image"]),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: Colors.grey),
                                       ),
-                                      Text(music["name"])
-                                    ],
-                                  ),
+                                    ),
+                                    Text(music["name"])
+                                  ],
+                                ),
                               ),
                           ]),
                     ),
@@ -155,6 +157,7 @@ class Homepage extends StatelessWidget {
                     SingleChildScrollView(
                       child: Column(
                         children: [
+                          for (var music in recommendations)
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -164,102 +167,28 @@ class Homepage extends StatelessWidget {
                                 child: Container(
                                   width: 88.0,
                                   height: 88.0,
-                                  child: Image.asset("images/rectangle7.png"),
+                                  child: Image.asset(music["image"]),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10.0),
                                       color: Colors.grey),
                                 ),
                               ),
-                              const Column(
+                              Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 25,
                                   ),
                                   Text(
-                                    "Take care of you",
-                                    style: TextStyle(fontSize: 17),
+                                    music["name"]
+                                    //style: TextStyle(fontSize: 17),
                                   ),
                                   Text(
-                                    "Admina Thembi",
+                                    music["artist"],
                                     style: TextStyle(fontSize: 13),
                                   ),
                                   Text(
-                                    "114k / steams",
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 12, 10, 12),
-                                child: Container(
-                                  width: 88.0,
-                                  height: 88.0,
-                                  child: Image.asset("images/Rectangle8.png"),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.grey),
-                                ),
-                              ),
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                  ),
-                                  Text(
-                                    "The stranger inside you",
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                  Text(
-                                    "Jeane Lebras",
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  Text(
-                                    "60.5k / steams",
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 12, 10, 12),
-                                child: Container(
-                                  width: 88.0,
-                                  height: 88.0,
-                                  child: Image.asset("images/Rectangle9.png"),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.grey),
-                                ),
-                              ),
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 25,
-                                  ),
-                                  Text(
-                                    "Edwall of beauty mind ",
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                  Text(
-                                    "Jacob Givson",
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  Text(
-                                    "44.3k / steams",
+                                    music["views"],
                                     style: TextStyle(fontSize: 13),
                                   ),
                                 ],
