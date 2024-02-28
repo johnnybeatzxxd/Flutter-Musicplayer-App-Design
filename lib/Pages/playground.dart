@@ -110,57 +110,7 @@ class PlaygroundPage extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: kBottomNavigationBarHeight * 1.5,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromARGB(124, 158, 158, 158),
-                      blurRadius: 6.0,
-                      offset: Offset(0, -1.0),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(50), bottom: Radius.zero),
-                  child: BottomNavigationBar(
-                    onTap: (value) {
-                      print(value);
-                      Navigator.of(context).pop();
-                    },
-                    type: BottomNavigationBarType.fixed,
-                    selectedIconTheme: const IconThemeData(
-                        color: Color.fromRGBO(97, 86, 226, 1)),
-                    selectedLabelStyle:
-                        const TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
-                    items: [
-                      BottomNavigationBarItem(
-                          icon: MyCustomIcon(
-                            'assets/icons/home.svg',
-                            color: Color.fromRGBO(97, 86, 226, 1),
-                          ),
-                          label: "home"),
-                      BottomNavigationBarItem(
-                          icon: MyCustomIcon("assets/icons/music.svg"),
-                          label: "music"),
-                      BottomNavigationBarItem(
-                          icon: MyCustomIcon("assets/icons/heart.svg"),
-                          label: "heart"),
-                      BottomNavigationBarItem(
-                          icon: MyCustomIcon("assets/icons/map.svg"),
-                          label: "map"),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
+         ButtomNavBar()
         ]));
   }
 }
