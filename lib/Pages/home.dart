@@ -1,21 +1,31 @@
+import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import "package:musicplayer_app/index.dart";
 
 class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+  final List<Map> recentlyPlayed = [
+    {"name": "The triangle", "image": "images/Rectangle18.png"},
+    {"name": "Dune Of Visa", "image": "images/Rectangle17.png"},
+    {"name": "Riskitall", "image": "images/Rectangle16.png"},
+    {"name": "The triangle", "image": "images/Rectangle18.png"}
+  ];
+  Homepage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: Container(
-            height: 40,
-            width: 40,
-            child: CircleAvatar(
-              child: Image.asset("images/profile.png"),
-            )),
+        leading: GestureDetector(
+          onTap: () {},
+          child: Container(
+              height: 40,
+              width: 40,
+              child: CircleAvatar(
+                child: Image.asset("images/profile.png"),
+              )),
+        ),
         title: const Column(
           children: [
             Text(
@@ -59,7 +69,7 @@ class Homepage extends StatelessWidget {
                               fontSize: 26,
                               fontFamily: "Nunito",
                               fontWeight: FontWeight
-                                  .w400 // Adjust text color for contrast
+                                  .w400 
                               ),
                         ),
                         const SizedBox(
@@ -106,82 +116,29 @@ class Homepage extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 101.0,
-                                    height: 81.0,
-                                    child:
-                                        Image.asset("images/Rectangle18.png"),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        color: Colors.grey),
-                                  ),
-                                ),
-                                const Text("The triangle")
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 101.0,
-                                    height: 81.0,
-                                    child:
-                                        Image.asset("images/Rectangle17.png"),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        color: Colors.grey),
-                                  ),
-                                ),
-                                const Text("Dune Of Visa")
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    width: 101.0,
-                                    height: 81.0,
-                                    child:
-                                        Image.asset("images/Rectangle16.png"),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        color: Colors.grey),
-                                  ),
-                                ),
-                                const Text("Riskitall")
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
+                            for (var music in recentlyPlayed)
+                              GestureDetector(
+                                onTap: () {
+                                  print("pressed!");
+                                },
+                                child: Column(
                                     children: [
-                                      Container(
-                                        width: 101.0,
-                                        height: 81.0,
-                                        child: Image.asset(
-                                            "images/Rectangle18.png"),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            color: Colors.grey),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 101.0,
+                                          height: 81.0,
+                                          child: Image.asset(music["image"]),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              color: Colors.grey),
+                                        ),
                                       ),
+                                      Text(music["name"])
                                     ],
                                   ),
-                                ),
-                                const Text("hello")
-                              ],
-                            ),
+                              ),
                           ]),
                     ),
                     const SingleChildScrollView(
