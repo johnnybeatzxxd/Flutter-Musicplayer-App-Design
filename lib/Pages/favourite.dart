@@ -9,19 +9,18 @@ class FavoritePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(),
         body: Stack(children: [
-          
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius:
@@ -31,7 +30,7 @@ class FavoritePage extends StatelessWidget {
                             color: Colors.black.withOpacity(0.1),
                             spreadRadius: 1,
                             blurRadius: 3,
-                            offset: Offset(0, 3), // Shadow position
+                            offset: const Offset(0, 3), // Shadow position
                           ),
                         ],
                       ),
@@ -42,8 +41,8 @@ class FavoritePage extends StatelessWidget {
                             width: 91, height: 100),
                       ),
                     ),
-                    SizedBox(width: 20),
-                    Expanded(
+                    const SizedBox(width: 20),
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment:
                             CrossAxisAlignment.start, // Align text to the start
@@ -70,8 +69,8 @@ class FavoritePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 60),
-                Text(
+                const SizedBox(height: 60),
+               const Text(
                   "Favourite Ablum",
                   style: TextStyle(
                     fontSize: 18,
@@ -86,7 +85,7 @@ class FavoritePage extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -96,7 +95,7 @@ class FavoritePage extends StatelessWidget {
                                     width: 106, height: 111),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "Album 1",
                             ),
                           ],
@@ -104,7 +103,7 @@ class FavoritePage extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -114,7 +113,7 @@ class FavoritePage extends StatelessWidget {
                                     width: 106, height: 111),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "Album 2",
                             ),
                           ],
@@ -122,7 +121,7 @@ class FavoritePage extends StatelessWidget {
                         Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -132,17 +131,17 @@ class FavoritePage extends StatelessWidget {
                                     width: 106, height: 111),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "Album 3",
                             ),
                           ],
                         ),
                       ],
                     )), // Favorite album section
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: const Text(
+                const SizedBox(height: 15),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
                     "Favourite Music",
                     style: TextStyle(
                       fontSize: 18,
@@ -160,7 +159,7 @@ class FavoritePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            padding: EdgeInsets.all(0),
+                            padding: const EdgeInsets.all(0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -175,7 +174,7 @@ class FavoritePage extends StatelessWidget {
                         ],
                       );
                     })
-                      ..add(SizedBox(
+                      ..add(const SizedBox(
                         height: kBottomNavigationBarHeight * 1.0,
                       )),
                   ),
@@ -183,7 +182,7 @@ class FavoritePage extends StatelessWidget {
               ],
             ),
           ), //end of the page
-          ButtomNavBar()
+          const ButtomNavBar()
         ]));
   }
 }
