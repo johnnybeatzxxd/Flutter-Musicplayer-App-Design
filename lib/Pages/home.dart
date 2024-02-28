@@ -198,7 +198,7 @@ class Homepage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: kBottomNavigationBarHeight * 1.4,
                     )
                   ],

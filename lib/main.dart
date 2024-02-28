@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; 
+import 'package:flutter/services.dart';
+import 'package:musicplayer_app/Providers/mainProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:path/path.dart';
 import 'index.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized(); 
-  SystemChrome.setPreferredOrientations([ 
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((_) {
-    runApp(const MyApp());
+    runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MainProvider(),),
+        //
+      ],
+      child: MyApp(),
+    ));
   });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  List tabs = [Homepage(), PlaygroundPage(), FavoritePage(),Homepage()];
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: darkTheme(),
       title: 'Musica',
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => Homepage(),
-        '/music': (context) => PlaygroundPage(),
-        '/favourite': (context) => FavoritePage(),
-        
-      },
+      home: tabs[Provider.of<MainProvider>(context,listen: true).currentPageIndex],
     );
   }
 }
-
