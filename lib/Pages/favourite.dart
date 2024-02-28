@@ -182,7 +182,7 @@ class FavoritePage extends StatelessWidget {
               ],
             ),
           ), //end of the page
-          const ButtomNavBar()
+          ButtomNavBar()
         ]));
   }
 }
