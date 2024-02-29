@@ -16,7 +16,6 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => MainProvider(),),
         ChangeNotifierProvider(create: (_) => playGroundProvider(),),
-        //
       ],
       child: MyApp(),
     ));

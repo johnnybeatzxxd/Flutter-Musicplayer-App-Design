@@ -49,6 +49,7 @@ class PlaygroundPage extends StatelessWidget {
                     height: 20,
                   ),
                   Slider(
+                    
                     value: 0,
                     onChanged: (value) => null,
                     min: 0,
@@ -60,11 +61,8 @@ class PlaygroundPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.shuffle),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      Icon(Icons.skip_previous_outlined, size: 35),
+                      IconButton(icon: Icon(Icons.shuffle),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
+                      IconButton(icon:Icon(Icons.skip_previous_outlined, size: 35),onPressed: (){},padding: EdgeInsets.zero),
                       Container(
                         width: 130,
                         child: Container(
@@ -81,14 +79,10 @@ class PlaygroundPage extends StatelessWidget {
                           child: PlayPause(),
                         ),
                       ),
-                      Icon(
-                        Icons.skip_next_outlined,
-                        size: 35,
-                      ),
-                      SizedBox(
-                        width: 50,
-                      ),
-                      Icon(Icons.repeat),
+                      IconButton(
+                        icon:Icon(Icons.skip_next_outlined,
+                        size: 35,),onPressed: (){},padding: EdgeInsets.zero,),
+                      IconButton(icon:Icon(Icons.repeat),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
                     ],
                   ),
                 SizedBox(height: kBottomNavigationBarHeight * 1.5,)
