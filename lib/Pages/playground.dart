@@ -61,8 +61,8 @@ class PlaygroundPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(icon: Icon(Icons.shuffle),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
-                      IconButton(icon:Icon(Icons.skip_previous_outlined, size: 35),onPressed: (){},padding: EdgeInsets.zero),
+                      IconButton(icon: Icon(Icons.shuffle,),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
+                      IconButton(icon:Icon(Icons.skip_previous_outlined, size: 40),onPressed: (){},padding: EdgeInsets.zero),
                       Container(
                         width: 130,
                         child: Container(
@@ -81,7 +81,7 @@ class PlaygroundPage extends StatelessWidget {
                       ),
                       IconButton(
                         icon:Icon(Icons.skip_next_outlined,
-                        size: 35,),onPressed: (){},padding: EdgeInsets.zero,),
+                        size: 40,),onPressed: (){},padding: EdgeInsets.zero,),
                       IconButton(icon:Icon(Icons.repeat),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
                     ],
                   ),
