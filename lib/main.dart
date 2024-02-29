@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: darkTheme(),
       title: 'Musica',
+      
       home: tabs[Provider.of<MainProvider>(context,listen: true).currentPageIndex],
     );
   }

@@ -11,11 +11,31 @@ class Homepage extends StatelessWidget {
     {"name": "The triangle", "image": "images/Rectangle18.png"}
   ];
   final List<Map> recommendations = [
-    {"name":"Take care of you","image":"images/rectangle7.png","artist":"Admina Thembi","views":"114k/stream",},
-    {"name":"The stranger inside you","image":"images/Rectangle8.png","artist":"Jeane Lebras","views":"60.5k/stream",},
-    {"name":"Edwall of beauty mind","image":"images/Rectangle9.png","artist":"Jacob Givson","views":"44.3k/stream",},
-    {"name":"Take care of you","image":"images/rectangle7.png","artist":"Admina Thembi","views":"114k/stream",}
-    ];
+    {
+      "name": "Take care of you",
+      "image": "images/rectangle7.png",
+      "artist": "Admina Thembi",
+      "views": "114k/stream",
+    },
+    {
+      "name": "The stranger inside you",
+      "image": "images/Rectangle8.png",
+      "artist": "Jeane Lebras",
+      "views": "60.5k/stream",
+    },
+    {
+      "name": "Edwall of beauty mind",
+      "image": "images/Rectangle9.png",
+      "artist": "Jacob Givson",
+      "views": "44.3k/stream",
+    },
+    {
+      "name": "Take care of you",
+      "image": "images/rectangle7.png",
+      "artist": "Admina Thembi",
+      "views": "114k/stream",
+    }
+  ];
   Homepage({super.key});
 
   @override
@@ -23,6 +43,7 @@ class Homepage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: () {},
           child: Container(
@@ -121,7 +142,7 @@ class Homepage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             for (var music in recentlyPlayed)
-                              GestureDetector(
+                              InkWell(
                                 onTap: () {},
                                 child: Column(
                                   children: [
@@ -158,43 +179,52 @@ class Homepage extends StatelessWidget {
                       child: Column(
                         children: [
                           for (var music in recommendations)
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(0, 12, 10, 12),
-                                child: Container(
-                                  width: 88.0,
-                                  height: 88.0,
-                                  child: Image.asset(music["image"]),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.grey),
+                            InkWell(
+                              onTap: () {
+                                print("pressed!");
+                              },
+                              child: Ink(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 12, 10, 12),
+                                      child: Container(
+                                        width: 88.0,
+                                        height: 88.0,
+                                        child: Image.asset(music["image"]),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: Colors.grey),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 25,
+                                          ),
+                                          Text(music["name"]),
+                                          Text(
+                                            music["artist"],
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          Text(
+                                            music["views"],
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 25,
-                                  ),
-                                  Text(
-                                    music["name"]
-                                    //style: TextStyle(fontSize: 17),
-                                  ),
-                                  Text(
-                                    music["artist"],
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                  Text(
-                                    music["views"],
-                                    style: TextStyle(fontSize: 13),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                            ),
                         ],
                       ),
                     ),
