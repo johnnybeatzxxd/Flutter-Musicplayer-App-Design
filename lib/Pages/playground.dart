@@ -10,12 +10,6 @@ class PlaygroundPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Center(child: Text("Song name")),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Icon(Icons.heart_broken_rounded),
-            )
-          ],
         ),
         body: Stack(alignment: AlignmentDirectional.topCenter, children: [
           SingleChildScrollView(
