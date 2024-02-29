@@ -78,15 +78,7 @@ class PlaygroundPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: CircleAvatar(
-                              child: AnimatedIcon(
-                                icon: AnimatedIcons.pause_play,
-                                progress: kAlwaysCompleteAnimation,
-                                size: 50,
-                                color: Colors.white,
-                              ), //Icon(Icons.pause,size: 50,color: Colors.white,),
-                              backgroundColor: Color.fromRGBO(97, 86, 226, 1),
-                              radius: 40),
+                          child: PlayPause(),
                         ),
                       ),
                       Icon(
