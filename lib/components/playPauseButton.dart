@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:musicplayer_app/Providers/playgroundProvider.dart';
+import 'package:provider/provider.dart';
 
 class PlayPause extends StatefulWidget {
   const PlayPause({super.key});
@@ -8,12 +10,14 @@ class PlayPause extends StatefulWidget {
 }
 
 class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
-  bool _isplay = false;
   late AnimationController _controller;
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 300)); // Made animation faster by reducing duration to 250 milliseconds
+    _controller = AnimationController(
+        vsync: this,
+        duration: const Duration(
+            milliseconds:
+                300)); // Made animation faster by reducing duration to 250 milliseconds
     super.initState();
   }
 
@@ -27,18 +31,16 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          setState(() {
-            if (_isplay) {
-              _controller.reverse();
-            } else {
-              _controller.forward();
-            }
-            _isplay = !_isplay;
-          });
+          if (Provider.of<playGroundProvider>(context, listen: false).isplay) {
+            _controller.reverse();
+          } else {
+            _controller.forward();
+          }
+          Provider.of<playGroundProvider>(context, listen: false).changePlayButtonIcon();
         },
         child: CircleAvatar(
             child: AnimatedIcon(
-              icon: AnimatedIcons.pause_play,
+              icon: AnimatedIcons.play_pause,
               progress: _controller,
               size: 50,
               color: Colors.white,

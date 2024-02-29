@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicplayer_app/Providers/mainProvider.dart';
+import 'package:musicplayer_app/Providers/playgroundProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:path/path.dart';
 import 'index.dart';
@@ -14,6 +15,7 @@ void main() {
     runApp(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MainProvider(),),
+        ChangeNotifierProvider(create: (_) => playGroundProvider(),),
         //
       ],
       child: MyApp(),
