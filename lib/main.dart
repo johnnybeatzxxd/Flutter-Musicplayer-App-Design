@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:musicplayer_app/Providers/mainProvider.dart';
 import 'package:musicplayer_app/Providers/playgroundProvider.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart';
 import 'index.dart';
 
 void main() {
@@ -23,7 +22,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  List tabs = [Homepage(), const PlaygroundPage(), const FavoritePage(),Homepage()];
+  List tabs = [Homepage(), const PlaygroundPage(),FavoritePage(),Homepage()];
   MyApp({super.key});
 
   @override

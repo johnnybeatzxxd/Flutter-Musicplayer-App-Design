@@ -2,7 +2,12 @@ import "package:flutter/material.dart";
 import "package:musicplayer_app/index.dart";
 
 class FavoritePage extends StatelessWidget {
-  const FavoritePage({super.key});
+  List albums = [
+    {"name": "Album 1", "image": "images/Rectangle24.png"},
+    {"name": "Album 2", "image": "images/Rectangle23.png"},
+    {"name": "Album 3", "image": "images/Rectangle22.png"}
+  ];
+  FavoritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +64,6 @@ class FavoritePage extends StatelessWidget {
                           ),
                           Text(
                             "Gold Member",
-                           
                           ),
                           Text(
                             "Love Music and I am not an Musician.",
@@ -70,7 +74,7 @@ class FavoritePage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 60),
-               const Text(
+                const Text(
                   "Favourite Ablum",
                   style: TextStyle(
                     fontSize: 18,
@@ -82,60 +86,28 @@ class FavoritePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset("images/Rectangle24.png",
-                                    width: 106, height: 111),
-                              ),
-                            ),
-                            const Text(
-                              "Album 1",
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset("images/Rectangle23.png",
-                                    width: 106, height: 111),
-                              ),
-                            ),
-                            const Text(
-                              "Album 2",
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset("images/Rectangle22.png",
-                                    width: 106, height: 111),
-                              ),
-                            ),
-                            const Text(
-                              "Album 3",
-                            ),
-                          ],
-                        ),
+                        for (var album in albums)
+                        InkWell(
+                          onTap: (){},
+                          child:
+                            Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset(album["image"],
+                                        width: 106, height: 111),
+                                  ),
+                                ),
+                                Text(
+                                  album["name"],
+                                ),
+                              ],
+                            ),)
                       ],
                     )), // Favorite album section
                 const SizedBox(height: 15),
