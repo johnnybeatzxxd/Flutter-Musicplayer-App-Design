@@ -59,30 +59,26 @@ class PlaygroundPage extends StatelessWidget {
                     height: 15,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(icon: Icon(Icons.shuffle,),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
-                      IconButton(icon:Icon(Icons.skip_previous_outlined, size: 40),onPressed: (){},padding: EdgeInsets.zero),
+                      IconButton(icon: Icon(Icons.shuffle,), onPressed: (){},),
+                      IconButton(icon: Icon(Icons.skip_previous_outlined, size: 40), onPressed: (){},),
                       Container(
-                        width: 130,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 15.0,
-                                offset: Offset(0, 0),
-                              ),
-                            ],
-                          ),
-                          child: PlayPause(),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              blurRadius: 15.0,
+                              offset: Offset(0, 0),
+                            ),
+                          ],
                         ),
+                        child: PlayPause(),
                       ),
-                      IconButton(
-                        icon:Icon(Icons.skip_next_outlined,
-                        size: 40,),onPressed: (){},padding: EdgeInsets.zero,),
-                      IconButton(icon:Icon(Icons.repeat),onPressed: (){},padding: EdgeInsets.symmetric(horizontal: 28),),
+                      IconButton(icon: Icon(Icons.skip_next_outlined, size: 40), onPressed: (){},),
+                      IconButton(icon: Icon(Icons.repeat), onPressed: (){},),
                     ],
                   ),
                 SizedBox(height: kBottomNavigationBarHeight * 1.5,)
