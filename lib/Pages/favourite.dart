@@ -130,19 +130,21 @@ class FavoritePage extends StatelessWidget {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                  "images/Rectangle${30 - index}.png",
-                                  width: 106,
-                                  height: 111),
-                            ),
-                          ),
+                          InkWell(
+                            onTap: () => (),
+                            child:Container(
+                              padding: const EdgeInsets.all(0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                    "images/Rectangle${30 - index}.png",
+                                    width: 106,
+                                    height: 111),
+                              ),
+                            ),)
                         ],
                       );
                     })
