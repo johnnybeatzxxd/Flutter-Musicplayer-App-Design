@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:musicplayer_app/Providers/playgroundProvider.dart";
 import "package:musicplayer_app/components/myicons.dart";
 import "package:musicplayer_app/index.dart";
+import "package:provider/provider.dart";
 
 class PlaygroundPage extends StatelessWidget {
   const PlaygroundPage({super.key});
@@ -49,11 +51,12 @@ class PlaygroundPage extends StatelessWidget {
                     height: 20,
                   ),
                   Slider(
-                    
-                    value: 0,
-                    onChanged: (value) => null,
+                    activeColor: const Color.fromRGBO(97, 86, 226, 1),
+                    value: Provider.of<playGroundProvider>(context,listen:true).slider,
+                    onChanged: (value) => Provider.of<playGroundProvider>(context,listen:false).setSlider(value),
+                    label: Provider.of<playGroundProvider>(context,listen:true).slider.round().toString(),
                     min: 0,
-                    max: 3.15,
+                    max: 20,
                   ),
                   SizedBox(
                     height: 15,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musicplayer_app/Providers/playgroundProvider.dart';
 import 'package:provider/provider.dart';
+import 'dart:async'; 
 
 class PlayPause extends StatefulWidget {
   const PlayPause({super.key});
@@ -36,7 +37,8 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
           } else {
             _controller.forward();
           }
-          Provider.of<playGroundProvider>(context, listen: false).changePlayButtonIcon();
+          Provider.of<playGroundProvider>(context, listen: false)
+              .changePlayButtonIcon();
         },
         child: CircleAvatar(
             child: AnimatedIcon(
