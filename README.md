@@ -1,16 +1,13 @@
-# musicplayer_app
+# Flutter Music Player Application Design
 
-A new Flutter project.
+## This application is not completed yet. Currently, I am working on it. 
+A small attempt to make an music player user interface in Flutter for Android and iOS.
 
-## Getting Started
+## 🤓 Author(s)
+**John** [![Telegram Message](https://img.shields.io/badge/message%20@johnnybeatz-grey?style=social&logo=telegram)](https://t.me/johnnybeatz)
 
-This project is a starting point for a Flutter application.
+## Music Player App UI in Flutter
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
