@@ -18,7 +18,7 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
         vsync: this,
         duration: const Duration(
             milliseconds:
-                300)); // Made animation faster by reducing duration to 250 milliseconds
+                300)); 
     super.initState();
   }
 
