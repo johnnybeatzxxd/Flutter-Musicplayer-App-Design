@@ -48,7 +48,7 @@ class PlaygroundPage extends StatelessWidget {
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 35,
                   ),
                   Column(
                     mainAxisSize: MainAxisSize.min, // Restrict column height
@@ -77,12 +77,16 @@ class PlaygroundPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(playGroundProvider().intToTime(Provider.of<playGroundProvider>(context,
-                                listen: true)
-                            .slider.round())), // This will be on the left
-                          Text(playGroundProvider().intToTime(Provider.of<playGroundProvider>(context,
-                                listen: true)
-                            .maxSlider.round())), // This will be on the right
+                          Text(playGroundProvider().intToTime(
+                              Provider.of<playGroundProvider>(context,
+                                      listen: true)
+                                  .slider
+                                  .round())), // This will be on the left
+                          Text(playGroundProvider().intToTime(
+                              Provider.of<playGroundProvider>(context,
+                                      listen: true)
+                                  .maxSlider
+                                  .round())), // This will be on the right
                         ],
                       ),
                     ],
