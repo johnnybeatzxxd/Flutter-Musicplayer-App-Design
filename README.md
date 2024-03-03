@@ -9,9 +9,8 @@ A small attempt to make an music player user interface in Flutter for Android an
 ## Music Player App UI in Flutter
 
 ## ScreenShots
-<img src="screens/HomePage.jpg" height="500em" /> &nbsp;&nbsp;&nbsp;&nbsp; <img src="screens/PlayerPage.jpg" height="500em" />
+<img src="screens/HomePage.jpg" height="500em" /> &nbsp;&nbsp;&nbsp;&nbsp; <img src="screens/PlayerPage.jpg" height="500em" /> &nbsp;&nbsp;&nbsp;&nbsp; <img src="screens/FavouritesPage.jpg" height="500em" /> 
 
-<img src="screens/FavouritesPage.jpg" height="500em" /> 
 
 ## ✨ Requirements
 * Any Operating System (ie. MacOS X, Linux, Windows)
