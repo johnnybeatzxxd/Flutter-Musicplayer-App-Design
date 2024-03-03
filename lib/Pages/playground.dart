@@ -33,42 +33,79 @@ class PlaygroundPage extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: const Color.fromRGBO(97, 86, 226, 1),
                               borderRadius: BorderRadius.circular(38)))),
-                  SizedBox(
-                    height: 35,
+                  const SizedBox(
+                    height: 20,
                   ),
-                  Padding(
+                  const Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
                       "Song name",
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Artist name",
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Slider(
-                    activeColor: const Color.fromRGBO(97, 86, 226, 1),
-                    value: Provider.of<playGroundProvider>(context,listen:true).slider,
-                    onChanged: (value) => Provider.of<playGroundProvider>(context,listen:false).setSlider(value),
-                    label: Provider.of<playGroundProvider>(context,listen:true).slider.round().toString(),
-                    min: 0,
-                    max: 20,
+                  Column(
+                    mainAxisSize: MainAxisSize.min, // Restrict column height
+                    children: [
+                      Slider(
+                        activeColor: const Color.fromRGBO(97, 86, 226, 1),
+                        value: Provider.of<playGroundProvider>(context,
+                                listen: true)
+                            .slider,
+                        onChanged: (value) => Provider.of<playGroundProvider>(
+                                context,
+                                listen: false)
+                            .setSlider(value),
+                        label: Provider.of<playGroundProvider>(context,
+                                listen: true)
+                            .slider
+                            .round()
+                            .toString(),
+                        min: 0,
+                        max: Provider.of<playGroundProvider>(context,
+                                listen: true)
+                            .maxSlider,
+                      ),
+                      const SizedBox(
+                          height: 0.0), // Add minimal vertical spacing
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(playGroundProvider().intToTime(Provider.of<playGroundProvider>(context,
+                                listen: true)
+                            .slider.round())), // This will be on the left
+                          Text(playGroundProvider().intToTime(Provider.of<playGroundProvider>(context,
+                                listen: true)
+                            .maxSlider.round())), // This will be on the right
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(icon: Icon(Icons.shuffle,), onPressed: (){},),
-                      IconButton(icon: Icon(Icons.skip_previous_outlined, size: 40), onPressed: (){},),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.shuffle,
+                        ),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.skip_previous_outlined, size: 40),
+                        onPressed: () {},
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -80,16 +117,24 @@ class PlaygroundPage extends StatelessWidget {
                         ),
                         child: PlayPause(),
                       ),
-                      IconButton(icon: Icon(Icons.skip_next_outlined, size: 40), onPressed: (){},),
-                      IconButton(icon: Icon(Icons.repeat), onPressed: (){},),
+                      IconButton(
+                        icon: Icon(Icons.skip_next_outlined, size: 40),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.repeat),
+                        onPressed: () {},
+                      ),
                     ],
                   ),
-                SizedBox(height: kBottomNavigationBarHeight * 1.5,)
+                  const SizedBox(
+                    height: kBottomNavigationBarHeight * 1.5,
+                  )
                 ],
               ),
             ),
           ),
-         ButtomNavBar()
+          ButtomNavBar()
         ]));
   }
 }
