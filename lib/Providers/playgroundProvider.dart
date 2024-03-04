@@ -9,7 +9,7 @@ class playGroundProvider extends ChangeNotifier {
   double _maxSlider = 120;
   get maxSlider => _maxSlider;
 
-  changePlayButtonIcon() {
+  changeIsPlay() {
     _isplay = !_isplay;
     notifyListeners();
   }
