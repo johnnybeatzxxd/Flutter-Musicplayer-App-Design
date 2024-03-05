@@ -22,7 +22,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  List tabs = [Homepage(), const PlaygroundPage(),FavoritePage(),Homepage()];
+  List tabs = [Homepage(),PlaygroundPage(),FavoritePage(),Homepage()];
   MyApp({super.key});
 
   @override

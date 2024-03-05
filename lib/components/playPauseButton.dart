@@ -29,22 +29,16 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          final provider = Provider.of<playGroundProvider>(context, listen: false);
-          provider.changeIsPlay();
-          if (provider.isplay) {
-            print(provider.isplay);
+          final musicPlayer = Provider.of<playGroundProvider>(context, listen: false);
+          musicPlayer.changeIsPlay();
+          if (musicPlayer.isplay) {
             _controller.forward();
-            Timer.periodic(Duration(seconds: 1), (Timer t) {
-              if (provider.isplay) {
-                var currentTime = provider.slider;
-                provider.setSlider(currentTime + 1);
-                print(provider.slider);
-              } else {
-                t.cancel();
-              }
-            });
+            musicPlayer.playTrack('https://cf-media.sndcdn.com/yJHZdaFxM1Xm.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20veUpIWmRhRnhNMVhtLjEyOC5tcDMqIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzA5NjI5NzA3fX19XX0_&Signature=IB6GyPTf6kzoPndtI6tIfFIAiVMKnUSZwPLljo1lCQTIYZqoD-V1u-IG1Su1fgsHZ8jpS2RrMLowihoNeIQaaVzGo1qNPGULURG~40t9vJV0wP1qaGAGBJJjF-DogmbSkkOudmTJbYC5i3INixffIUoKKm3X8HGDcPxmfVP83nR5a4PPuAudftCE1nLDI6U9wAHwT5~Mj7mrknjYy5v7pXp4zghbcQX4dzHmBScLOgsK6WQxJZYB9vgZ6LAM7fuxSvrhc6RAVfBGSJ-Jt9oSQXE5jUto8CkQi1XV3ACayBD0oISitwT6Y-F03dRauwenszCrLKuxV5EgiXY~VkuCtA__&Key-Pair-Id=APKAI6TU7MMXM5DG6EPQ',musicPlayer.position);
           } else {
+            print(musicPlayer.isplay);
             _controller.reverse();
+            musicPlayer.pauseTrack();
+            
           }
         },
         child: CircleAvatar(
@@ -54,7 +48,7 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
               size: 50,
               color: Colors.white,
             ),
-            backgroundColor: Color.fromRGBO(97, 86, 226, 1),
+            backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
             radius: 40));
   }
 }

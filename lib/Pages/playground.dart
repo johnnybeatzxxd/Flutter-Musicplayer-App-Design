@@ -5,10 +5,11 @@ import "package:musicplayer_app/index.dart";
 import "package:provider/provider.dart";
 
 class PlaygroundPage extends StatelessWidget {
-  const PlaygroundPage({super.key});
+  PlaygroundPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    playGroundProvider musicPlayer = Provider.of<playGroundProvider>(context);
     return Scaffold(
         appBar: AppBar(
           title: Center(child: Text("Song name")),
@@ -55,38 +56,19 @@ class PlaygroundPage extends StatelessWidget {
                     children: [
                       Slider(
                         activeColor: const Color.fromRGBO(97, 86, 226, 1),
-                        value: Provider.of<playGroundProvider>(context,
-                                listen: true)
-                            .slider,
-                        onChanged: (value) => Provider.of<playGroundProvider>(
-                                context,
-                                listen: false)
-                            .setSlider(value),
-                        label: Provider.of<playGroundProvider>(context,
-                                listen: true)
-                            .slider
-                            .round()
-                            .toString(),
+                        value: musicPlayer.position.inMilliseconds.toDouble(),
+                        onChanged: (value) => musicPlayer.seekTo(Duration(milliseconds: value.toInt())),
+                        label: musicPlayer.slider.round().toString(),
                         min: 0,
-                        max: Provider.of<playGroundProvider>(context,
-                                listen: true)
-                            .maxSlider,
+                        max: musicPlayer.audioPlayer.duration?.inMilliseconds.toDouble() ?? 0.0,
                       ),
                       const SizedBox(
                           height: 0.0), // Add minimal vertical spacing
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(playGroundProvider().intToTime(
-                              Provider.of<playGroundProvider>(context,
-                                      listen: true)
-                                  .slider
-                                  .round())), // This will be on the left
-                          Text(playGroundProvider().intToTime(
-                              Provider.of<playGroundProvider>(context,
-                                      listen: true)
-                                  .maxSlider
-                                  .round())), // This will be on the right
+                          Text(musicPlayer.position.inSeconds.toDouble().toString()), // This will be on the left
+                          Text(musicPlayer.position.inSeconds.toDouble().toString()), // This will be on the right
                         ],
                       ),
                     ],
