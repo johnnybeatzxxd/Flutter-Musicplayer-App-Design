@@ -38,7 +38,7 @@ dependencies:
   path: ^1.8.3
   flutter_svg: ^2.0.10+1
   provider: 
-
+  just_audio:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +70,7 @@ flutter:
     - assets/icons/heart.svg
     - assets/icons/map.svg
     - assets/icons/music.svg
+    - assets/icons/RaGe.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
