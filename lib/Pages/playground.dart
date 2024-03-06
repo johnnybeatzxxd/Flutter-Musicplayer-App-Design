@@ -71,13 +71,13 @@ class PlaygroundPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(musicPlayer.position.inSeconds
-                              .toDouble()
-                              .toString()),
-                          Text(musicPlayer.audioPlayer.duration?.inSeconds
+                          Text(musicPlayer.intToTime(musicPlayer.position.inSeconds
+                              .toDouble().toInt()
+                          )),
+                          Text(musicPlayer.intToTime(musicPlayer.audioPlayer.duration?.inSeconds
                                   .toDouble()
-                                  .toString() ??
-                              "0.0"),
+                                  .toInt()??
+                              0)),
                         ],
                       ),
                     ],
