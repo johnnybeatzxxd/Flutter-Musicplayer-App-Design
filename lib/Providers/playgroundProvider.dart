@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import 'package:just_audio/just_audio.dart';
+import 'package:musicplayer_app/index.dart';
 
 class playGroundProvider extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -15,6 +16,7 @@ class playGroundProvider extends ChangeNotifier {
   get maxSlider => _maxSlider;
   Duration get position => _position;
   String? get currentTrack => _currentTrack;
+
   playGroundProvider() {
     _initAudioPlayer();
   }
@@ -33,7 +35,11 @@ class playGroundProvider extends ChangeNotifier {
           playerState.processingState == ProcessingState.ready) {
         // Handle non-error state
       } else if (playerState.processingState == ProcessingState.completed) {
-        changeIsPlay();
+        
+        pauseTrack();
+        seekTo(Duration.zero);
+        
+      
       } else {
         // Handle error state
         // You can access the error through playerState.error
@@ -43,6 +49,11 @@ class playGroundProvider extends ChangeNotifier {
 
     _audioPlayer.positionStream.listen((position) {
       _position = position;
+      _audioPlayer.duration?.inSeconds.toDouble() ==
+              _position.inSeconds.toDouble()
+          ? _isplay = true
+          : null;
+
       notifyListeners(); // Notify UI of changes
     });
   }
@@ -81,6 +92,9 @@ class playGroundProvider extends ChangeNotifier {
   setMaxSlider(value) {
     _maxSlider = value;
     notifyListeners();
+  }
+  void controller(){
+
   }
 
   String intToTime(int value) {
