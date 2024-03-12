@@ -40,6 +40,7 @@ dependencies:
   provider: 
   just_audio:
   on_audio_query:
+  permission_handler: ^11.3.0
   
 dev_dependencies:
   flutter_test:
