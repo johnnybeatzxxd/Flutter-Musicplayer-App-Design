@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:musicplayer_app/Providers/mainProvider.dart';
 import "package:provider/provider.dart";
 import 'package:just_audio/just_audio.dart';
 import 'package:musicplayer_app/index.dart';
@@ -35,10 +36,9 @@ class playGroundProvider extends ChangeNotifier {
           playerState.processingState == ProcessingState.ready) {
         // Handle non-error state
       } else if (playerState.processingState == ProcessingState.completed) {
-        
         pauseTrack();
         seekTo(Duration.zero);
-        
+       
       
       } else {
         // Handle error state
@@ -54,7 +54,7 @@ class playGroundProvider extends ChangeNotifier {
           ? _isplay = true
           : null;
 
-      notifyListeners(); // Notify UI of changes
+      notifyListeners();
     });
   }
 
@@ -93,9 +93,8 @@ class playGroundProvider extends ChangeNotifier {
     _maxSlider = value;
     notifyListeners();
   }
-  void controller(){
 
-  }
+  void controller() {}
 
   String intToTime(int value) {
     int h, m, s;
