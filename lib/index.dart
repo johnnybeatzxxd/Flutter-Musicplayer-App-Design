@@ -2,6 +2,7 @@ export 'Pages/home.dart';
 export 'Theme/theme.dart';
 export 'Pages/favourite.dart';
 export 'Pages/playground.dart';
+export "Pages/musics.dart";
 export 'components/myicons.dart';
 export 'components/buttomnavbar.dart';
 export "components/playPauseButton.dart";
