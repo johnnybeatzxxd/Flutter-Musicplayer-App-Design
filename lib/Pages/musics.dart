@@ -49,7 +49,7 @@ class _MusicsPageState extends State<MusicsPage> {
                   itemCount: music.data!.length,
                 );
               } else {
-                print(music.connectionState);
+                print(music);
                 return const Center(
                   child: Text("Error fetching songs"),
                 );
@@ -62,7 +62,7 @@ class _MusicsPageState extends State<MusicsPage> {
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
     var status = await Permission.storage.request();
-    print("${status}");
+     
     if (status.isGranted) {
       // Permission granted, proceed with the operation
       return widget._audioQuery.querySongs(
@@ -74,7 +74,7 @@ class _MusicsPageState extends State<MusicsPage> {
     } else if (status.isDenied) {
       //Provider.of<MainProvider>(context).currentPage(0);
       await Permission.storage.request();
-      //openAppSettings();
+      
       return Future.error("Permission denied");
     } else if (status.isPermanentlyDenied) {
       // Permission permanently denied, open app settings
