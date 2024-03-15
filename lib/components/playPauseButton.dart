@@ -6,7 +6,7 @@ import 'dart:async';
 
 class PlayPause extends StatefulWidget {
   const PlayPause({super.key});
-
+  
   @override
   State<PlayPause> createState() => _PlayPauseState();
 }
@@ -14,16 +14,11 @@ class PlayPause extends StatefulWidget {
 class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
   late AnimationController _controller;
 
-  @override
+    @override
   void initState() {
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     super.initState();
-  }
-
-  refreshPage() {
-    print("no");
-    Provider.of<MainProvider>(context, listen: true).currentPage(2);
   }
 
   @override
@@ -49,7 +44,7 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
             ),
             backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
             radius: 40));
-  }
+            }
 
   void _onTap(playGroundProvider musicPlayer) {
     musicPlayer.changeIsPlay();
@@ -62,3 +57,5 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
     }
   }
 }
+
+void buttonControl() {}
