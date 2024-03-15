@@ -8,7 +8,6 @@ import "package:musicplayer_app/index.dart";
 class MusicsPage extends StatefulWidget {
   MusicsPage({super.key});
   final _audioQuery = OnAudioQuery();
-
   @override
   _MusicsPageState createState() => _MusicsPageState();
 }
@@ -30,15 +29,18 @@ class _MusicsPageState extends State<MusicsPage> {
           FutureBuilder<List<SongModel>>(
             future: _checkPermissionAndQuerySongs(),
             builder: (context, music) {
-              if (music.connectionState == ConnectionState.waiting) {
+              print(music);
+              if (!music.hasData) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Color.fromRGBO(97, 86, 226, 1),
+                  ),
                 );
               } else if (music.hasData && music.data!.isEmpty) {
                 return const Center(
                   child: Text("No Songs Found"),
                 );
-              } else if (music.hasData) {
+              } else if (music.connectionState != ConnectionState.waiting) {
                 return ListView.builder(
                   itemBuilder: (context, index) => ListTile(
                     leading: const Icon(Icons.music_note),
@@ -58,11 +60,11 @@ class _MusicsPageState extends State<MusicsPage> {
           ),
           ButtomNavBar()
         ]));
-  }
+  } 
 
-  Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
+ Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
     var status = await Permission.storage.request();
-     
+    
     if (status.isGranted) {
       // Permission granted, proceed with the operation
       return widget._audioQuery.querySongs(
@@ -74,7 +76,7 @@ class _MusicsPageState extends State<MusicsPage> {
     } else if (status.isDenied) {
       //Provider.of<MainProvider>(context).currentPage(0);
       await Permission.storage.request();
-      
+
       return Future.error("Permission denied");
     } else if (status.isPermanentlyDenied) {
       // Permission permanently denied, open app settings
