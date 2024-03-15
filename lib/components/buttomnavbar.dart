@@ -31,12 +31,10 @@ class ButtomNavBar extends StatelessWidget {
                 top: Radius.circular(50), bottom: Radius.zero),
             child: BottomNavigationBar(
               onTap: (int index) {
-                if (index == 1) { 
-                  
-                  
-                } else {
-                  Provider.of<MainProvider>(context, listen: false).currentPage(index);
-                }
+                
+                  Provider.of<MainProvider>(context, listen: false)
+                      .currentPage(index);
+              
               },
               type: BottomNavigationBarType.fixed,
               currentIndex: Provider.of<MainProvider>(context, listen: true)
