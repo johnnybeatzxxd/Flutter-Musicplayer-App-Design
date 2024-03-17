@@ -43,16 +43,23 @@ class _MusicsPageState extends State<MusicsPage> {
               } else if (music.connectionState != ConnectionState.waiting) {
                 return ListView.builder(
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () {
-                      print(music.data![index].displayNameWOExt);
+                    onTap: () async {
                     },
-                    child:ListTile(
-                        leading: const Icon(Icons.music_note),
-                        title: Text(music.data![index].displayNameWOExt),
-                        subtitle: Text(music.data![index].artist.toString()),
-                        trailing: const Icon(Icons.more_horiz),
+                    child: ListTile(
+                      leading: FutureBuilder<Widget>(
+                        future: getAudioArtwork(music.data![index].id),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            return snapshot.data!;
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        },
                       ),
-                   
+                      title: Text(music.data![index].displayNameWOExt),
+                      subtitle: Text(music.data![index].artist.toString()),
+                      trailing: const Icon(Icons.more_horiz),
+                    ),
                   ),
                   itemCount: music.data!.length,
                 );
@@ -69,9 +76,7 @@ class _MusicsPageState extends State<MusicsPage> {
   }
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
-    var status = await Permission.camera.request();
-    //widget._audioQuery.permissionsRequest(retryRequest: true);
-    print(status);
+    var status = await Permission.storage.request();
     if (status.isGranted) {
       // Permission granted, proceed with the operation
       var songs = await widget._audioQuery.querySongs(
@@ -80,12 +85,9 @@ class _MusicsPageState extends State<MusicsPage> {
         uriType: UriType.EXTERNAL,
         ignoreCase: true,
       );
-      print("songs: $songs");
       return songs;
     } else if (status.isDenied) {
-      //Provider.of<MainProvider>(context).currentPage(0);
       await Permission.storage.request();
-      print("permissin dnied");
       return Future.error("Permission denied");
     } else if (status.isPermanentlyDenied) {
       // Permission permanently denied, open app settings
@@ -93,5 +95,16 @@ class _MusicsPageState extends State<MusicsPage> {
       return Future.error("Permission permanently denied");
     }
     return Future.error("Unknown error");
+  }
+
+  Future<Widget> getAudioArtwork(int id) async {
+    final artworkData =
+        await widget._audioQuery.queryArtwork(id, ArtworkType.AUDIO);
+    if (artworkData != null) {
+      return Image.memory(artworkData);
+    } else {
+      // Return a placeholder icon
+      return const Padding(padding: EdgeInsets.all(16),child:Icon(Icons.music_note));
+    }
   }
 }
