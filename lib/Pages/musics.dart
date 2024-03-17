@@ -29,7 +29,6 @@ class _MusicsPageState extends State<MusicsPage> {
           FutureBuilder<List<SongModel>>(
             future: _checkPermissionAndQuerySongs(),
             builder: (context, music) {
-              print(music);
               if (music.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(
@@ -41,15 +40,36 @@ class _MusicsPageState extends State<MusicsPage> {
                   child: Text("No Songs Found"),
                 );
               } else if (music.connectionState != ConnectionState.waiting) {
+                print("query done!");
+                print(music);
                 return ListView.builder(
                   itemBuilder: (context, index) => InkWell(
-                    onTap: () async {
+                    onTap: () {
+                      var playGround = Provider.of<playGroundProvider>(context,
+                          listen: false);
+                      playGround.setCurrentTrack(music.data![index]);
+                      var currentArtwork = FutureBuilder(
+                        future: widget._audioQuery.queryArtwork(
+                            music.data![index].id, ArtworkType.AUDIO),
+                        builder: (context, artwork) {
+                          if (artwork.connectionState == ConnectionState.done) {
+                            return artwork.data == null ? Icon(Icons.music_note) : Image.memory(artwork.data!);
+                          } else {
+                            return const Icon(Icons.music_note);
+                          }
+                        },
+                      );
+                      playGround.setCurrentArtwork(currentArtwork);
+                      playGround.setSongDuration(music.data![index].duration!);
+                      Provider.of<MainProvider>(context, listen: false)
+                          .currentPage(4);
                     },
                     child: ListTile(
                       leading: FutureBuilder<Widget>(
                         future: getAudioArtwork(music.data![index].id),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
                             return snapshot.data!;
                           } else {
                             return const CircularProgressIndicator();
@@ -61,7 +81,7 @@ class _MusicsPageState extends State<MusicsPage> {
                       trailing: const Icon(Icons.more_horiz),
                     ),
                   ),
-                  itemCount: music.data!.length,
+                  itemCount: music.data!.length ?? 0,
                 );
               } else {
                 print(music);
@@ -76,8 +96,22 @@ class _MusicsPageState extends State<MusicsPage> {
   }
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
-    var status = await Permission.storage.request();
+    var status = await Permission.audio.request();
+    //var req = widget._audioQuery.permissionsRequest(retryRequest: true);
+    print(status);
+    //print(req);
+    if (status.isDenied) {
+      print("permission denied");
+      await Permission.storage.request();
+      return Future.error("Permission denied");
+    }
+    if (status.isPermanentlyDenied) {
+      // Permission permanently denied, open app settings
+      openAppSettings();
+      return Future.error("Permission permanently denied");
+    }
     if (status.isGranted) {
+      print("Granted");
       // Permission granted, proceed with the operation
       var songs = await widget._audioQuery.querySongs(
         sortType: null,
@@ -86,15 +120,9 @@ class _MusicsPageState extends State<MusicsPage> {
         ignoreCase: true,
       );
       return songs;
-    } else if (status.isDenied) {
-      await Permission.storage.request();
-      return Future.error("Permission denied");
-    } else if (status.isPermanentlyDenied) {
-      // Permission permanently denied, open app settings
-      openAppSettings();
-      return Future.error("Permission permanently denied");
+    } else {
+      return Future.error("Unknown error");
     }
-    return Future.error("Unknown error");
   }
 
   Future<Widget> getAudioArtwork(int id) async {
@@ -104,7 +132,8 @@ class _MusicsPageState extends State<MusicsPage> {
       return Image.memory(artworkData);
     } else {
       // Return a placeholder icon
-      return const Padding(padding: EdgeInsets.all(16),child:Icon(Icons.music_note));
+      return const Padding(
+          padding: EdgeInsets.all(16), child: Icon(Icons.music_note));
     }
   }
 }
