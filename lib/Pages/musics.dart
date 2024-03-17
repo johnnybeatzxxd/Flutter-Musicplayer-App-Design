@@ -30,7 +30,7 @@ class _MusicsPageState extends State<MusicsPage> {
             future: _checkPermissionAndQuerySongs(),
             builder: (context, music) {
               print(music);
-              if (!music.hasData) {
+              if (music.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(
                     color: Color.fromRGBO(97, 86, 226, 1),
@@ -42,12 +42,13 @@ class _MusicsPageState extends State<MusicsPage> {
                 );
               } else if (music.connectionState != ConnectionState.waiting) {
                 return ListView.builder(
-                  itemBuilder: (context, index) => ListTile(
+                  itemBuilder: (context, index) => Container(
+                  child: ListTile(
                     leading: const Icon(Icons.music_note),
                     title: Text(music.data![index].displayNameWOExt),
                     subtitle: Text(music.data![index].artist.toString()),
                     trailing: const Icon(Icons.more_horiz),
-                  ),
+                  ),),
                   itemCount: music.data!.length,
                 );
               } else {
@@ -60,23 +61,26 @@ class _MusicsPageState extends State<MusicsPage> {
           ),
           ButtomNavBar()
         ]));
-  } 
+  }
 
- Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
-    var status = await Permission.storage.request();
-    
+  Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
+    var status = await Permission.camera.request();
+    //widget._audioQuery.permissionsRequest(retryRequest: true);
+    print(status);
     if (status.isGranted) {
       // Permission granted, proceed with the operation
-      return widget._audioQuery.querySongs(
+      var songs = await widget._audioQuery.querySongs(
         sortType: null,
         orderType: OrderType.ASC_OR_SMALLER,
-        uriType: UriType.EXTERNAL_PRIMARY,
+        uriType: UriType.EXTERNAL,
         ignoreCase: true,
       );
+      print("songs: $songs");
+      return songs;
     } else if (status.isDenied) {
       //Provider.of<MainProvider>(context).currentPage(0);
       await Permission.storage.request();
-
+      print("permissin dnied");
       return Future.error("Permission denied");
     } else if (status.isPermanentlyDenied) {
       // Permission permanently denied, open app settings
