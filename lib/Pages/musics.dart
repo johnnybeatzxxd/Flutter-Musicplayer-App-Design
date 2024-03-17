@@ -42,13 +42,18 @@ class _MusicsPageState extends State<MusicsPage> {
                 );
               } else if (music.connectionState != ConnectionState.waiting) {
                 return ListView.builder(
-                  itemBuilder: (context, index) => Container(
-                  child: ListTile(
-                    leading: const Icon(Icons.music_note),
-                    title: Text(music.data![index].displayNameWOExt),
-                    subtitle: Text(music.data![index].artist.toString()),
-                    trailing: const Icon(Icons.more_horiz),
-                  ),),
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      print(music.data![index].displayNameWOExt);
+                    },
+                    child:ListTile(
+                        leading: const Icon(Icons.music_note),
+                        title: Text(music.data![index].displayNameWOExt),
+                        subtitle: Text(music.data![index].artist.toString()),
+                        trailing: const Icon(Icons.more_horiz),
+                      ),
+                   
+                  ),
                   itemCount: music.data!.length,
                 );
               } else {
