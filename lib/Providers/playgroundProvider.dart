@@ -1,13 +1,16 @@
+import 'dart:typed_data';
+
 import "package:flutter/material.dart";
 import 'package:musicplayer_app/Providers/mainProvider.dart';
 import "package:provider/provider.dart";
 import 'package:just_audio/just_audio.dart';
 import 'package:musicplayer_app/index.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
 class playGroundProvider extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
   get audioPlayer => _audioPlayer;
-  String? _currentTrack;
+  SongModel? _currentTrack;
   Duration _position = Duration.zero;
   bool _isplay = false;
   get isplay => _isplay;
@@ -16,7 +19,11 @@ class playGroundProvider extends ChangeNotifier {
   double _maxSlider = 120;
   get maxSlider => _maxSlider;
   Duration get position => _position;
-  String? get currentTrack => _currentTrack;
+  SongModel? get currentTrack => _currentTrack;
+  Widget? _currentArtwork;
+  Widget? get currentArtwork => _currentArtwork;
+  int? _songDuration;
+  int? get songDuration => _songDuration;
 
   playGroundProvider() {
     _initAudioPlayer();
@@ -38,9 +45,7 @@ class playGroundProvider extends ChangeNotifier {
       } else if (playerState.processingState == ProcessingState.completed) {
         pauseTrack();
         seekTo(Duration.zero);
-        
-       
-            } else {
+      } else {
         // Handle error state
         // You can access the error through playerState.error
       }
@@ -60,8 +65,8 @@ class playGroundProvider extends ChangeNotifier {
 
   Future<void> playTrack(String url, Duration initPosition) async {
     if (_currentTrack != url) {
-      _audioPlayer.setAsset("assets/icons/RaGe.mp3");
-            _currentTrack = url;
+      _audioPlayer.setUrl(_currentTrack!.uri!);
+      
     }
     await _audioPlayer.seek(initPosition);
     await _audioPlayer.play();
@@ -77,6 +82,21 @@ class playGroundProvider extends ChangeNotifier {
 
   void seekTo(Duration position) async {
     await _audioPlayer.seek(position);
+  }
+
+  void setCurrentTrack(SongModel song) {
+    _currentTrack = song;
+    notifyListeners();
+  }
+
+  void setSongDuration(int duration) {
+    _songDuration = duration;
+    notifyListeners();
+  }
+
+  void setCurrentArtwork(Widget artwork) {
+    _currentArtwork = artwork;
+    notifyListeners();
   }
 
   changeIsPlay() {
