@@ -57,7 +57,8 @@ class PlaygroundPage extends StatelessWidget {
                       Slider(
                         activeColor: const Color.fromRGBO(97, 86, 226, 1),
                         value: musicPlayer.position.inSeconds.toDouble(),
-                        onChanged: (value) => musicPlayer.seekTo(Duration(seconds: value.toInt())),
+                        onChanged: (value) => musicPlayer
+                            .seekTo(Duration(seconds: value.toInt())),
                         label: musicPlayer.slider.round().toString(),
                         min: 0,
                         max: musicPlayer.audioPlayer.duration != null
@@ -71,12 +72,14 @@ class PlaygroundPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(musicPlayer.intToTime(musicPlayer.position.inSeconds
-                              .toDouble().toInt()
-                          )),
-                          Text(musicPlayer.intToTime(musicPlayer.audioPlayer.duration?.inSeconds
+                          Text(musicPlayer.intToTime(musicPlayer
+                              .position.inSeconds
+                              .toDouble()
+                              .toInt())),
+                          Text(musicPlayer.intToTime(musicPlayer
+                                  .audioPlayer.duration?.inSeconds
                                   .toDouble()
-                                  .toInt()??
+                                  .toInt() ??
                               0)),
                         ],
                       ),

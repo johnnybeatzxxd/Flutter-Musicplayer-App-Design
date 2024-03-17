@@ -38,9 +38,9 @@ class playGroundProvider extends ChangeNotifier {
       } else if (playerState.processingState == ProcessingState.completed) {
         pauseTrack();
         seekTo(Duration.zero);
+        
        
-      
-      } else {
+            } else {
         // Handle error state
         // You can access the error through playerState.error
       }
@@ -61,7 +61,7 @@ class playGroundProvider extends ChangeNotifier {
   Future<void> playTrack(String url, Duration initPosition) async {
     if (_currentTrack != url) {
       _audioPlayer.setAsset("assets/icons/RaGe.mp3");
-      _currentTrack = url;
+            _currentTrack = url;
     }
     await _audioPlayer.seek(initPosition);
     await _audioPlayer.play();
