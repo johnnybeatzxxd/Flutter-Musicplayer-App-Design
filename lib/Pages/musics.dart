@@ -4,6 +4,7 @@ import "package:on_audio_query/on_audio_query.dart";
 import "package:permission_handler/permission_handler.dart";
 import "package:provider/provider.dart";
 import "package:musicplayer_app/index.dart";
+import 'dart:io';
 
 class MusicsPage extends StatefulWidget {
   MusicsPage({super.key});
@@ -40,34 +41,40 @@ class _MusicsPageState extends State<MusicsPage> {
                   child: Text("No Songs Found"),
                 );
               } else if (music.connectionState != ConnectionState.waiting) {
-                print("query done!");
-                print(music);
                 return ListView.builder(
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
                       var playGround = Provider.of<playGroundProvider>(context,
                           listen: false);
-                      playGround.pauseTrack();
-                      playGround.seekTo(Duration.zero);
-                      playGround.setSlider(0.0);
-                      playGround.setCurrentTrack(music.data![index]);
-                      var currentArtwork = FutureBuilder(
-                        future: widget._audioQuery.queryArtwork(
-                            music.data![index].id, ArtworkType.AUDIO),
-                        builder: (context, artwork) {
-                          if (artwork.connectionState == ConnectionState.done) {
-                            return artwork.data == null
-                                ? Icon(Icons.music_note)
-                                : Image.memory(artwork.data!);
-                          } else {
-                            return const Icon(Icons.music_note);
-                          }
-                        },
-                      );
-                      playGround.setCurrentArtwork(currentArtwork);
-                      playGround.setSongDuration(music.data![index].duration!);
-                      Provider.of<MainProvider>(context, listen: false)
-                          .currentPage(4);
+                      if (music.data![index].uri !=
+                          playGround.currentTrack?.uri) {
+                        
+                        playGround.setCurrentTrack(music.data![index]);
+                        playGround.playTrack(
+                            playGround.currentTrack!.uri ?? '', Duration.zero);
+                        var currentArtwork = FutureBuilder(
+                          future: widget._audioQuery.queryArtwork(
+                              music.data![index].id, ArtworkType.AUDIO),
+                          builder: (context, artwork) {
+                            if (artwork.connectionState ==
+                                ConnectionState.done) {
+                              return artwork.data == null
+                                  ? Icon(Icons.music_note)
+                                  : Image.memory(artwork.data!);
+                            } else {
+                              return const Icon(Icons.music_note);
+                            }
+                          },
+                        );
+                        playGround.setCurrentArtwork(currentArtwork);
+                        playGround
+                            .setSongDuration(music.data![index].duration!);
+                        Provider.of<MainProvider>(context, listen: false)
+                            .currentPage(4);
+                      } else {
+                        Provider.of<MainProvider>(context, listen: false)
+                            .currentPage(4);
+                      }
                     },
                     child: ListTile(
                       leading: FutureBuilder<Widget>(
@@ -101,22 +108,27 @@ class _MusicsPageState extends State<MusicsPage> {
   }
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
-    var status = await Permission.audio.request();
-    status = await Permission.storage.request();
+    var status;
+    int sdkVersion = int.parse(Platform.version.split('.')[0]);
+    if (sdkVersion < 33) {
+      status = await Permission.audio.request();
+    } else {
+      status = await Permission.storage.request();
+    }
     //var req = widget._audioQuery.permissionsRequest(retryRequest: true);
     print(status);
     //print(req);
-    if (status.isDenied) {
+    if (status == PermissionStatus.denied) {
       print("permission denied");
       await Permission.storage.request();
       return Future.error("Permission denied");
     }
-    if (status.isPermanentlyDenied) {
+    if (status == PermissionStatus.permanentlyDenied) {
       // Permission permanently denied, open app settings
       openAppSettings();
       return Future.error("Permission permanently denied");
     }
-    if (status.isGranted) {
+    if (status == PermissionStatus.granted) {
       print("Granted");
       // Permission granted, proceed with the operation
       var songs = await widget._audioQuery.querySongs(

@@ -11,7 +11,7 @@ class playGroundProvider extends ChangeNotifier {
   get audioPlayer => _audioPlayer;
   SongModel? _currentTrack;
   Duration _position = Duration.zero;
-  bool _isplay = false;
+  bool _isplay = true;
   get isplay => _isplay;
   double _slider = 0.0;
   get slider => _slider;
@@ -42,7 +42,7 @@ class playGroundProvider extends ChangeNotifier {
           playerState.processingState == ProcessingState.ready) {
         // Handle non-error state
       } else if (playerState.processingState == ProcessingState.completed) {
-        pauseTrack();
+        //pauseTrack();
         seekTo(Duration.zero);
       } else {
         // Handle error state
