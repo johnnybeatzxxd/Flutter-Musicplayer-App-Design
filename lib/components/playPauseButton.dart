@@ -37,7 +37,7 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
         },
         child: CircleAvatar(
             child: AnimatedIcon(
-              icon: AnimatedIcons.play_pause,
+              icon: AnimatedIcons.pause_play,
               progress: _controller,
               size: 50,
               color: Colors.white,
@@ -47,16 +47,18 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
   }
 
   void _onTap(playGroundProvider musicPlayer) {
-    musicPlayer.changeIsPlay();
-    if (musicPlayer.isplay) {
+    
+    print(musicPlayer.isplay);
+    if (musicPlayer.isplay) { 
       _controller.forward();
+      musicPlayer.pauseTrack();
+      
+    } else {
       musicPlayer.playTrack(
           musicPlayer.currentTrack!.uri!, musicPlayer.position);
       
-    } else {
       _controller.reverse();
 
-      musicPlayer.pauseTrack();
     }
   }
 }
