@@ -47,13 +47,18 @@ class _MusicsPageState extends State<MusicsPage> {
                     onTap: () {
                       var playGround = Provider.of<playGroundProvider>(context,
                           listen: false);
+                      playGround.pauseTrack();
+                      playGround.seekTo(Duration.zero);
+                      playGround.setSlider(0.0);
                       playGround.setCurrentTrack(music.data![index]);
                       var currentArtwork = FutureBuilder(
                         future: widget._audioQuery.queryArtwork(
                             music.data![index].id, ArtworkType.AUDIO),
                         builder: (context, artwork) {
                           if (artwork.connectionState == ConnectionState.done) {
-                            return artwork.data == null ? Icon(Icons.music_note) : Image.memory(artwork.data!);
+                            return artwork.data == null
+                                ? Icon(Icons.music_note)
+                                : Image.memory(artwork.data!);
                           } else {
                             return const Icon(Icons.music_note);
                           }
