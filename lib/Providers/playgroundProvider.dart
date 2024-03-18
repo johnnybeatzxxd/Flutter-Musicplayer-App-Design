@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import "package:flutter/material.dart";
 import 'package:musicplayer_app/Providers/mainProvider.dart';
 import "package:provider/provider.dart";
@@ -63,19 +62,18 @@ class playGroundProvider extends ChangeNotifier {
     });
   }
 
-  Future<void> playTrack(String url, Duration initPosition) async {
-    if (_currentTrack != url) {
-      _audioPlayer.setUrl(_currentTrack!.uri!);
-      
-    }
-    await _audioPlayer.seek(initPosition);
-    await _audioPlayer.play();
+  Future<void> playTrack(String uri, Duration initPosition) async {
+    initPosition == Duration.zero
+        ? _audioPlayer.setUrl(_currentTrack!.uri!)
+        : null;
+    _audioPlayer.play();
     _isplay = true;
     notifyListeners();
   }
 
   void pauseTrack() async {
     await _audioPlayer.pause();
+    await _audioPlayer.seek(_audioPlayer.position);
     _isplay = false;
     notifyListeners();
   }
@@ -104,7 +102,7 @@ class playGroundProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setSlider(value) {
+  setSlider(double value) {
     _slider = value;
     notifyListeners();
   }

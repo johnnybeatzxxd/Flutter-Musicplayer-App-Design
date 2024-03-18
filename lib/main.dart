@@ -23,7 +23,7 @@ void main() {WidgetsFlutterBinding.ensureInitialized();
 }
 
 class MyApp extends StatelessWidget {
-  List tabs = [Homepage(), MusicsPage(), FavoritePage(), Homepage()];
+  List tabs = [Homepage(), MusicsPage(), FavoritePage(), Homepage(),PlaygroundPage()];
   MyApp({super.key});
 
   @override

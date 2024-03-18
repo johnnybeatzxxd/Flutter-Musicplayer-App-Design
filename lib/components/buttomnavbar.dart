@@ -38,7 +38,7 @@ class ButtomNavBar extends StatelessWidget {
               },
               type: BottomNavigationBarType.fixed,
               currentIndex: Provider.of<MainProvider>(context, listen: true)
-                  .currentPageIndex,
+                  .currentPageIndex == 4 ? 1 : Provider.of<MainProvider>(context, listen: true).currentPageIndex,
               selectedLabelStyle:
                   const TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
               items: [
