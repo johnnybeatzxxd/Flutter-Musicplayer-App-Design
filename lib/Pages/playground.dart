@@ -28,24 +28,35 @@ class PlaygroundPage extends StatelessWidget {
                   Align(
                       alignment: Alignment.center,
                       child: Container(
-                          height: 319,
-                          width: 304,
-                          child: Image.asset("images/Rectangle19.png"),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(97, 86, 226, 1),
-                              borderRadius: BorderRadius.circular(38)))),
+                        height: 319,
+                        width: 304,
+                        decoration: BoxDecoration(
+                            color: const Color.fromRGBO(97, 86, 226, 1),
+                            borderRadius: BorderRadius.circular(38)),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(38),
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: musicPlayer.currentArtwork,
+                          ),
+                        ),
+                      )),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Padding(
+                  Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      "Song name",
-                      style: TextStyle(fontSize: 24),
+                      (musicPlayer.currentTrack?.displayNameWOExt?.length ?? 0) > 25
+                         ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 30)}...'
+                          : musicPlayer.currentTrack?.displayNameWOExt ?? 'Unknown Song',
+                      style: TextStyle(fontSize: 18),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const Text(
-                    "Artist name",
+                   Text(
+                     musicPlayer.currentTrack?.album ?? 'Unkown Album',
                     style: TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   const SizedBox(
