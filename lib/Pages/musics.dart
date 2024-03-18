@@ -97,6 +97,7 @@ class _MusicsPageState extends State<MusicsPage> {
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
     var status = await Permission.audio.request();
+    status = await Permission.storage.request();
     //var req = widget._audioQuery.permissionsRequest(retryRequest: true);
     print(status);
     //print(req);
