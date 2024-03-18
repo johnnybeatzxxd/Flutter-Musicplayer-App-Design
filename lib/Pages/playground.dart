@@ -31,7 +31,7 @@ class PlaygroundPage extends StatelessWidget {
                         height: 319,
                         width: 304,
                         decoration: BoxDecoration(
-                            color: const Color.fromRGBO(97, 86, 226, 1),
+                            
                             borderRadius: BorderRadius.circular(38)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(38),
@@ -72,9 +72,9 @@ class PlaygroundPage extends StatelessWidget {
                             .seekTo(Duration(seconds: value.toInt())),
                         label: musicPlayer.slider.round().toString(),
                         min: 0,
-                        max: musicPlayer.audioPlayer.duration != null
-                            ? musicPlayer.audioPlayer.duration!.inSeconds
-                                    .toDouble() +
+                        max: musicPlayer.songDuration != null
+                            ? musicPlayer.songDuration!
+                                    .toDouble()/1000 +
                                 0.2
                             : 0.0,
                       ),
@@ -87,11 +87,7 @@ class PlaygroundPage extends StatelessWidget {
                               .position.inSeconds
                               .toDouble()
                               .toInt())),
-                          Text(musicPlayer.intToTime(musicPlayer
-                                  .audioPlayer.duration?.inSeconds
-                                  .toDouble()
-                                  .toInt() ??
-                              0)),
+                          Text(musicPlayer.intToTime((musicPlayer.songDuration!/1000).toInt() ?? 0)),
                         ],
                       ),
                     ],
@@ -147,3 +143,4 @@ class PlaygroundPage extends StatelessWidget {
         ]));
   }
 }
+
