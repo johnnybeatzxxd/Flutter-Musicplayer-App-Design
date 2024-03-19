@@ -11,19 +11,16 @@ class PlayPause extends StatefulWidget {
   State<PlayPause> createState() => _PlayPauseState();
 }
 
-class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
+class _PlayPauseState extends State<PlayPause> {
   late AnimationController _controller;
 
   @override
   void initState() {
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
     super.initState();
   }
 
   @override
   void dispose() {
-    //_controller.dispose();
 
     super.dispose();
   }
@@ -38,7 +35,7 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
         child: CircleAvatar(
             child: AnimatedIcon(
               icon: AnimatedIcons.pause_play,
-              progress: _controller,
+              progress: musicPlayer.controller?.view ?? _controller.view,
               size: 50,
               color: Colors.white,
             ),
@@ -47,18 +44,11 @@ class _PlayPauseState extends State<PlayPause> with TickerProviderStateMixin {
   }
 
   void _onTap(playGroundProvider musicPlayer) {
-    
-    print(musicPlayer.isplay);
-    if (musicPlayer.isplay) { 
-      _controller.forward();
+    if (musicPlayer.isplay) {
       musicPlayer.pauseTrack();
-      
     } else {
       musicPlayer.playTrack(
           musicPlayer.currentTrack!.uri!, musicPlayer.position);
-      
-      _controller.reverse();
-
     }
   }
 }
