@@ -41,7 +41,7 @@ class _MusicsPageState extends State<MusicsPage> {
                 return const Center(
                   child: Text("No Songs Found"),
                 );
-              }else if (music.data == null) {
+              } else if (music.data == null) {
                 return const Center(
                   child: Text("Permission needed!"),
                 );
@@ -51,37 +51,22 @@ class _MusicsPageState extends State<MusicsPage> {
                     onTap: () {
                       var playGround = Provider.of<playGroundProvider>(context,
                           listen: false);
-
+                      playGround.setCurrentTrackIndex(index);
                       if (music.data![index].uri !=
                           playGround.currentTrack?.uri) {
                         playGround.setCurrentTrack(music.data![index]);
                         playGround.playTrack(
                             playGround.currentTrack!.uri ?? '', Duration.zero);
-                        var currentArtwork = FutureBuilder(
-                          future: widget._audioQuery.queryArtwork(
-                              music.data![index].id, ArtworkType.AUDIO),
-                          builder: (context, artwork) {
-                            if (artwork.connectionState ==
-                                ConnectionState.done) {
-                              return artwork.data == null
-                                  ? const Icon(Icons.music_video_rounded,)//MyCustomIcon("assets/icons/music.svg",color: Colors.white,height: 20,width: 20,)
-                                  : Image.memory(artwork.data!);
-                            } else {
-                              return const Icon(Icons.music_note);
-                            }
-                          },
-                        );
-                        playGround.setCurrentArtwork(currentArtwork);
+                        playGround.setCurrentArtwork();
                         playGround
                             .setSongDuration(music.data![index].duration!);
+                        playGround.setSongCollection(music.data!);
                         Provider.of<MainProvider>(context, listen: false)
                             .currentPage(4);
-                        
                       } else {
                         Provider.of<MainProvider>(context, listen: false)
                             .currentPage(4);
                       }
-                      
                     },
                     child: ListTile(
                       leading: FutureBuilder<Widget>(
@@ -115,7 +100,9 @@ class _MusicsPageState extends State<MusicsPage> {
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
     var status;
-    int sdkVersion = await DeviceInfoPlugin().androidInfo.then((info) => info.version.sdkInt);
+    int sdkVersion = await DeviceInfoPlugin()
+        .androidInfo
+        .then((info) => info.version.sdkInt);
     print("sdkVersion $sdkVersion");
     if (sdkVersion < 33) {
       status = await Permission.storage.request();
@@ -123,12 +110,14 @@ class _MusicsPageState extends State<MusicsPage> {
       status = await Permission.audio.request();
     }
     print(status);
-  
+
     if (status == PermissionStatus.denied) {
       print("permission denied");
       openAppSettings();
-      await Future.delayed(Duration(seconds: 5)); // Wait for the user to potentially allow permission
-      if (await Permission.storage.isPermanentlyDenied || await Permission.audio.isPermanentlyDenied) {
+      await Future.delayed(Duration(
+          seconds: 5)); // Wait for the user to potentially allow permission
+      if (await Permission.storage.isPermanentlyDenied ||
+          await Permission.audio.isPermanentlyDenied) {
         // If the user still didn't allow permission after opening settings
         return Future.error("Permission not allowed");
       }
