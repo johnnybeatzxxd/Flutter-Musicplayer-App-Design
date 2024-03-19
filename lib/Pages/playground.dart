@@ -6,7 +6,7 @@ import "package:provider/provider.dart";
 
 class PlaygroundPage extends StatelessWidget {
   PlaygroundPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     playGroundProvider musicPlayer = Provider.of<playGroundProvider>(context);
@@ -59,7 +59,7 @@ class PlaygroundPage extends StatelessWidget {
                   ),
                   Text(
                     musicPlayer.currentTrack?.album ?? 'Unkown Album',
-                    style:const TextStyle(fontSize: 18, color: Colors.grey),
+                    style: const TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   const SizedBox(
                     height: 35,
@@ -103,10 +103,7 @@ class PlaygroundPage extends StatelessWidget {
                         icon: const Icon(
                           Icons.shuffle,
                         ),
-                        onPressed: () {
-                          
-                              
-                        },
+                        onPressed: () {},
                       ),
                       IconButton(
                         icon: Icon(Icons.skip_previous_outlined, size: 40),
@@ -131,8 +128,13 @@ class PlaygroundPage extends StatelessWidget {
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: Icon(Icons.repeat),
-                        onPressed: () {},
+                        icon: Icon(
+                          Icons.repeat,
+                          color: musicPlayer.repeat ? const Color.fromRGBO(97, 86, 226, 1) : Colors.white,
+                        ),
+                        onPressed: () {
+                          musicPlayer.changeRepeat();
+                        },
                       ),
                     ],
                   ),

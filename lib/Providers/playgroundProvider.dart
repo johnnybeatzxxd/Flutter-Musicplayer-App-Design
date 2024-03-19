@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:typed_data';
 import "package:flutter/material.dart";
 import 'package:flutter/scheduler.dart'; // Import SchedulerBinding
@@ -24,14 +25,14 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   Widget? get currentArtwork => _currentArtwork;
   int? _songDuration;
   int? get songDuration => _songDuration;
-
+  bool _repeat = false; // Changed to final
+  bool get repeat => _repeat;
   List<SongModel> _songCollection = [];
   List<SongModel> get songCollection => _songCollection;
   AnimationController? _controller;
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
 
-  
   playGroundProvider() {
     _initAudioPlayer();
     _ticker = createTicker((_) {}); // Initialize the Ticker
@@ -58,8 +59,9 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
           playerState.processingState == ProcessingState.ready) {
         // Handle non-error state
       } else if (playerState.processingState == ProcessingState.completed) {
-        pauseTrack();
+        !_repeat ? pauseTrack() : null;
         seekTo(Duration.zero);
+      
       } else {
         // Handle error state
         // You can access the error through playerState.error
@@ -136,9 +138,14 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     notifyListeners();
   }
 
+  void changeRepeat() {
+    _repeat = !_repeat;
+    notifyListeners();
+  }
+
   void togglePlayButton() {
     _controller ??= AnimationController(
-      vsync: this, // Use this class as the TickerProvider
+      vsync: this,
       duration: Duration(milliseconds: 300),
     );
     if (!_isplay) {
