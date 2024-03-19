@@ -6,7 +6,7 @@ import "package:provider/provider.dart";
 
 class PlaygroundPage extends StatelessWidget {
   PlaygroundPage({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     playGroundProvider musicPlayer = Provider.of<playGroundProvider>(context);
@@ -31,7 +31,6 @@ class PlaygroundPage extends StatelessWidget {
                         height: 319,
                         width: 304,
                         decoration: BoxDecoration(
-                            
                             borderRadius: BorderRadius.circular(38)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(38),
@@ -47,17 +46,20 @@ class PlaygroundPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      (musicPlayer.currentTrack?.displayNameWOExt?.length ?? 0) > 25
-                         ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 30)}...'
-                          : musicPlayer.currentTrack?.displayNameWOExt ?? 'Unknown Song',
-                      style: TextStyle(fontSize: 18),
+                      (musicPlayer.currentTrack?.displayNameWOExt?.length ??
+                                  0) >
+                              25
+                          ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 30)}...'
+                          : musicPlayer.currentTrack?.displayNameWOExt ??
+                              'Unknown Song',
+                      style: const TextStyle(fontSize: 18),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                   Text(
-                     musicPlayer.currentTrack?.album ?? 'Unkown Album',
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                  Text(
+                    musicPlayer.currentTrack?.album ?? 'Unkown Album',
+                    style:const TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   const SizedBox(
                     height: 35,
@@ -73,9 +75,7 @@ class PlaygroundPage extends StatelessWidget {
                         label: musicPlayer.slider.round().toString(),
                         min: 0,
                         max: musicPlayer.songDuration != null
-                            ? musicPlayer.songDuration!
-                                    .toDouble()/1000 +
-                                0.2
+                            ? musicPlayer.songDuration!.toDouble() / 1000 + 0.2
                             : 0.0,
                       ),
                       const SizedBox(
@@ -87,7 +87,8 @@ class PlaygroundPage extends StatelessWidget {
                               .position.inSeconds
                               .toDouble()
                               .toInt())),
-                          Text(musicPlayer.intToTime((musicPlayer.songDuration!/1000).toInt() ?? 0)),
+                          Text(musicPlayer.intToTime(
+                              (musicPlayer.songDuration! / 1000).toInt() ?? 0)),
                         ],
                       ),
                     ],
@@ -102,7 +103,10 @@ class PlaygroundPage extends StatelessWidget {
                         icon: const Icon(
                           Icons.shuffle,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                              
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.skip_previous_outlined, size: 40),
@@ -143,4 +147,3 @@ class PlaygroundPage extends StatelessWidget {
         ]));
   }
 }
-
