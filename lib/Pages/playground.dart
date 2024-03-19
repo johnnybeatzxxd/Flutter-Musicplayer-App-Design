@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:musicplayer_app/Providers/playgroundProvider.dart";
 import "package:musicplayer_app/components/myicons.dart";
 import "package:musicplayer_app/index.dart";
+import "package:on_audio_query/on_audio_query.dart";
 import "package:provider/provider.dart";
 
 class PlaygroundPage extends StatelessWidget {
@@ -15,15 +16,13 @@ class PlaygroundPage extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-             
+              Provider.of<MainProvider>(context, listen: false).currentPage(1);
             },
           ),
           actions: [
             IconButton(
               icon: const Icon(Icons.favorite),
-              onPressed: () {
-                
-              },
+              onPressed: () {},
             ),
           ],
           title: Center(child: Text(musicPlayer.currentTrack!.title)),
@@ -121,7 +120,20 @@ class PlaygroundPage extends StatelessWidget {
                       ),
                       IconButton(
                         icon: Icon(Icons.skip_previous_outlined, size: 40),
-                        onPressed: () {},
+                        onPressed: () {
+                          int? index = musicPlayer.currentTrackIndex;
+                          List? songCollection = musicPlayer.songCollection;
+                          if (index != null && index > 0) {
+                            musicPlayer
+                                .setCurrentTrack(songCollection?[index - 1]);
+                            musicPlayer.setCurrentTrackIndex(index! - 1);
+                            musicPlayer.setCurrentArtwork();
+                          } else {
+                            musicPlayer.playTrack(
+                                musicPlayer.currentTrack!.uri!, Duration.zero);
+                          }
+                          
+                        },
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -135,16 +147,30 @@ class PlaygroundPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        child: PlayPause(),
+                        child: const PlayPause(),
                       ),
                       IconButton(
-                        icon: Icon(Icons.skip_next_outlined, size: 40),
-                        onPressed: () {},
+                        icon: const Icon(Icons.skip_next_outlined, size: 40),
+                        onPressed: () {
+                          int? index = musicPlayer.currentTrackIndex;
+                          List? songCollection = musicPlayer.songCollection;
+                          int nextIndex = index! + 1;
+                          if (nextIndex >= songCollection!.length) {
+                            nextIndex = 0;
+                          }
+                          musicPlayer.setCurrentTrack(songCollection[nextIndex]);
+                          musicPlayer.playTrack(
+                              musicPlayer.currentTrack!.uri!, Duration.zero);
+                          musicPlayer.setCurrentArtwork();
+                          musicPlayer.setCurrentTrackIndex(nextIndex);
+                        },
                       ),
                       IconButton(
                         icon: Icon(
                           Icons.repeat,
-                          color: musicPlayer.repeat ? const Color.fromRGBO(97, 86, 226, 1) : null,
+                          color: musicPlayer.repeat
+                              ? const Color.fromRGBO(97, 86, 226, 1)
+                              : null,
                         ),
                         onPressed: () {
                           musicPlayer.changeRepeat();

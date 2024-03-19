@@ -12,6 +12,8 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   final AudioPlayer _audioPlayer = AudioPlayer();
   get audioPlayer => _audioPlayer;
   SongModel? _currentTrack;
+  int? _currentTrackIndex;
+  int? get currentTrackIndex => _currentTrackIndex;
   Duration _position = Duration.zero;
   bool _isplay = true;
   get isplay => _isplay;
@@ -27,11 +29,12 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   int? get songDuration => _songDuration;
   bool _repeat = false; // Changed to final
   bool get repeat => _repeat;
-  List<SongModel> _songCollection = [];
-  List<SongModel> get songCollection => _songCollection;
+  List<SongModel>? _songCollection = [];
+  List<SongModel>? get songCollection => _songCollection;
   AnimationController? _controller;
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
+  
 
   playGroundProvider() {
     _initAudioPlayer();
@@ -61,7 +64,6 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
       } else if (playerState.processingState == ProcessingState.completed) {
         !_repeat ? pauseTrack() : null;
         seekTo(Duration.zero);
-      
       } else {
         // Handle error state
         // You can access the error through playerState.error
@@ -107,6 +109,11 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     notifyListeners();
   }
 
+  void setCurrentTrackIndex(int index) {
+    _currentTrackIndex = index;
+    notifyListeners();
+  }
+
   void setSongDuration(int duration) {
     _songDuration = duration;
     notifyListeners();
@@ -117,7 +124,13 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     notifyListeners();
   }
 
-  void setCurrentArtwork(Widget artwork) {
+  void setCurrentArtwork() {
+    Widget? artwork = QueryArtworkWidget(
+      id: _currentTrack!.id,
+      type: ArtworkType.AUDIO,
+      artworkBorder: BorderRadius.zero,
+      nullArtworkWidget: const Icon(Icons.music_video_rounded),
+    );
     _currentArtwork = artwork;
     notifyListeners();
   }
