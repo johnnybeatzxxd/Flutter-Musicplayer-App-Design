@@ -41,6 +41,10 @@ class _MusicsPageState extends State<MusicsPage> {
                 return const Center(
                   child: Text("No Songs Found"),
                 );
+              }else if (music.data == null) {
+                return const Center(
+                  child: Text("Permission needed!"),
+                );
               } else if (music.connectionState != ConnectionState.waiting) {
                 return ListView.builder(
                   itemBuilder: (context, index) => InkWell(
@@ -96,10 +100,9 @@ class _MusicsPageState extends State<MusicsPage> {
                       trailing: const Icon(Icons.more_horiz),
                     ),
                   ),
-                  itemCount: music.data!.length ?? 0,
+                  itemCount: music.data == null ? 0 : music.data!.length,
                 );
               } else {
-                print(music);
                 return const Center(
                   child: Text("Error fetching songs"),
                 );
@@ -119,13 +122,16 @@ class _MusicsPageState extends State<MusicsPage> {
     } else {
       status = await Permission.audio.request();
     }
-    //var req = widget._audioQuery.permissionsRequest(retryRequest: true);
     print(status);
-    //print(req);
+  
     if (status == PermissionStatus.denied) {
       print("permission denied");
-      await Permission.storage.request();
-      return Future.error("Permission denied");
+      openAppSettings();
+      await Future.delayed(Duration(seconds: 5)); // Wait for the user to potentially allow permission
+      if (await Permission.storage.isPermanentlyDenied || await Permission.audio.isPermanentlyDenied) {
+        // If the user still didn't allow permission after opening settings
+        return Future.error("Permission not allowed");
+      }
     }
     if (status == PermissionStatus.permanentlyDenied) {
       // Permission permanently denied, open app settings
