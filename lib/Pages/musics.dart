@@ -5,6 +5,7 @@ import "package:permission_handler/permission_handler.dart";
 import "package:provider/provider.dart";
 import "package:musicplayer_app/index.dart";
 import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class MusicsPage extends StatefulWidget {
   MusicsPage({super.key});
@@ -46,9 +47,9 @@ class _MusicsPageState extends State<MusicsPage> {
                     onTap: () {
                       var playGround = Provider.of<playGroundProvider>(context,
                           listen: false);
+
                       if (music.data![index].uri !=
                           playGround.currentTrack?.uri) {
-                        
                         playGround.setCurrentTrack(music.data![index]);
                         playGround.playTrack(
                             playGround.currentTrack!.uri ?? '', Duration.zero);
@@ -59,7 +60,7 @@ class _MusicsPageState extends State<MusicsPage> {
                             if (artwork.connectionState ==
                                 ConnectionState.done) {
                               return artwork.data == null
-                                  ? Icon(Icons.music_note)
+                                  ? const Icon(Icons.music_video_rounded,)//MyCustomIcon("assets/icons/music.svg",color: Colors.white,height: 20,width: 20,)
                                   : Image.memory(artwork.data!);
                             } else {
                               return const Icon(Icons.music_note);
@@ -71,10 +72,12 @@ class _MusicsPageState extends State<MusicsPage> {
                             .setSongDuration(music.data![index].duration!);
                         Provider.of<MainProvider>(context, listen: false)
                             .currentPage(4);
+                        
                       } else {
                         Provider.of<MainProvider>(context, listen: false)
                             .currentPage(4);
                       }
+                      
                     },
                     child: ListTile(
                       leading: FutureBuilder<Widget>(
@@ -109,11 +112,12 @@ class _MusicsPageState extends State<MusicsPage> {
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
     var status;
-    int sdkVersion = int.parse(Platform.version.split('.')[0]);
+    int sdkVersion = await DeviceInfoPlugin().androidInfo.then((info) => info.version.sdkInt);
+    print("sdkVersion $sdkVersion");
     if (sdkVersion < 33) {
-      status = await Permission.audio.request();
-    } else {
       status = await Permission.storage.request();
+    } else {
+      status = await Permission.audio.request();
     }
     //var req = widget._audioQuery.permissionsRequest(retryRequest: true);
     print(status);
