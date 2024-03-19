@@ -12,7 +12,21 @@ class PlaygroundPage extends StatelessWidget {
     playGroundProvider musicPlayer = Provider.of<playGroundProvider>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("Song name")),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+             
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.favorite),
+              onPressed: () {
+                
+              },
+            ),
+          ],
+          title: Center(child: Text(musicPlayer.currentTrack!.title)),
         ),
         body: Stack(alignment: AlignmentDirectional.topCenter, children: [
           SingleChildScrollView(
@@ -130,7 +144,7 @@ class PlaygroundPage extends StatelessWidget {
                       IconButton(
                         icon: Icon(
                           Icons.repeat,
-                          color: musicPlayer.repeat ? const Color.fromRGBO(97, 86, 226, 1) : Colors.white,
+                          color: musicPlayer.repeat ? const Color.fromRGBO(97, 86, 226, 1) : null,
                         ),
                         onPressed: () {
                           musicPlayer.changeRepeat();
