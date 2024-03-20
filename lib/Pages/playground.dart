@@ -21,8 +21,15 @@ class PlaygroundPage extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.favorite),
-              onPressed: () {},
+              icon: Icon(
+                Icons.favorite,
+                color: musicPlayer.isFavorite
+                    ? const Color.fromRGBO(97, 86, 226, 1)
+                    : null,
+              ),
+              onPressed: () {
+                musicPlayer.setFavorite();
+              },
             ),
           ],
           title: Center(child: Text(musicPlayer.currentTrack!.title)),
@@ -113,10 +120,15 @@ class PlaygroundPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.shuffle,
+                          color: musicPlayer.shuffle
+                              ? const Color.fromRGBO(97, 86, 226, 1)
+                              : null,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          musicPlayer.changeShuffle();
+                        },
                       ),
                       IconButton(
                         icon: Icon(Icons.skip_previous_outlined, size: 40),
@@ -128,11 +140,12 @@ class PlaygroundPage extends StatelessWidget {
                                 .setCurrentTrack(songCollection?[index - 1]);
                             musicPlayer.setCurrentTrackIndex(index! - 1);
                             musicPlayer.setCurrentArtwork();
+                            musicPlayer.playTrack(
+                                musicPlayer.currentTrack!.uri!, Duration.zero);
                           } else {
                             musicPlayer.playTrack(
                                 musicPlayer.currentTrack!.uri!, Duration.zero);
                           }
-                          
                         },
                       ),
                       Container(
@@ -158,7 +171,8 @@ class PlaygroundPage extends StatelessWidget {
                           if (nextIndex >= songCollection!.length) {
                             nextIndex = 0;
                           }
-                          musicPlayer.setCurrentTrack(songCollection[nextIndex]);
+                          musicPlayer
+                              .setCurrentTrack(songCollection[nextIndex]);
                           musicPlayer.playTrack(
                               musicPlayer.currentTrack!.uri!, Duration.zero);
                           musicPlayer.setCurrentArtwork();
