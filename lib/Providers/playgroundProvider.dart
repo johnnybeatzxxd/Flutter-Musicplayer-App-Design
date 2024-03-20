@@ -7,6 +7,9 @@ import "package:provider/provider.dart";
 import 'package:just_audio/just_audio.dart';
 import 'package:musicplayer_app/index.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'dart:math';
+import 'package:flutter/services.dart'; // Import services for detecting headphone state
+import 'package:audio_session/audio_session.dart';
 
 class playGroundProvider extends ChangeNotifier implements TickerProvider {
   final AudioPlayer _audioPlayer = AudioPlayer();
@@ -27,18 +30,22 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   Widget? get currentArtwork => _currentArtwork;
   int? _songDuration;
   int? get songDuration => _songDuration;
-  bool _repeat = false; // Changed to final
+  bool _repeat = false;
   bool get repeat => _repeat;
+  bool _shuffle = false;
+  bool get shuffle => _shuffle;
+  bool _isFavorite = false;
+  bool get isFavorite => _isFavorite;
   List<SongModel>? _songCollection = [];
   List<SongModel>? get songCollection => _songCollection;
   AnimationController? _controller;
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
-  
 
   playGroundProvider() {
     _initAudioPlayer();
     _ticker = createTicker((_) {}); // Initialize the Ticker
+    _initAudioSession();
   }
   @override
   void dispose() {
@@ -53,6 +60,25 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     return Ticker(onTick, debugLabel: 'playGroundProviderTicker');
   }
 
+  Future<void> _initAudioSession() async {
+    final session = await AudioSession.instance;
+    await session.configure(AudioSessionConfiguration.music());
+
+    session.interruptionEventStream.listen((event) {
+      if (event.begin) {
+        pauseTrack();
+      } else {
+        if (event.type != AudioInterruptionType.unknown) {
+          playTrack(currentTrack!.uri!, position);
+        }
+      }
+    });
+
+    session.becomingNoisyEventStream.listen((_) {
+      _audioPlayer.pause();
+    });
+  }
+
   void _initAudioPlayer() async {
     _audioPlayer.playerStateStream.listen((playerState) {
       _isplay = playerState.playing;
@@ -62,8 +88,21 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
           playerState.processingState == ProcessingState.ready) {
         // Handle non-error state
       } else if (playerState.processingState == ProcessingState.completed) {
-        !_repeat ? pauseTrack() : null;
-        seekTo(Duration.zero);
+        !_repeat ? playNextTrack() : repeatTrack();
+        if (_shuffle && _songCollection != null && _songCollection!.isNotEmpty) {
+          int randomIndex = _currentTrackIndex!;
+          if (_songCollection!.length > 1) {
+            // Generate a random index different from the current one
+            while (randomIndex == _currentTrackIndex) {
+              randomIndex = Random().nextInt(_songCollection!.length);
+            }
+          }
+          // Proceed with setting the track to the randomly chosen one
+          setCurrentTrack(_songCollection![randomIndex]);
+          playTrack(_currentTrack!.uri!, Duration.zero);
+          setCurrentArtwork();
+          setCurrentTrackIndex(randomIndex);
+        }
       } else {
         // Handle error state
         // You can access the error through playerState.error
@@ -82,10 +121,13 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     });
   }
 
+  // Initialize headphone state listener
+
   Future<void> playTrack(String uri, Duration initPosition) async {
     initPosition == Duration.zero
         ? _audioPlayer.setUrl(_currentTrack!.uri!)
         : null;
+    setSongDuration(_currentTrack!.duration!);
     _audioPlayer.play();
     _isplay = true;
     togglePlayButton();
@@ -98,6 +140,29 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     _isplay = false;
     togglePlayButton();
     notifyListeners();
+  }
+
+  void playNextTrack() {
+    int? index = _currentTrackIndex;
+    List? songCollection = _songCollection;
+    int nextIndex = index! + 1;
+    if (nextIndex >= songCollection!.length) {
+      nextIndex = 0;
+    }
+    setCurrentTrack(songCollection[nextIndex]);
+    playTrack(_currentTrack!.uri!, Duration.zero);
+    setCurrentArtwork();
+    setCurrentTrackIndex(nextIndex);
+  }
+
+  void repeatTrack() {
+    int? index = _currentTrackIndex;
+    List? songCollection = _songCollection;
+
+    setCurrentTrack(songCollection![index!]);
+    playTrack(_currentTrack!.uri!, Duration.zero);
+    setCurrentArtwork();
+    setCurrentTrackIndex(index);
   }
 
   void seekTo(Duration position) async {
@@ -153,6 +218,22 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   void changeRepeat() {
     _repeat = !_repeat;
+    _repeat ? _shuffle = false : null;
+    print("repeat $_repeat");
+    print("shuffle $_shuffle");
+    notifyListeners();
+  }
+
+  void changeShuffle() {
+    _shuffle = !_shuffle;
+    _shuffle ? _repeat = false : null;
+    print("repeat $_repeat");
+    print("shuffle $_shuffle");
+    notifyListeners();
+  }
+
+  void setFavorite() {
+    _isFavorite = !_isFavorite;
     notifyListeners();
   }
 
@@ -188,3 +269,4 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     return result;
   }
 }
+
