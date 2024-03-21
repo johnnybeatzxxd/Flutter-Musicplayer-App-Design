@@ -43,6 +43,7 @@ dependencies:
   permission_handler: ^11.3.0
   device_info_plus:
   audio_session:
+  lottie: ^3.1.0
   
 dev_dependencies:
   flutter_test:
