@@ -69,7 +69,7 @@ class PlaygroundPage extends StatelessWidget {
                       (musicPlayer.currentTrack?.displayNameWOExt?.length ??
                                   0) >
                               25
-                          ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 30)}...'
+                          ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 29)}...'
                           : musicPlayer.currentTrack?.displayNameWOExt ??
                               'Unknown Song',
                       style: const TextStyle(fontSize: 18),
@@ -88,7 +88,7 @@ class PlaygroundPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min, // Restrict column height
                     children: [
                       Slider(
-                        activeColor: const Color.fromRGBO(97, 86, 226, 1),
+                        activeColor: Color.fromRGBO(97, 86, 226, 1),
                         value: musicPlayer.position.inSeconds.toDouble(),
                         onChanged: (value) => musicPlayer
                             .seekTo(Duration(seconds: value.toInt())),
@@ -165,18 +165,7 @@ class PlaygroundPage extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.skip_next_outlined, size: 40),
                         onPressed: () {
-                          int? index = musicPlayer.currentTrackIndex;
-                          List? songCollection = musicPlayer.songCollection;
-                          int nextIndex = index! + 1;
-                          if (nextIndex >= songCollection!.length) {
-                            nextIndex = 0;
-                          }
-                          musicPlayer
-                              .setCurrentTrack(songCollection[nextIndex]);
-                          musicPlayer.playTrack(
-                              musicPlayer.currentTrack!.uri!, Duration.zero);
-                          musicPlayer.setCurrentArtwork();
-                          musicPlayer.setCurrentTrackIndex(nextIndex);
+                          musicPlayer.playNextTrack();
                         },
                       ),
                       IconButton(

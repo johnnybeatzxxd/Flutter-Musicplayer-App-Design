@@ -17,11 +17,11 @@ class _PlayPauseState extends State<PlayPause> {
   @override
   void initState() {
     super.initState();
-  }
+      }
 
   @override
   void dispose() {
-
+    
     super.dispose();
   }
 
@@ -35,7 +35,7 @@ class _PlayPauseState extends State<PlayPause> {
         child: CircleAvatar(
             child: AnimatedIcon(
               icon: AnimatedIcons.pause_play,
-              progress: musicPlayer.controller?.view ?? _controller.view,
+              progress: musicPlayer.controller!,
               size: 50,
               color: Colors.white,
             ),

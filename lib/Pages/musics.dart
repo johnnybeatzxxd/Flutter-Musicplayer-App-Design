@@ -6,6 +6,7 @@ import "package:provider/provider.dart";
 import "package:musicplayer_app/index.dart";
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:lottie/lottie.dart';
 
 class MusicsPage extends StatefulWidget {
   MusicsPage({super.key});
@@ -17,6 +18,8 @@ class MusicsPage extends StatefulWidget {
 class _MusicsPageState extends State<MusicsPage> {
   @override
   Widget build(BuildContext context) {
+    var playGround = Provider.of<playGroundProvider>(context,
+                          listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Musics"),
@@ -49,8 +52,7 @@ class _MusicsPageState extends State<MusicsPage> {
                 return ListView.builder(
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
-                      var playGround = Provider.of<playGroundProvider>(context,
-                          listen: false);
+                      
                       playGround.setCurrentTrackIndex(index);
                       if (music.data![index].uri !=
                           playGround.currentTrack?.uri) {
@@ -82,7 +84,9 @@ class _MusicsPageState extends State<MusicsPage> {
                       ),
                       title: Text(music.data![index].displayNameWOExt),
                       subtitle: Text(music.data![index].artist.toString()),
-                      trailing: const Icon(Icons.more_horiz),
+                      trailing: playGround.currentTrack?.id == music.data![index].id && playGround.isplay
+                          ? Lottie.asset("assets/animations/wave.json", height: 35, width: 35, frameRate: FrameRate.max)
+                          : Icon(Icons.more_horiz),
                     ),
                   ),
                   itemCount: music.data == null ? 0 : music.data!.length,
