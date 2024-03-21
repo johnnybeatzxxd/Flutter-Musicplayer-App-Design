@@ -41,6 +41,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   AnimationController? _controller;
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
+  ValueNotifier<int?> currentTrackIdNotifier = ValueNotifier<int?>(null); // Add this
 
   playGroundProvider() {
     _initAudioPlayer();
@@ -56,6 +57,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     _audioPlayer.dispose();
     _controller?.dispose();
     _ticker?.dispose(); // Dispose of the Ticker
+    currentTrackIdNotifier.dispose(); // Dispose the ValueNotifier
     super.dispose();
   }
 
@@ -199,6 +201,8 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   void setCurrentTrack(SongModel song) {
     _currentTrack = song;
+    // Update the notifier whenever the current track changes
+    currentTrackIdNotifier.value = song.id;
     notifyListeners();
   }
 

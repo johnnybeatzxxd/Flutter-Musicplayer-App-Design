@@ -84,9 +84,14 @@ class _MusicsPageState extends State<MusicsPage> {
                       ),
                       title: Text(music.data![index].displayNameWOExt),
                       subtitle: Text(music.data![index].artist.toString()),
-                      trailing: playGround.currentTrack?.id == music.data![index].id && playGround.isplay
-                          ? Lottie.asset("assets/animations/wave.json", height: 35, width: 35, frameRate: FrameRate.max)
-                          : Icon(Icons.more_horiz),
+                      trailing: ValueListenableBuilder<int?>(
+                        valueListenable: playGround.currentTrackIdNotifier,
+                        builder: (context, currentTrackId, child) {
+                          return currentTrackId == music.data![index].id && playGround.isplay
+                              ? Lottie.asset("assets/animations/wave.json", height: 35, width: 35, frameRate: FrameRate.max)
+                              : Icon(Icons.more_horiz);
+                        },
+                      ),
                     ),
                   ),
                   itemCount: music.data == null ? 0 : music.data!.length,
