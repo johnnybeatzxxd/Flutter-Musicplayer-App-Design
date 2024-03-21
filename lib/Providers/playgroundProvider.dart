@@ -46,6 +46,10 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     _initAudioPlayer();
     _ticker = createTicker((_) {}); // Initialize the Ticker
     _initAudioSession();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    );
   }
   @override
   void dispose() {
@@ -89,13 +93,16 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
         // Handle non-error state
       } else if (playerState.processingState == ProcessingState.completed) {
         !_repeat ? playNextTrack() : repeatTrack();
-        if (_shuffle && _songCollection != null && _songCollection!.isNotEmpty) {
+        if (_shuffle &&
+            _songCollection != null &&
+            _songCollection!.isNotEmpty) {
           int randomIndex = _currentTrackIndex!;
           if (_songCollection!.length > 1) {
             // Generate a random index different from the current one
             while (randomIndex == _currentTrackIndex) {
               randomIndex = Random().nextInt(_songCollection!.length);
             }
+            print(randomIndex);
           }
           // Proceed with setting the track to the randomly chosen one
           setCurrentTrack(_songCollection![randomIndex]);
@@ -121,12 +128,15 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     });
   }
 
-  // Initialize headphone state listener
 
   Future<void> playTrack(String uri, Duration initPosition) async {
-    initPosition == Duration.zero
-        ? _audioPlayer.setUrl(_currentTrack!.uri!)
-        : null;
+    if (initPosition == Duration.zero) {
+      try {
+        await _audioPlayer.setUrl(_currentTrack!.uri!);
+      } catch (e) {
+        print("Error $e");
+      }
+    }
     setSongDuration(_currentTrack!.duration!);
     _audioPlayer.play();
     _isplay = true;
@@ -135,8 +145,8 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   }
 
   void pauseTrack() async {
-    await _audioPlayer.pause();
-    await _audioPlayer.seek(_audioPlayer.position);
+    _audioPlayer.pause();
+    _audioPlayer.seek(_audioPlayer.position);
     _isplay = false;
     togglePlayButton();
     notifyListeners();
@@ -238,10 +248,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   }
 
   void togglePlayButton() {
-    _controller ??= AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
+    
     if (!_isplay) {
       _controller!.forward();
     } else {
@@ -269,4 +276,3 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     return result;
   }
 }
-
