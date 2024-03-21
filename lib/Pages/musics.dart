@@ -18,8 +18,7 @@ class MusicsPage extends StatefulWidget {
 class _MusicsPageState extends State<MusicsPage> {
   @override
   Widget build(BuildContext context) {
-    var playGround = Provider.of<playGroundProvider>(context,
-                          listen: false);
+    var playGround = Provider.of<playGroundProvider>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Musics"),
@@ -32,7 +31,9 @@ class _MusicsPageState extends State<MusicsPage> {
         ),
         body: Stack(children: [
           FutureBuilder<List<SongModel>>(
-            future: _checkPermissionAndQuerySongs(),
+            future: playGround.songCollection != null && playGround.songCollection!.isNotEmpty 
+                ? Future.value(playGround.songCollection) 
+                : _checkPermissionAndQuerySongs(),
             builder: (context, music) {
               if (music.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -52,7 +53,6 @@ class _MusicsPageState extends State<MusicsPage> {
                 return ListView.builder(
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
-                      
                       playGround.setCurrentTrackIndex(index);
                       if (music.data![index].uri !=
                           playGround.currentTrack?.uri) {
