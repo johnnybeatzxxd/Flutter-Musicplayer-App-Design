@@ -71,6 +71,7 @@ flutter:
     - images/
     - images/Rectangle18.png
     - images/RectangleProfile.png
+    - assets/animations/wave.json
     - assets/icons/home.svg
     - assets/icons/heart.svg
     - assets/icons/map.svg
