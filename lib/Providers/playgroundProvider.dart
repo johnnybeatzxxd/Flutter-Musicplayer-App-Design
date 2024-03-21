@@ -42,6 +42,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
   ValueNotifier<int?> currentTrackIdNotifier = ValueNotifier<int?>(null); // Add this
+  ValueNotifier<bool> isplayNotifier = ValueNotifier<bool>(false); // Add this for floating button visibility
 
   playGroundProvider() {
     _initAudioPlayer();

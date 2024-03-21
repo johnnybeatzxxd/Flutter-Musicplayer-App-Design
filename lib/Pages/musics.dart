@@ -16,95 +16,124 @@ class MusicsPage extends StatefulWidget {
 }
 
 class _MusicsPageState extends State<MusicsPage> {
+  final PageStorageKey _musicsPageKey = PageStorageKey('musicsPageKey');
+
   @override
   Widget build(BuildContext context) {
     var playGround = Provider.of<playGroundProvider>(context, listen: false);
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Musics"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {},
-            )
-          ],
-        ),
-        body: Stack(children: [
-          FutureBuilder<List<SongModel>>(
-            future: playGround.songCollection != null && playGround.songCollection!.isNotEmpty 
-                ? Future.value(playGround.songCollection) 
-                : _checkPermissionAndQuerySongs(),
-            builder: (context, music) {
-              if (music.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromRGBO(97, 86, 226, 1),
-                  ),
-                );
-              } else if (music.hasData && music.data!.isEmpty) {
-                return const Center(
-                  child: Text("No Songs Found"),
-                );
-              } else if (music.data == null) {
-                return const Center(
-                  child: Text("Permission needed!"),
-                );
-              } else if (music.connectionState != ConnectionState.waiting) {
-                return ListView.builder(
-                  itemBuilder: (context, index) => InkWell(
-                    onTap: () {
-                      playGround.setCurrentTrackIndex(index);
-                      if (music.data![index].uri !=
-                          playGround.currentTrack?.uri) {
-                        playGround.setCurrentTrack(music.data![index]);
-                        playGround.playTrack(
-                            playGround.currentTrack!.uri ?? '', Duration.zero);
-                        playGround.setCurrentArtwork();
-                        playGround
-                            .setSongDuration(music.data![index].duration!);
-                        playGround.setSongCollection(music.data!);
-                        Provider.of<MainProvider>(context, listen: false)
-                            .currentPage(4);
-                      } else {
-                        Provider.of<MainProvider>(context, listen: false)
-                            .currentPage(4);
-                      }
-                    },
-                    child: ListTile(
-                      leading: FutureBuilder<Widget>(
-                        future: getAudioArtwork(music.data![index].id),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return snapshot.data!;
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        },
-                      ),
-                      title: Text(music.data![index].displayNameWOExt),
-                      subtitle: Text(music.data![index].artist.toString()),
-                      trailing: ValueListenableBuilder<int?>(
-                        valueListenable: playGround.currentTrackIdNotifier,
-                        builder: (context, currentTrackId, child) {
-                          return currentTrackId == music.data![index].id && playGround.isplay
-                              ? Lottie.asset("assets/animations/wave.json", height: 35, width: 35, frameRate: FrameRate.max)
-                              : Icon(Icons.more_horiz);
-                        },
-                      ),
+      appBar: AppBar(
+        title: const Text("Musics"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: Stack(children: [
+        FutureBuilder<List<SongModel>>(
+          future: playGround.songCollection != null &&
+                  playGround.songCollection!.isNotEmpty
+              ? Future.value(playGround.songCollection)
+              : _checkPermissionAndQuerySongs(),
+          builder: (context, music) {
+            if (music.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Color.fromRGBO(97, 86, 226, 1),
+                ),
+              );
+            } else if (music.hasData && music.data!.isEmpty) {
+              return const Center(
+                child: Text("No Songs Found"),
+              );
+            } else if (music.data == null) {
+              return const Center(
+                child: Text("Permission needed!"),
+              );
+            } else if (music.connectionState != ConnectionState.waiting) {
+              return ListView.builder(
+                key: _musicsPageKey, // Assign the PageStorageKey here
+                
+                itemBuilder: (context, index) => InkWell(
+                  onTap: () {
+                    playGround.setCurrentTrackIndex(index);
+                    if (music.data![index].uri !=
+                        playGround.currentTrack?.uri) {
+                      playGround.setCurrentTrack(music.data![index]);
+                      playGround.playTrack(
+                          playGround.currentTrack!.uri ?? '', Duration.zero);
+                      playGround.setCurrentArtwork();
+                      playGround.setSongDuration(music.data![index].duration!);
+                      playGround.setSongCollection(music.data!);
+                      Provider.of<MainProvider>(context, listen: false)
+                          .currentPage(4);
+                    } else {
+                      Provider.of<MainProvider>(context, listen: false)
+                          .currentPage(4);
+                    }
+                  },
+                  child: ListTile(
+                    leading: FutureBuilder<Widget>(
+                      future: getAudioArtwork(music.data![index].id),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return snapshot.data!;
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
+                    ),
+                    title: Text(music.data![index].displayNameWOExt),
+                    subtitle: Text(music.data![index].artist.toString()),
+                    trailing: ValueListenableBuilder<int?>(
+                      valueListenable: playGround.currentTrackIdNotifier,
+                      builder: (context, currentTrackId, child) {
+                        return currentTrackId == music.data![index].id &&
+                                playGround.isplay
+                            ? Lottie.asset("assets/animations/wave.json",
+                                height: 35, width: 35, frameRate: FrameRate.max)
+                            : Icon(Icons.more_horiz);
+                      },
                     ),
                   ),
-                  itemCount: music.data == null ? 0 : music.data!.length,
-                );
-              } else {
-                return const Center(
-                  child: Text("Error fetching songs"),
-                );
-              }
-            },
-          ),
-          ButtomNavBar()
-        ]));
+                ),
+                itemCount: music.data == null ? 0 : music.data!.length,
+              );
+            } else {
+              return const Center(
+                child: Text("Error fetching songs"),
+              );
+            }
+          },
+        ),
+        ButtomNavBar()
+      ]),
+      floatingActionButton: ValueListenableBuilder<bool>(
+        valueListenable: playGround.isplayNotifier,
+        builder: (context, isPlaying, child) {
+          return isPlaying
+              ? Container(
+                  margin: const EdgeInsets.fromLTRB(
+                      0, 0, 10, 85), // Move the button up a little bit
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Provider.of<MainProvider>(context, listen: false)
+                          .currentPage(4);
+                    },
+                    backgroundColor: const Color.fromRGBO(
+                        97, 86, 226, 1), 
+                    child: const Icon(
+                      Icons.music_note,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : Container();
+        },
+      ),
+    );
   }
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
