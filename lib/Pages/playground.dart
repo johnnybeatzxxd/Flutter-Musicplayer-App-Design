@@ -11,7 +11,12 @@ class PlaygroundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     playGroundProvider musicPlayer = Provider.of<playGroundProvider>(context);
-    return Scaffold(
+    return WillPopScope(
+    onWillPop: () async {
+      Provider.of<MainProvider>(context, listen: false).currentPage(1);
+      return false; // Return false to prevent default back navigation
+    },
+    child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -121,13 +126,13 @@ class PlaygroundPage extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: Icon(
-                          Icons.shuffle,
-                          color: musicPlayer.shuffle
+                          Icons.repeat,
+                          color: musicPlayer.repeat
                               ? const Color.fromRGBO(97, 86, 226, 1)
                               : null,
                         ),
                         onPressed: () {
-                          musicPlayer.changeShuffle();
+                          musicPlayer.changeRepeat();
                         },
                       ),
                       IconButton(
@@ -170,15 +175,16 @@ class PlaygroundPage extends StatelessWidget {
                       ),
                       IconButton(
                         icon: Icon(
-                          Icons.repeat,
-                          color: musicPlayer.repeat
+                          Icons.shuffle,
+                          color: musicPlayer.shuffle
                               ? const Color.fromRGBO(97, 86, 226, 1)
                               : null,
                         ),
                         onPressed: () {
-                          musicPlayer.changeRepeat();
+                          musicPlayer.changeShuffle();
                         },
                       ),
+                      
                     ],
                   ),
                   const SizedBox(
@@ -189,6 +195,7 @@ class PlaygroundPage extends StatelessWidget {
             ),
           ),
           ButtomNavBar()
-        ]));
+        ])
+        ),);
   }
 }
