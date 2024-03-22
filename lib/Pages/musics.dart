@@ -55,7 +55,7 @@ class _MusicsPageState extends State<MusicsPage> {
             } else if (music.connectionState != ConnectionState.waiting) {
               return ListView.builder(
                 key: _musicsPageKey, // Assign the PageStorageKey here
-                
+                padding: const EdgeInsets.only(bottom: 80),
                 itemBuilder: (context, index) => InkWell(
                   onTap: () {
                     playGround.setCurrentTrackIndex(index);
