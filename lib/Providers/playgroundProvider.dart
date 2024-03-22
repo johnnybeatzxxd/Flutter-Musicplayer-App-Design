@@ -41,8 +41,10 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   AnimationController? _controller;
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
-  ValueNotifier<int?> currentTrackIdNotifier = ValueNotifier<int?>(null); // Add this
-  ValueNotifier<bool> isplayNotifier = ValueNotifier<bool>(false); // Add this for floating button visibility
+  ValueNotifier<int?> currentTrackIdNotifier =
+      ValueNotifier<int?>(null); // Add this
+  ValueNotifier<bool> isplayNotifier =
+      ValueNotifier<bool>(false); // Add this for floating button visibility
 
   playGroundProvider() {
     _initAudioPlayer();
@@ -131,7 +133,6 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     });
   }
 
-
   Future<void> playTrack(String uri, Duration initPosition) async {
     if (initPosition == Duration.zero) {
       try {
@@ -161,23 +162,23 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     int nextIndex = 0;
 
     if (_shuffle) {
-        if (_songCollection != null && _songCollection!.length > 1) {
-            // There are multiple songs, so we can actually shuffle
-            int randomIndex = _currentTrackIndex!;
-            // Generate a random index different from the current one
-            do {
-                randomIndex = Random().nextInt(_songCollection!.length);
-            } while (randomIndex == _currentTrackIndex);
-            nextIndex = randomIndex;
-        } else {
-            // There's only one song in the collection or the collection is null, so just repeat the current song
-            nextIndex = _currentTrackIndex!;
-        }
+      if (_songCollection != null && _songCollection!.length > 1) {
+        // There are multiple songs, so we can actually shuffle
+        int randomIndex = _currentTrackIndex!;
+        // Generate a random index different from the current one
+        do {
+          randomIndex = Random().nextInt(_songCollection!.length);
+        } while (randomIndex == _currentTrackIndex);
+        nextIndex = randomIndex;
+      } else {
+        // There's only one song in the collection or the collection is null, so just repeat the current song
+        nextIndex = _currentTrackIndex!;
+      }
     } else {
-        nextIndex = index! + 1;
-        if (songCollection != null && nextIndex >= songCollection!.length) {
-            nextIndex = 0; // Loop back to the first song if we've reached the end
-        }
+      nextIndex = index! + 1;
+      if (songCollection != null && nextIndex >= songCollection!.length) {
+        nextIndex = 0; // Loop back to the first song if we've reached the end
+      }
     }
 
     setCurrentTrack(songCollection![nextIndex]);
@@ -225,12 +226,14 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   void setCurrentArtwork() {
     Widget? artwork = QueryArtworkWidget(
       id: _currentTrack!.id,
+      quality: 100,
+      artworkQuality: FilterQuality.high,
+      artworkClipBehavior: Clip.antiAliasWithSaveLayer,
+      format: ArtworkFormat.PNG,
+      size: 500,
       type: ArtworkType.AUDIO,
       artworkBorder: BorderRadius.zero,
       nullArtworkWidget: const Icon(Icons.music_video_rounded),
-      quality: 100,
-    
-      artworkQuality: FilterQuality.high, 
     );
     _currentArtwork = artwork;
     notifyListeners();
@@ -274,7 +277,6 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   }
 
   void togglePlayButton() {
-    
     if (!_isplay) {
       _controller!.forward();
     } else {
