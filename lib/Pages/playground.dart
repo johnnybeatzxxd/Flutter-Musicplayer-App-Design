@@ -78,7 +78,7 @@ class PlaygroundPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    musicPlayer.currentTrack?.album ?? 'Unkown Album',
+                    musicPlayer.currentTrack?.artist ?? 'Unkown Album',
                     style: const TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   const SizedBox(
