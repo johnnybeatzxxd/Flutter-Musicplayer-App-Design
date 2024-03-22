@@ -75,25 +75,42 @@ class _MusicsPageState extends State<MusicsPage> {
                     }
                   },
                   child: ListTile(
-                    leading: FutureBuilder<Widget>(
-                      future: getAudioArtwork(music.data![index].id),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return snapshot.data!;
-                        } else {
-                          return const CircularProgressIndicator();
-                        }
+                    leading: QueryArtworkWidget(
+                        id: music.data![index].id,
+                        type: ArtworkType.AUDIO,
+                        format: ArtworkFormat.PNG,
+                        artworkQuality: FilterQuality.high,
+                        quality: 100,
+                        size: 500,
+                        nullArtworkWidget: const Padding(
+                            padding: EdgeInsets.all(13),
+                            child: Icon(Icons.music_note)),
+                        artworkBorder: BorderRadius.zero),
+                    title: ValueListenableBuilder<int?>(
+                      valueListenable: playGround.currentTrackIdNotifier,
+                      builder: (context, currentTrackId, child) {
+                        return Text(
+                          music.data![index].displayNameWOExt,
+                          style: TextStyle(
+                            color: playGround.currentTrack != null && playGround.currentTrack!.id == music.data![index].id && playGround.isplay
+                                ? const Color.fromRGBO(97, 86, 226, 1)
+                                : null,
+                          ),
+                        );
                       },
                     ),
-                    title: Text(music.data![index].displayNameWOExt),
                     subtitle: Text(music.data![index].artist.toString()),
                     trailing: ValueListenableBuilder<int?>(
                       valueListenable: playGround.currentTrackIdNotifier,
                       builder: (context, currentTrackId, child) {
-                        return currentTrackId == music.data![index].id &&
-                                playGround.isplay
-                            ? Lottie.asset("assets/animations/wave.json",
-                                height: 35, width: 35, frameRate: FrameRate.max)
+                        return currentTrackId == music.data![index].id && playGround.isplay
+                            ? Lottie.asset(
+                                "assets/animations/wave.json",
+                                height: 35,
+                                width: 35,
+                                frameRate: FrameRate.max,
+                                
+                              )
                             : Icon(Icons.more_horiz);
                       },
                     ),
@@ -122,8 +139,7 @@ class _MusicsPageState extends State<MusicsPage> {
                       Provider.of<MainProvider>(context, listen: false)
                           .currentPage(4);
                     },
-                    backgroundColor: const Color.fromRGBO(
-                        97, 86, 226, 1), 
+                    backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
                     child: const Icon(
                       Icons.music_note,
                       color: Colors.white,
