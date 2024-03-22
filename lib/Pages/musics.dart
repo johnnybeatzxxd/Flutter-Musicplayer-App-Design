@@ -92,7 +92,10 @@ class _MusicsPageState extends State<MusicsPage> {
                         return Text(
                           music.data![index].displayNameWOExt,
                           style: TextStyle(
-                            color: playGround.currentTrack != null && playGround.currentTrack!.id == music.data![index].id && playGround.isplay
+                            color: playGround.currentTrack != null &&
+                                    playGround.currentTrack!.id ==
+                                        music.data![index].id &&
+                                    playGround.isplay
                                 ? const Color.fromRGBO(97, 86, 226, 1)
                                 : null,
                           ),
@@ -103,13 +106,13 @@ class _MusicsPageState extends State<MusicsPage> {
                     trailing: ValueListenableBuilder<int?>(
                       valueListenable: playGround.currentTrackIdNotifier,
                       builder: (context, currentTrackId, child) {
-                        return currentTrackId == music.data![index].id && playGround.isplay
+                        return currentTrackId == music.data![index].id &&
+                                playGround.isplay
                             ? Lottie.asset(
                                 "assets/animations/wave.json",
                                 height: 35,
                                 width: 35,
                                 frameRate: FrameRate.max,
-                                
                               )
                             : Icon(Icons.more_horiz);
                       },
@@ -193,18 +196,6 @@ class _MusicsPageState extends State<MusicsPage> {
       return songs;
     } else {
       return Future.error("Unknown error");
-    }
-  }
-
-  Future<Widget> getAudioArtwork(int id) async {
-    final artworkData =
-        await widget._audioQuery.queryArtwork(id, ArtworkType.AUDIO);
-    if (artworkData != null) {
-      return Image.memory(artworkData);
-    } else {
-      // Return a placeholder icon
-      return const Padding(
-          padding: EdgeInsets.all(16), child: Icon(Icons.music_note));
     }
   }
 }
