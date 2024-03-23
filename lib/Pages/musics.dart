@@ -7,6 +7,7 @@ import "package:musicplayer_app/index.dart";
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MusicsPage extends StatefulWidget {
   MusicsPage({super.key});
@@ -120,20 +121,39 @@ class _MusicsPageState extends State<MusicsPage> {
                                 icon: const Icon(Icons.more_horiz),
                                 onPressed: () {
                                   showModalBottomSheet(
-                                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                    backgroundColor: Theme.of(context)
+                                        .scaffoldBackgroundColor,
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Wrap(
                                         children: <Widget>[
                                           ListTile(
-                                              leading: const Icon(Icons.delete_outline),
+                                              leading: const Icon(
+                                                  Icons.delete_outline),
                                               title: const Text('Delete'),
-                                              onTap: () {
-                                                
+                                              onTap: () async {
+                                                final externalStorageDirectory =
+                                                    await getExternalStorageDirectory();
+                                                final artist = music.data![index].artist;
+                                                final album = music.data![index].album;
+                                                final fileName = music.data![index].displayName; // Or use song.fileName for original filename
+
+                                                // Construct potential path based on common structure
+                                                final path = '${externalStorageDirectory!.path}/Music/$artist/$album/$fileName';
+                                                try {
+                                                  final file = File(path);
+                                                  print("file deleted");
+                                                  file.delete();
+                                                } catch (e) {
+                                                  print(
+                                                      "couldnt delete the file");
+                                                }
+
                                                 Navigator.pop(context);
                                               }),
                                           ListTile(
-                                            leading: const Icon(Icons.edit_outlined),
+                                            leading:
+                                                const Icon(Icons.edit_outlined),
                                             title: const Text('Rename'),
                                             onTap: () {
                                               // Add rename functionality here
