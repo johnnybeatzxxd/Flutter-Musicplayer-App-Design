@@ -210,7 +210,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   void setCurrentTrackIndex(int index) {
     _currentTrackIndex = index;
-    notifyListeners();
+        notifyListeners();
   }
 
   void setSongDuration(int duration) {
@@ -225,7 +225,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   void setCurrentArtwork() {
     Widget? artwork = QueryArtworkWidget(
-      id: _currentTrack!.id,
+            id: _currentTrack!.id,
       quality: 100,
       artworkQuality: FilterQuality.high,
       artworkClipBehavior: Clip.antiAliasWithSaveLayer,

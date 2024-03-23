@@ -116,7 +116,36 @@ class _MusicsPageState extends State<MusicsPage> {
                                 width: 35,
                                 frameRate: FrameRate.max,
                               )
-                            : Icon(Icons.more_horiz);
+                            : IconButton(
+                                icon: const Icon(Icons.more_horiz),
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Wrap(
+                                        children: <Widget>[
+                                          ListTile(
+                                              leading: const Icon(Icons.delete_outline),
+                                              title: const Text('Delete'),
+                                              onTap: () {
+                                                
+                                                Navigator.pop(context);
+                                              }),
+                                          ListTile(
+                                            leading: const Icon(Icons.edit_outlined),
+                                            title: const Text('Rename'),
+                                            onTap: () {
+                                              // Add rename functionality here
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                              );
                       },
                     ),
                   ),
