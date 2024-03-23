@@ -91,6 +91,8 @@ class _MusicsPageState extends State<MusicsPage> {
                       builder: (context, currentTrackId, child) {
                         return Text(
                           music.data![index].displayNameWOExt,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: playGround.currentTrack != null &&
                                     playGround.currentTrack!.id ==

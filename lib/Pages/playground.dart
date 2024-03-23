@@ -71,8 +71,7 @@ class PlaygroundPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      (musicPlayer.currentTrack?.displayNameWOExt?.length ??
-                                  0) >
+                      (musicPlayer.currentTrack?.displayNameWOExt?.length ?? 0) >
                               25
                           ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 29)}...'
                           : musicPlayer.currentTrack?.displayNameWOExt ??
