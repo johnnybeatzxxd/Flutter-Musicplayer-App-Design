@@ -129,27 +129,92 @@ class _MusicsPageState extends State<MusicsPage> {
                                         children: <Widget>[
                                           ListTile(
                                               leading: const Icon(
-                                                  Icons.delete_outline),
-                                              title: const Text('Delete'),
+                                                  Icons.playlist_add),
+                                              title:
+                                                  const Text('Add to Playlist'),
                                               onTap: () async {
-                                                final externalStorageDirectory =
-                                                    await getExternalStorageDirectory();
-                                                final artist = music.data![index].artist;
-                                                final album = music.data![index].album;
-                                                final fileName = music.data![index].displayName; // Or use song.fileName for original filename
-
-                                                // Construct potential path based on common structure
-                                                final path = '${externalStorageDirectory!.path}/Music/$artist/$album/$fileName';
-                                                try {
-                                                  final file = File(path);
-                                                  print("file deleted");
-                                                  file.delete();
-                                                } catch (e) {
-                                                  print(
-                                                      "couldnt delete the file");
+                                                var playlists =
+                                                    await _queryPlaylists();
+                                                if (!playlists.isEmpty) {
+                                                  showModalBottomSheet(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return ListView.builder(
+                                                        itemCount:
+                                                            playlists.length,
+                                                        itemBuilder:
+                                                            (context, index) {
+                                                          return ListTile(
+                                                            title: Text(
+                                                                playlists[index]
+                                                                    .id
+                                                                    .toString()),
+                                                            onTap: () {
+                                                              // Add functionality to add song to this playlist
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      TextEditingController
+                                                          playlistNameController =
+                                                          TextEditingController();
+                                                      return AlertDialog(
+                                                        title: const Text(
+                                                            'Create Playlist'),
+                                                        content: TextField(
+                                                          controller:
+                                                              playlistNameController,
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            hintText:
+                                                                'Playlist Name',
+                                                          ),
+                                                        ),
+                                                        actions: <Widget>[
+                                                          TextButton(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onBackground),
+                                                            ),
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                            child: Text(
+                                                              'Create',
+                                                              style: TextStyle(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .onBackground),
+                                                            ),
+                                                            onPressed: () {
+                                                              // Add functionality to create playlist with playlistNameController.text
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
                                                 }
-
-                                                Navigator.pop(context);
                                               }),
                                           ListTile(
                                             leading:
@@ -248,5 +313,16 @@ class _MusicsPageState extends State<MusicsPage> {
     } else {
       return Future.error("Unknown error");
     }
+  }
+
+  Future<List<PlaylistModel>> _queryPlaylists() async {
+    var playlists = await widget._audioQuery.queryPlaylists(
+      ignoreCase: true,
+      orderType: OrderType.ASC_OR_SMALLER,
+      uriType: UriType.EXTERNAL,
+      sortType: null,
+    );
+    
+    return playlists;
   }
 }
