@@ -322,7 +322,7 @@ class _MusicsPageState extends State<MusicsPage> {
       uriType: UriType.EXTERNAL,
       sortType: null,
     );
-    
+
     return playlists;
   }
 }
