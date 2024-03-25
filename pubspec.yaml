@@ -45,8 +45,12 @@ dependencies:
   audio_session:
   lottie: ^3.1.0
   path_provider:
-  
+  hive:
+  hive_flutter:
+   
 dev_dependencies:
+  hive_generator:
+  build_runner: 
   flutter_test:
     sdk: flutter
 
