@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:musicplayer_app/index.dart";
+import "package:on_audio_query/on_audio_query.dart";
 
 class FavoritePage extends StatelessWidget {
   List albums = [
@@ -7,6 +8,7 @@ class FavoritePage extends StatelessWidget {
     {"name": "Album 2", "image": "images/Rectangle23.png"},
     {"name": "Album 3", "image": "images/Rectangle22.png"}
   ];
+  final db = Store();
   FavoritePage({super.key});
 
   @override
@@ -87,10 +89,9 @@ class FavoritePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         for (var album in albums)
-                        InkWell(
-                          onTap: (){},
-                          child:
-                            Column(
+                          InkWell(
+                            onTap: () {},
+                            child: Column(
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(8),
@@ -107,7 +108,8 @@ class FavoritePage extends StatelessWidget {
                                   album["name"],
                                 ),
                               ],
-                            ),)
+                            ),
+                          )
                       ],
                     )), // Favorite album section
                 const SizedBox(height: 15),
@@ -121,36 +123,45 @@ class FavoritePage extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 4,
-                    padding: EdgeInsets.zero,
-                    children: List.generate(9, (index) {
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 4,
+                    ),
+                    padding: EdgeInsets.only(bottom: 85),
+                    itemCount: db.getFavoriteSongs().length,
+                    itemBuilder: (context, index) {
+                      var favoriteSongs = db.getFavoriteSongs();
+                      var songId = favoriteSongs[index];
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           InkWell(
-                            onTap: () => (),
-                            child:Container(
+                            onTap: () {},
+                            child: Container(
+                              width: 106,
+                              height: 111,
                               padding: const EdgeInsets.all(0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                    "images/Rectangle${30 - index}.png",
-                                    width: 106,
-                                    height: 111),
-                              ),
-                            ),)
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: FittedBox(
+                                    child: QueryArtworkWidget(
+                                        id: songId,
+                                        type: ArtworkType.AUDIO,
+                                        format: ArtworkFormat.JPEG,
+                                        quality: 100,
+                                        artworkBorder: BorderRadius.zero,
+                                        ),
+                                  )),
+                            ),
+                          ),
                         ],
                       );
-                    })
-                      ..add(const SizedBox(
-                        height: kBottomNavigationBarHeight * 1.0,
-                      )),
+                    },
                   ),
                 ),
               ],

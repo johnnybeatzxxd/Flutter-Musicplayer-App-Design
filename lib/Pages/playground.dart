@@ -4,6 +4,7 @@ import "package:musicplayer_app/components/myicons.dart";
 import "package:musicplayer_app/index.dart";
 import "package:on_audio_query/on_audio_query.dart";
 import "package:provider/provider.dart";
+import 'dart:math';
 
 class PlaygroundPage extends StatelessWidget {
   PlaygroundPage({super.key});
@@ -74,7 +75,7 @@ class PlaygroundPage extends StatelessWidget {
                     child: Text(
                       (musicPlayer.currentTrack?.displayNameWOExt?.length ?? 0) >
                               25
-                          ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, 29)}...'
+                          ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, min(29, musicPlayer.currentTrack?.displayNameWOExt.length ?? 0))}...'
                           : musicPlayer.currentTrack?.displayNameWOExt ??
                               'Unknown Song',
                       style: const TextStyle(fontSize: 18),
