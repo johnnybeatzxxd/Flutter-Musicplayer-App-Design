@@ -11,6 +11,7 @@ class PlaygroundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     playGroundProvider musicPlayer = Provider.of<playGroundProvider>(context);
+    var db = Store();
     return WillPopScope(
     onWillPop: () async {
       Provider.of<MainProvider>(context, listen: false).currentPage(1);
@@ -28,12 +29,12 @@ class PlaygroundPage extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.favorite,
-                color: musicPlayer.isFavorite
+                color: db.checkIfSongIsFavorite(musicPlayer.currentTrack!)
                     ? const Color.fromRGBO(97, 86, 226, 1)
                     : null,
               ),
               onPressed: () {
-                musicPlayer.setFavorite();
+                musicPlayer.setFavorite(musicPlayer.currentTrack!);
               },
             ),
           ],

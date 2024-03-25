@@ -1,7 +1,7 @@
 import 'dart:ffi';
 import 'dart:typed_data';
 import "package:flutter/material.dart";
-import 'package:flutter/scheduler.dart'; // Import SchedulerBinding
+import 'package:flutter/scheduler.dart';
 import 'package:musicplayer_app/Providers/mainProvider.dart';
 import "package:provider/provider.dart";
 import 'package:just_audio/just_audio.dart';
@@ -13,6 +13,7 @@ import 'package:audio_session/audio_session.dart';
 
 class playGroundProvider extends ChangeNotifier implements TickerProvider {
   final AudioPlayer _audioPlayer = AudioPlayer();
+  final db = Store();
   get audioPlayer => _audioPlayer;
   SongModel? _currentTrack;
   int? _currentTrackIndex;
@@ -210,7 +211,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   void setCurrentTrackIndex(int index) {
     _currentTrackIndex = index;
-        notifyListeners();
+    notifyListeners();
   }
 
   void setSongDuration(int duration) {
@@ -225,7 +226,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   void setCurrentArtwork() {
     Widget? artwork = QueryArtworkWidget(
-            id: _currentTrack!.id,
+      id: _currentTrack!.id,
       quality: 100,
       artworkQuality: FilterQuality.high,
       artworkClipBehavior: Clip.antiAliasWithSaveLayer,
@@ -271,8 +272,10 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     notifyListeners();
   }
 
-  void setFavorite() {
-    _isFavorite = !_isFavorite;
+  void setFavorite(SongModel song) {
+    db.saveFavoriteSong(song);
+    _isFavorite = db.checkIfSongIsFavorite(song);
+    print(_isFavorite);
     notifyListeners();
   }
 
