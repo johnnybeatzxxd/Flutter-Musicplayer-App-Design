@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Store {
+  final OnAudioQuery _audioQuery = OnAudioQuery();
   void saveRecentlyPlayedSong(SongModel song) {}
 
   void saveFavoriteSong(SongModel song) {
@@ -22,6 +23,10 @@ class Store {
     List favorites = Hive.box("Musics").get("Favorites") ?? [];
     return favorites.any((element) => element["id"] == song.id);
   }
+
+  Future<SongModel?> getSongModel(int id) async{
+    List<SongModel> songs = await _audioQuery.querySongs();
+    return songs.firstWhere((song) => song.id == id, orElse: () => null as SongModel);
+  }
   // Add more functions for saving different types of songs or playlists as needed
 }
-
