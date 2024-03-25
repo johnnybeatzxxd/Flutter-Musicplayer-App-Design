@@ -8,3 +8,4 @@ export 'components/buttomnavbar.dart';
 export "components/playPauseButton.dart";
 export "Providers/mainProvider.dart";
 export "Providers/playgroundProvider.dart";
+export 'Providers/store.dart';
