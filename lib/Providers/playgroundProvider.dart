@@ -148,9 +148,8 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     if (initPosition == Duration.zero) {
       try {
         await _audioPlayer.setUrl(_currentTrack!.uri!);
-      } catch (e) {
-        print("Error $e");
-      }
+      } catch (e) {}
+      db.saveRecentlyPlayedSong(_currentTrack!);
     }
     setSongDuration(_currentTrack!.duration!);
     _audioPlayer.play();
