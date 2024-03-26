@@ -3,7 +3,18 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class Store {
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  void saveRecentlyPlayedSong(SongModel song) {}
+  void saveRecentlyPlayedSong(SongModel song) {
+    var map = {
+      "id": song.id,
+    };
+    List recentlyPlayed = Hive.box("Musics").get("RecentlyPlayed") ?? [];
+    recentlyPlayed.removeWhere((song) => song["id"] == map["id"]); // Remove the song if it's already in the list
+    if (recentlyPlayed.length >= 6) {
+      recentlyPlayed.removeAt(0); // Remove the first (oldest) song
+    }
+    recentlyPlayed.add(map); // Add the new song
+    Hive.box("Musics").put("RecentlyPlayed", recentlyPlayed);
+  }
 
   void saveFavoriteSong(SongModel song) {
     var map = {
