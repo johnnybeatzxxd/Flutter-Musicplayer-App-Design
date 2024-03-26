@@ -134,35 +134,44 @@ class FavoritePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 85),
                     itemCount: db.getFavoriteSongs().length,
                     itemBuilder: (context, index) {
-                      var favoriteSongs = db.getFavoriteSongs().reversed.toList();
+                      var favoriteSongs =
+                          db.getFavoriteSongs().reversed.toList();
                       var songId = favoriteSongs[index];
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           InkWell(
                             onTap: () async {
-                              SongModel? song = await db.getSongModel(songId);
                               var playGround = Provider.of<playGroundProvider>(
                                   context,
                                   listen: false);
-                              playGround.setCurrentTrack(song!);
-                              playGround.playTrack(
-                                  playGround.currentTrack!.uri ?? '',
-                                  Duration.zero);
-                              playGround.setCurrentArtwork();
-                              playGround.setCurrentTrackIndex(index);
-                              playGround.setSongDuration(song.duration!);
-                              List<SongModel> favoriteSongsList = [];
-                              for (var songId in favoriteSongs) {
+                              if (songId != playGround.currentTrack?.id) {
                                 SongModel? song = await db.getSongModel(songId);
-                                if (song != null) {
-                                  favoriteSongsList.add(song);
+                                playGround.setCurrentTrack(song!);
+                                playGround.playTrack(
+                                    playGround.currentTrack!.uri ?? '',
+                                    Duration.zero);
+                                playGround.setCurrentArtwork();
+                                playGround.setCurrentTrackIndex(index);
+                                playGround.setSongDuration(song.duration!);
+                                List<SongModel> favoriteSongsList = [];
+                                for (var songId in favoriteSongs) {
+                                  SongModel? song =
+                                      await db.getSongModel(songId);
+                                  if (song != null) {
+                                    favoriteSongsList.add(song);
+                                  }
                                 }
+                                playGround.setSongCollection(favoriteSongsList);
+                                playGround.setNeedsRefresh(true);
+                                Provider.of<MainProvider>(context,
+                                        listen: false)
+                                    .currentPage(4);
+                              } else {
+                                Provider.of<MainProvider>(context,
+                                        listen: false)
+                                    .currentPage(4);
                               }
-                              playGround.setSongCollection(favoriteSongsList);
-                              playGround.setNeedsRefresh(true);
-                              Provider.of<MainProvider>(context, listen: false)
-                                  .currentPage(4);
                             },
                             child: Container(
                               width: 106,
