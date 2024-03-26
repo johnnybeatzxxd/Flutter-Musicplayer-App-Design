@@ -11,6 +11,12 @@ import 'dart:math';
 import 'package:flutter/services.dart'; // Import services for detecting headphone state
 import 'package:audio_session/audio_session.dart';
 
+enum ListType {
+  Musics,
+  Favorites,
+  Playlist,
+}
+
 class playGroundProvider extends ChangeNotifier implements TickerProvider {
   final AudioPlayer _audioPlayer = AudioPlayer();
   final db = Store();
@@ -39,6 +45,8 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   bool get isFavorite => _isFavorite;
   List<SongModel>? _songCollection = [];
   List<SongModel>? get songCollection => _songCollection;
+  bool _needsRefresh = true;
+  bool get needsRefresh => _needsRefresh;
   AnimationController? _controller;
   AnimationController? get controller => _controller;
   Ticker? _ticker; // Declare a Ticker
@@ -46,6 +54,8 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
       ValueNotifier<int?>(null); // Add this
   ValueNotifier<bool> isplayNotifier =
       ValueNotifier<bool>(false); // Add this for floating button visibility
+  ListType storageType =
+      ListType.Musics; // Variable to hold the current storage type
 
   playGroundProvider() {
     _initAudioPlayer();
@@ -243,6 +253,11 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   changeIsPlay() {
     _isplay = !_isplay;
 
+    notifyListeners();
+  }
+
+  setNeedsRefresh(bool needsRefresh) {
+    _needsRefresh = needsRefresh;
     notifyListeners();
   }
 

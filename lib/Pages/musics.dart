@@ -35,7 +35,7 @@ class _MusicsPageState extends State<MusicsPage> {
       body: Stack(children: [
         FutureBuilder<List<SongModel>>(
           future: playGround.songCollection != null &&
-                  playGround.songCollection!.isNotEmpty
+                  playGround.songCollection!.isNotEmpty && playGround.needsRefresh == false
               ? Future.value(playGround.songCollection)
               : _checkPermissionAndQuerySongs(),
           builder: (context, music) {
@@ -80,9 +80,8 @@ class _MusicsPageState extends State<MusicsPage> {
                         id: music.data![index].id,
                         type: ArtworkType.AUDIO,
                         format: ArtworkFormat.PNG,
-                        artworkQuality: FilterQuality.high,
-                        quality: 100,
-                        size: 500,
+                        artworkQuality: FilterQuality.low,
+                        size: 100,
                         nullArtworkWidget: const Padding(
                             padding: EdgeInsets.all(13),
                             child: Icon(Icons.music_note)),

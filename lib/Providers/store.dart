@@ -18,7 +18,10 @@ class Store {
       Hive.box("Musics").put("Favorites", favorites);
     }
   }
-
+  List<int> getFavoriteSongs(){
+    List favorites = Hive.box("Musics").get("Favorites") ?? [];
+    return favorites.map((favorite) => favorite["id"] as int).toList();
+  }
   bool checkIfSongIsFavorite(SongModel song) {
     List favorites = Hive.box("Musics").get("Favorites") ?? [];
     return favorites.any((element) => element["id"] == song.id);
