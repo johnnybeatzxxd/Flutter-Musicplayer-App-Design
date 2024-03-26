@@ -2,14 +2,9 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import "package:musicplayer_app/index.dart";
+import "package:on_audio_query/on_audio_query.dart";
 
 class Homepage extends StatelessWidget {
-  final List<Map> recentlyPlayed = [
-    {"name": "The triangle", "image": "images/Rectangle18.png"},
-    {"name": "Dune Of Visa", "image": "images/Rectangle17.png"},
-    {"name": "Riskitall", "image": "images/Rectangle16.png"},
-    {"name": "The triangle", "image": "images/Rectangle18.png"}
-  ];
   final List<Map> recommendations = [
     {
       "name": "Take care of you",
@@ -36,6 +31,8 @@ class Homepage extends StatelessWidget {
       "views": "114k/stream",
     }
   ];
+  final db = Store();
+
   Homepage({super.key});
 
   @override
@@ -136,33 +133,41 @@ class Homepage extends StatelessWidget {
                         fontFamily: "Nunito",
                       ),
                     ),
-                    SingleChildScrollView(
+                    ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            for (var music in recentlyPlayed)
-                              InkWell(
-                                onTap: () {},
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 101.0,
-                                        height: 81.0,
-                                        child: Image.asset(music["image"]),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            color: Colors.grey),
-                                      ),
-                                    ),
-                                    Text(music["name"])
-                                  ],
+                      itemCount: db.getRecentlyPlayedSongs().length,
+                      itemBuilder: (context, index) {
+                        var recentlyPlayed =
+                            db.getRecentlyPlayedSongs().reversed.toList();
+                        var songId = recentlyPlayed[index]["id"];
+                        var songTitle = recentlyPlayed[index]["Title"];
+                        var songModel = db.getSongModel(songId);
+                        return InkWell(
+                          onTap: () {},
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 101.0,
+                                  height: 81.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.grey,
+                                  ),
+                                  child: FittedBox (
+                                      child: QueryArtworkWidget(
+                                    id: songId,
+                                    type: ArtworkType.AUDIO,
+                                  )
+                                  ),
                                 ),
                               ),
-                          ]),
+                              Text(songTitle),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                     const SingleChildScrollView(
                       child: Padding(

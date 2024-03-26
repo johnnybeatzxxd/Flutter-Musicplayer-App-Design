@@ -6,6 +6,7 @@ class Store {
   void saveRecentlyPlayedSong(SongModel song) {
     var map = {
       "id": song.id,
+      "title": song.title,
     };
     List recentlyPlayed = Hive.box("Musics").get("RecentlyPlayed") ?? [];
     recentlyPlayed.removeWhere((song) => song["id"] == map["id"]); // Remove the song if it's already in the list
@@ -15,10 +16,14 @@ class Store {
     recentlyPlayed.add(map); // Add the new song
     Hive.box("Musics").put("RecentlyPlayed", recentlyPlayed);
   }
-
+  List<Map<String, dynamic>>  getRecentlyPlayedSongs(){
+    List recentlyPlayed = Hive.box("Musics").get("RecentlyPlayed") ?? [];
+    return recentlyPlayed.map((recent) => {"id": recent["id"], "title": recent["title"]} as Map<String, dynamic>).toList();
+  }
   void saveFavoriteSong(SongModel song) {
     var map = {
       "id": song.id,
+      
     };
     List favorites = Hive.box("Musics").get("Favorites") ?? [];
     if (!checkIfSongIsFavorite(song)) {
