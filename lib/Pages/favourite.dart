@@ -134,7 +134,7 @@ class FavoritePage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 85),
                     itemCount: db.getFavoriteSongs().length,
                     itemBuilder: (context, index) {
-                      var favoriteSongs = db.getFavoriteSongs();
+                      var favoriteSongs = db.getFavoriteSongs().reversed.toList();
                       var songId = favoriteSongs[index];
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.start,
