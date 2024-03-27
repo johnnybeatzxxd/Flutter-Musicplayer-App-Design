@@ -49,10 +49,10 @@ class Homepage extends StatelessWidget {
           if (snapshot.hasData) {
             return snapshot.data as Widget;
           } else {
-            return PermissionHandler();
+            return const PermissionHandler();
           }
         } else {
-          return CircularProgressIndicator(); // Or any loading indicator while checking permission
+          return const CircularProgressIndicator(); // Or any loading indicator while checking permission
         }
       },
     );
@@ -63,7 +63,7 @@ class Homepage extends StatelessWidget {
     int sdkVersion = await DeviceInfoPlugin()
         .androidInfo
         .then((info) => info.version.sdkInt);
-    print("sdkVersion $sdkVersion");
+  
     if (sdkVersion < 33) {
       status = await Permission.storage.request();
     } else {
@@ -165,6 +165,10 @@ class Homepage extends StatelessWidget {
                       const SizedBox(
                         height: 35,
                       ),
+                      db.getRecentlyPlayedSongs() != [] ? Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                       const Text(
                         "Recently Played",
                         style: TextStyle(
@@ -251,7 +255,7 @@ class Homepage extends StatelessWidget {
                             );
                           },
                         ),
-                      ),
+                      ),]): Container(),
                       const SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
