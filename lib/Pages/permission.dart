@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import "package:musicplayer_app/index.dart";
+import 'package:provider/provider.dart';
 
 class PermissionHandler extends StatelessWidget {
   const PermissionHandler({super.key});
@@ -85,10 +86,11 @@ class PermissionHandler extends StatelessWidget {
       return Future.error("Permission permanently denied");
     }
     if (status == PermissionStatus.granted) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Homepage()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => Homepage()),
+      // );
+      Provider.of<MainProvider>(context, listen: false).currentPage(0);
     }
   }
 }
