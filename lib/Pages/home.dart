@@ -244,6 +244,7 @@ class Homepage extends StatelessWidget {
                                           type: ArtworkType.AUDIO,
                                           artworkBorder: BorderRadius.zero,
                                           artworkFit: BoxFit.cover,
+                                          nullArtworkWidget: const Icon(Icons.music_note),
                                         ),
                                       ),
                                     ),
@@ -255,7 +256,7 @@ class Homepage extends StatelessWidget {
                             );
                           },
                         ),
-                      ),]): Container(),
+                      ),]): const SizedBox(),
                       const SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
