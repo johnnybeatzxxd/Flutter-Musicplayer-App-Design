@@ -3,6 +3,8 @@ import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import "package:musicplayer_app/index.dart";
 import "package:on_audio_query/on_audio_query.dart";
+import "package:provider/provider.dart";
+import "dart:math";
 
 class Homepage extends StatelessWidget {
   final List<Map> recommendations = [
@@ -133,41 +135,80 @@ class Homepage extends StatelessWidget {
                         fontFamily: "Nunito",
                       ),
                     ),
-                    ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: db.getRecentlyPlayedSongs().length,
-                      itemBuilder: (context, index) {
-                        var recentlyPlayed =
-                            db.getRecentlyPlayedSongs().reversed.toList();
-                        var songId = recentlyPlayed[index]["id"];
-                        var songTitle = recentlyPlayed[index]["Title"];
-                        var songModel = db.getSongModel(songId);
-                        return InkWell(
-                          onTap: () {},
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: 101.0,
-                                  height: 81.0,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    color: Colors.grey,
-                                  ),
-                                  child: FittedBox (
+                    SizedBox(
+                      height:
+                          117.0, // Adjust the height according to your needs
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: db.getRecentlyPlayedSongs().length,
+                        itemBuilder: (context, index) {
+                          var recentlyPlayed =
+                              db.getRecentlyPlayedSongs().reversed.toList();
+                          var songId = recentlyPlayed[index]["id"];
+                          var songTitle = recentlyPlayed[index]["title"];
+                          var songModel = db.getSongModel(songId);
+                          return InkWell(
+                            onTap: () async{
+                              var playGround = Provider.of<playGroundProvider>(
+                                  context,
+                                  listen: false);
+                              if (songId != playGround.currentTrack?.id) {
+                                SongModel? song = await db.getSongModel(songId);
+                                playGround.setCurrentTrack(song!);
+                                playGround.playTrack(
+                                    playGround.currentTrack!.uri ?? '',
+                                    Duration.zero);
+                                playGround.setCurrentArtwork();
+                                playGround.setCurrentTrackIndex(index);
+                                playGround.setSongDuration(song.duration!);
+                                List<SongModel> recentlyPlayedSongsList = [];
+                                for (var songId in recentlyPlayed) {
+                                  SongModel? song =
+                                      await db.getSongModel(songId["id"]);
+                                  if (song != null) {
+                                    recentlyPlayedSongsList.add(song);
+                                  }
+                                }
+                                playGround.setSongCollection(recentlyPlayedSongsList);
+                                playGround.setNeedsRefresh(true);
+                                Provider.of<MainProvider>(context,
+                                        listen: false)
+                                    .currentPage(4);
+                              } else {
+                                Provider.of<MainProvider>(context,
+                                        listen: false)
+                                    .currentPage(4);
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 101.0,
+                                    height: 81.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.grey,
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
                                       child: QueryArtworkWidget(
-                                    id: songId,
-                                    type: ArtworkType.AUDIO,
-                                  )
+                                        id: songId,
+                                        type: ArtworkType.AUDIO,
+                                        artworkBorder: BorderRadius.zero,
+                                        artworkFit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(songTitle),
-                            ],
-                          ),
-                        );
-                      },
+                                Text(songTitle.substring(
+                                    0, min<int>(12, songTitle.length))),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     const SingleChildScrollView(
                       child: Padding(

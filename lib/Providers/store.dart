@@ -23,6 +23,7 @@ class Store {
   void saveFavoriteSong(SongModel song) {
     var map = {
       "id": song.id,
+      "title": song.title
       
     };
     List favorites = Hive.box("Musics").get("Favorites") ?? [];
