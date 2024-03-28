@@ -52,7 +52,11 @@ class Homepage extends StatelessWidget {
             return const PermissionHandler();
           }
         } else {
-          return const CircularProgressIndicator(); // Or any loading indicator while checking permission
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(), // Or any loading indicator while checking permission
+            ),
+          );
         }
       },
     );
@@ -73,7 +77,7 @@ class Homepage extends StatelessWidget {
 
     if (status == PermissionStatus.denied ||
         status == PermissionStatus.permanentlyDenied) {
-      return PermissionHandler();
+      return const PermissionHandler();
     }
 
     if (status == PermissionStatus.granted) {
