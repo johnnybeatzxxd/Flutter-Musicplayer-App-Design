@@ -75,7 +75,7 @@ class PermissionHandler extends StatelessWidget {
     if (status == PermissionStatus.denied) {
       print("permission denied");
       openAppSettings();
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 5));
       if (await Permission.storage.isPermanentlyDenied ||
           await Permission.audio.isPermanentlyDenied) {
         return Future.error("Permission not allowed");
@@ -86,10 +86,6 @@ class PermissionHandler extends StatelessWidget {
       return Future.error("Permission permanently denied");
     }
     if (status == PermissionStatus.granted) {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => Homepage()),
-      // );
       Provider.of<MainProvider>(context, listen: false).currentPage(0);
     }
   }
