@@ -35,7 +35,8 @@ class _MusicsPageState extends State<MusicsPage> {
       body: Stack(children: [
         FutureBuilder<List<SongModel>>(
           future: playGround.songCollection != null &&
-                  playGround.songCollection!.isNotEmpty && playGround.needsRefresh == false
+                  playGround.songCollection!.isNotEmpty &&
+                  playGround.needsRefresh == false
               ? Future.value(playGround.songCollection)
               : _checkPermissionAndQuerySongs(),
           builder: (context, music) {
@@ -134,6 +135,7 @@ class _MusicsPageState extends State<MusicsPage> {
                                               onTap: () async {
                                                 var playlists =
                                                     await _queryPlaylists();
+                                                print(playlists);
                                                 if (!playlists.isEmpty) {
                                                   showModalBottomSheet(
                                                     context: context,
@@ -204,6 +206,8 @@ class _MusicsPageState extends State<MusicsPage> {
                                                                       .onBackground),
                                                             ),
                                                             onPressed: () {
+                                                              widget._audioQuery
+                                                                  .createPlaylist(playlistNameController.text);
                                                               // Add functionality to create playlist with playlistNameController.text
                                                               Navigator.pop(
                                                                   context);
