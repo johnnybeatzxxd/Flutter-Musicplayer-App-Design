@@ -120,6 +120,7 @@ class _MusicsPageState extends State<MusicsPage> {
                             : IconButton(
                                 icon: const Icon(Icons.more_horiz),
                                 onPressed: () {
+                                  BuildContext localContext = context;
                                   showModalBottomSheet(
                                     backgroundColor: Theme.of(context)
                                         .scaffoldBackgroundColor,
@@ -138,26 +139,104 @@ class _MusicsPageState extends State<MusicsPage> {
                                                 print(playlists);
                                                 if (!playlists.isEmpty) {
                                                   showModalBottomSheet(
+                                                    backgroundColor:
+                                                        Theme.of(context)
+                                                            .colorScheme
+                                                            .background,
                                                     context: context,
                                                     builder:
                                                         (BuildContext context) {
-                                                      return ListView.builder(
-                                                        itemCount:
-                                                            playlists.length,
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          return ListTile(
-                                                            title: Text(
-                                                                playlists[index]
-                                                                    .id
-                                                                    .toString()),
-                                                            onTap: () {
-                                                              // Add functionality to add song to this playlist
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                          );
-                                                        },
+                                                      return Column(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: Text(
+                                                              'Playlists',
+                                                              style: TextStyle(
+                                                                fontSize: 24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: ListView
+                                                                .builder(
+                                                              itemCount:
+                                                                  playlists
+                                                                      .length,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      num) {
+                                                                return Card(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .background,
+                                                                  elevation: 10,
+                                                                  margin: const EdgeInsets
+                                                                      .symmetric(
+                                                                      vertical:
+                                                                          8,
+                                                                      horizontal:
+                                                                          16),
+                                                                  child:
+                                                                      ListTile(
+                                                                    title: Text(
+                                                                      '${playlists[num].playlist.toString()}',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    ),
+                                                                    trailing:
+                                                                        ElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        widget
+                                                                            ._audioQuery
+                                                                            .addToPlaylist(
+                                                                          playlists[num]
+                                                                              .id,
+                                                                          music
+                                                                              .data![index]
+                                                                              .id,
+                                                                        );
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                      child:
+                                                                          Text(
+                                                                        'Add',
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                      style: ElevatedButton
+                                                                          .styleFrom(
+                                                                        backgroundColor: const Color
+                                                                            .fromRGBO(
+                                                                            97,
+                                                                            86,
+                                                                            226,
+                                                                            1),
+                                                                        shape:
+                                                                            RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(20),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ],
                                                       );
                                                     },
                                                   );
@@ -207,7 +286,9 @@ class _MusicsPageState extends State<MusicsPage> {
                                                             ),
                                                             onPressed: () {
                                                               widget._audioQuery
-                                                                  .createPlaylist(playlistNameController.text);
+                                                                  .createPlaylist(
+                                                                      playlistNameController
+                                                                          .text);
                                                               // Add functionality to create playlist with playlistNameController.text
                                                               Navigator.pop(
                                                                   context);
