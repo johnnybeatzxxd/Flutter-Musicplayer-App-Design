@@ -253,8 +253,15 @@ class Homepage extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text(songTitle.substring(
-                                      0, min<int>(12, songTitle.length))),
+                                  Expanded(
+                                    child: Text(
+                                      songTitle.substring(
+                                        0,
+                                        min<int>(12, songTitle.length),
+                                      ) + (songTitle.length > 12 ? '...' : ''),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
                                 ],
                               ),
                             );
