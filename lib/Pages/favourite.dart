@@ -10,8 +10,8 @@ class FavoritePage extends StatelessWidget {
     {"name": "Album 3", "image": "images/Rectangle22.png"}
   ];
   final db = Store();
+  final _audioQuery = OnAudioQuery();
   FavoritePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,41 +78,63 @@ class FavoritePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 60),
                 const Text(
-                  "Favourite Ablum",
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
+                  "Playlists",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
                 SingleChildScrollView(
-                    controller: ScrollController(initialScrollOffset: 0.0),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        for (var album in albums)
-                          InkWell(
-                            onTap: () {},
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset(album["image"],
-                                        width: 106, height: 111),
-                                  ),
+                  controller: ScrollController(initialScrollOffset: 0.0),
+                  scrollDirection: Axis.horizontal,
+                  child: FutureBuilder(
+                    future: _queryPlaylists(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        List<PlaylistModel> playlists = snapshot.data!;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            for (var playlist in playlists)
+                              InkWell(
+                                onTap: () async{
+                                  print(playlist.getMap["_data"]);
+                                  var audios = await _audioQuery.queryAudiosFrom(
+                                      AudiosFromType.PLAYLIST,
+                                      playlist.id.toString(),
+                                      orderType: OrderType.ASC_OR_SMALLER,
+                                      ignoreCase: true,
+                                      );
+                                  print(audios);
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: SizedBox(width: 106,height: 111,child:FittedBox(child: QueryArtworkWidget(id: playlist.id,type: ArtworkType.PLAYLIST,artworkBorder: BorderRadius.zero,format: ArtworkFormat.JPEG,)),
+                                      )
+                                       
+                                      ),
+                                    ),
+                                    Text(
+                                      playlist.playlist,
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  album["name"],
-                                ),
-                              ],
-                            ),
-                          )
-                      ],
-                    )), // Favorite album section
+                              )
+                          ],
+                        );
+                      } else {
+                        return Text("Error!");
+                      }
+                    },
+                  ),
+                ), // Favorite album section
                 const SizedBox(height: 15),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -125,6 +147,7 @@ class FavoritePage extends StatelessWidget {
                 ),
                 Expanded(
                   child: GridView.builder(
+                    shrinkWrap: true,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
@@ -204,5 +227,16 @@ class FavoritePage extends StatelessWidget {
           ), //end of the page
           ButtomNavBar()
         ]));
+  }
+
+  Future<List<PlaylistModel>> _queryPlaylists() async {
+    var playlists = await _audioQuery.queryPlaylists(
+      ignoreCase: true,
+      orderType: OrderType.ASC_OR_SMALLER,
+      uriType: UriType.EXTERNAL,
+      sortType: null,
+    );
+
+    return playlists;
   }
 }
