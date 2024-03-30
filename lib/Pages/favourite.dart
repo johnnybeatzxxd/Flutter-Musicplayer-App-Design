@@ -97,14 +97,15 @@ class FavoritePage extends StatelessWidget {
                           children: [
                             for (var playlist in playlists)
                               InkWell(
-                                onTap: () async{
+                                onTap: () async {
                                   print(playlist.getMap["_data"]);
-                                  var audios = await _audioQuery.queryAudiosFrom(
-                                      AudiosFromType.PLAYLIST,
-                                      playlist.id.toString(),
-                                      orderType: OrderType.ASC_OR_SMALLER,
-                                      ignoreCase: true,
-                                      );
+                                  var audios =
+                                      await _audioQuery.queryAudiosFrom(
+                                    AudiosFromType.PLAYLIST,
+                                    playlist.id.toString(),
+                                    orderType: OrderType.ASC_OR_SMALLER,
+                                    ignoreCase: true,
+                                  );
                                   print(audios);
                                 },
                                 child: Column(
@@ -115,18 +116,57 @@ class FavoritePage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: SizedBox(width: 106,height: 111,child:FittedBox(child: QueryArtworkWidget(id: playlist.id,type: ArtworkType.PLAYLIST,artworkBorder: BorderRadius.zero,format: ArtworkFormat.JPEG,)),
-                                      )
-                                       
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: SizedBox(
+                                            width: 106,
+                                            height: 111,
+                                            child: FittedBox(
+                                                child: QueryArtworkWidget(
+                                              id: playlist.id,
+                                              quality: 100,
+                                              artworkQuality: FilterQuality.high,
+                                              artworkClipBehavior: Clip.antiAliasWithSaveLayer,
+                                              format: ArtworkFormat.PNG,
+                                              size: 500,
+                                              type: ArtworkType.PLAYLIST,
+                                              artworkBorder: BorderRadius.zero,
+                                              nullArtworkWidget: const Icon(Icons.music_video_rounded)
+                                            )),
+                                          )),
                                     ),
                                     Text(
                                       playlist.playlist,
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
+                            InkWell(
+                              onTap: () {
+                                createPlaylists(context);
+                                
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        width: 106,
+                                        height: 111,
+                                        color: Color.fromARGB(82, 33, 33, 33),
+                                        child: const Icon(Icons.add, size: 60,color:Color.fromRGBO(98, 86, 226, 1),),
+                                      ),
+                                    ),
+                                  ),
+                                  Text("Create Playlist"),
+                                ],
+                              ),
+                            ),
                           ],
                         );
                       } else {

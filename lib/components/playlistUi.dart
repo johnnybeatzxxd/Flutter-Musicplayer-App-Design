@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:musicplayer_app/index.dart";
+import "package:provider/provider.dart";
 import "package:on_audio_query/on_audio_query.dart";
 
 var _audioQuery = OnAudioQuery();
@@ -39,6 +41,10 @@ Future showPlaylists(context, playlists, songId) {
                       onPressed: () {
                         _audioQuery.addToPlaylist(playlists[num].id, songId);
                         Navigator.pop(context);
+                        var currentPageIndex =
+                            Provider.of<MainProvider>(context,listen: false).currentPageIndex;
+                        Provider.of<MainProvider>(context,listen: false)
+                            .currentPage(currentPageIndex);
                       },
                       child: const Text(
                         'Add',
@@ -59,6 +65,9 @@ Future showPlaylists(context, playlists, songId) {
           ElevatedButton(
             onPressed: () {
               createPlaylists(context);
+              var currentPageIndex =
+                  Provider.of<MainProvider>(context,listen: false).currentPageIndex;
+              Provider.of<MainProvider>(context,listen: false).currentPage(currentPageIndex);
             },
             child: Text(
               'Create New Playlist',
@@ -101,6 +110,9 @@ Future createPlaylists(context) {
             ),
             onPressed: () {
               Navigator.pop(context);
+              var currentPageIndex =
+                  Provider.of<MainProvider>(context,listen: false).currentPageIndex;
+              Provider.of<MainProvider>(context,listen: false).currentPage(currentPageIndex);
             },
           ),
           TextButton(
@@ -113,6 +125,9 @@ Future createPlaylists(context) {
               _audioQuery.createPlaylist(playlistNameController.text);
               // Add functionality to create playlist with playlistNameController.text
               Navigator.pop(context);
+              var currentPageIndex =
+                  Provider.of<MainProvider>(context,listen: false).currentPageIndex;
+              Provider.of<MainProvider>(context,listen: false).currentPage(currentPageIndex);
             },
           ),
         ],
