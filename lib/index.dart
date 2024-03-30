@@ -6,6 +6,7 @@ export "Pages/musics.dart";
 export 'components/myicons.dart';
 export 'components/buttomnavbar.dart';
 export "components/playPauseButton.dart";
+export "components/playlistUi.dart";
 export "Providers/mainProvider.dart";
 export "Providers/playgroundProvider.dart";
 export 'Providers/store.dart';

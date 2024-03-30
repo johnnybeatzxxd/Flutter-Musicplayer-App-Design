@@ -43,7 +43,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
   bool get shuffle => _shuffle;
   bool _isFavorite = false;
   bool get isFavorite => _isFavorite;
-  List<SongModel>? _songCollection = [];
+    List<SongModel>? _songCollection = [];
   List<SongModel>? get songCollection => _songCollection;
   bool _needsRefresh = true;
   bool get needsRefresh => _needsRefresh;
