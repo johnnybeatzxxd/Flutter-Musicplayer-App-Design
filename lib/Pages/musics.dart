@@ -59,7 +59,7 @@ class _MusicsPageState extends State<MusicsPage> {
                 key: _musicsPageKey, // Assign the PageStorageKey here
                 padding: const EdgeInsets.only(bottom: 80),
                 itemBuilder: (context, index) => InkWell(
-                  onTap: () {
+                                    onTap: () {
                     playGround.setCurrentTrackIndex(index);
                     if (music.data![index].uri !=
                         playGround.currentTrack?.uri) {
@@ -136,9 +136,11 @@ class _MusicsPageState extends State<MusicsPage> {
                                               onTap: () async {
                                                 var playlists =
                                                     await _queryPlaylists();
-                                                print(playlists);
+                                                    
+                                                print(playlists[0].getMap);
                                                 if (!playlists.isEmpty) {
                                                   showModalBottomSheet(
+                                                    
                                                     backgroundColor:
                                                         Theme.of(context)
                                                             .colorScheme
@@ -234,6 +236,37 @@ class _MusicsPageState extends State<MusicsPage> {
                                                                   ),
                                                                 );
                                                               },
+                                                            ),
+                                                          ),
+                                                          ElevatedButton(
+                                                            onPressed: () {
+                                                              // Add functionality to create a new playlist
+                                                              // This button should trigger the creation of a new playlist
+                                                            },
+                                                            child: Text(
+                                                              'Create New Playlist',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              backgroundColor:
+                                                                  const Color
+                                                                      .fromRGBO(
+                                                                      97,
+                                                                      86,
+                                                                      226,
+                                                                      1),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20),
+                                                              ),
                                                             ),
                                                           ),
                                                         ],
