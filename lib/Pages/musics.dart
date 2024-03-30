@@ -60,6 +60,10 @@ class _MusicsPageState extends State<MusicsPage> {
                 key: _musicsPageKey, // Assign the PageStorageKey here
                 padding: const EdgeInsets.only(bottom: 80),
                 itemBuilder: (context, index) => InkWell(
+                  onLongPress: () {
+                    int songId = music.data![index].id;
+                    showOptions(context, songId, _queryPlaylists);
+                  },
                   onTap: () {
                     playGround.setCurrentTrackIndex(index);
                     if (music.data![index].uri !=
@@ -121,44 +125,8 @@ class _MusicsPageState extends State<MusicsPage> {
                             : IconButton(
                                 icon: const Icon(Icons.more_horiz),
                                 onPressed: () {
-                                  BuildContext localContext = context;
-                                  showModalBottomSheet(
-                                    backgroundColor: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Wrap(
-                                        children: <Widget>[
-                                          ListTile(
-                                              leading: const Icon(
-                                                  Icons.playlist_add),
-                                              title:
-                                                  const Text('Add to Playlist'),
-                                              onTap: () async {
-                                                var playlists =
-                                                    await _queryPlaylists();
-
-                                                print(playlists[0].getMap);
-                                                if (!playlists.isEmpty) {
-                                                  showPlaylists(context,
-                                                      playlists, songId);
-                                                } else {
-                                                  createPlaylists(context);
-                                                }
-                                              }),
-                                          ListTile(
-                                            leading:
-                                                const Icon(Icons.edit_outlined),
-                                            title: const Text('Rename'),
-                                            onTap: () {
-                                              // Add rename functionality here
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
+                                  int songId = music.data![index].id;
+                                  showOptions(context, songId, _queryPlaylists);
                                 },
                               );
                       },
