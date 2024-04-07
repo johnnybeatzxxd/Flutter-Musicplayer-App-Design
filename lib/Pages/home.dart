@@ -50,10 +50,17 @@ class Homepage extends StatelessWidget {
             return const PermissionHandler();
           }
         } else {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(), // Or any loading indicator while checking permission
+          return Scaffold(
+            body: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                ButtomNavBar(),
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ],
             ),
+             
           );
         }
       },
