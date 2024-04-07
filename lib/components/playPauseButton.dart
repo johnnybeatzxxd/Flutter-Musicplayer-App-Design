@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:musicplayer_app/Providers/mainProvider.dart';
 import 'package:musicplayer_app/Providers/playgroundProvider.dart';
 import 'package:provider/provider.dart';
-import 'dart:async';
 
 class PlayPause extends StatefulWidget {
   const PlayPause({super.key});
@@ -33,14 +31,14 @@ class _PlayPauseState extends State<PlayPause> {
           _onTap(musicPlayer);
         },
         child: CircleAvatar(
+            backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
+            radius: 40,
             child: AnimatedIcon(
               icon: AnimatedIcons.pause_play,
               progress: musicPlayer.controller!,
               size: 50,
               color: Colors.white,
-            ),
-            backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
-            radius: 40));
+            )));
   }
 
   void _onTap(playGroundProvider musicPlayer) {

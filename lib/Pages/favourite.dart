@@ -88,7 +88,7 @@ class FavoritePage extends StatelessWidget {
                     future: _queryPlaylists(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       }
                       if (snapshot.connectionState == ConnectionState.done) {
                         List<PlaylistModel> playlists = snapshot.data!;
@@ -107,7 +107,8 @@ class FavoritePage extends StatelessWidget {
                                     ignoreCase: true,
                                   );
                                   print(audios);
-                                },
+                                  playlistSongsList(context, audios);
+                                                                },
                                 child: Column(
                                   children: [
                                     Container(
@@ -158,19 +159,19 @@ class FavoritePage extends StatelessWidget {
                                       child: Container(
                                         width: 106,
                                         height: 111,
-                                        color: Color.fromARGB(82, 33, 33, 33),
+                                        color: const Color.fromARGB(82, 33, 33, 33),
                                         child: const Icon(Icons.add, size: 60,color:Color.fromRGBO(98, 86, 226, 1),),
                                       ),
                                     ),
                                   ),
-                                  Text("Create Playlist"),
+                                  const Text("Create Playlist"),
                                 ],
                               ),
                             ),
                           ],
                         );
                       } else {
-                        return Text("Error!");
+                        return const Text("Error!");
                       }
                     },
                   ),
