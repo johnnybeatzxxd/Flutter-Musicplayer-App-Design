@@ -1,14 +1,10 @@
-import 'dart:ffi';
-import 'dart:typed_data';
 import "package:flutter/material.dart";
 import 'package:flutter/scheduler.dart';
-import 'package:musicplayer_app/Providers/mainProvider.dart';
-import "package:provider/provider.dart";
 import 'package:just_audio/just_audio.dart';
 import 'package:musicplayer_app/index.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'dart:math';
-import 'package:flutter/services.dart'; // Import services for detecting headphone state
+// Import services for detecting headphone state
 import 'package:audio_session/audio_session.dart';
 
 enum ListType {
@@ -63,7 +59,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     _initAudioSession();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
     );
   }
   @override
@@ -82,7 +78,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
 
   Future<void> _initAudioSession() async {
     final session = await AudioSession.instance;
-    await session.configure(AudioSessionConfiguration.music());
+    await session.configure(const AudioSessionConfiguration.music());
 
     session.interruptionEventStream.listen((event) {
       if (event.begin) {
@@ -186,7 +182,7 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
       }
     } else {
       nextIndex = index! + 1;
-      if (songCollection != null && nextIndex >= songCollection!.length) {
+      if (songCollection != null && nextIndex >= songCollection.length) {
         nextIndex = 0; // Loop back to the first song if we've reached the end
       }
     }
@@ -309,12 +305,12 @@ class playGroundProvider extends ChangeNotifier implements TickerProvider {
     s = value - (h * 3600) - (m * 60);
 
     String hourLeft =
-        h.toString().length < 2 ? "0" + h.toString() : h.toString();
+        h.toString().length < 2 ? "0$h" : h.toString();
     String minuteLeft =
-        m.toString().length < 2 ? "0" + m.toString() : m.toString();
+        m.toString().length < 2 ? "0$m" : m.toString();
 
     String secondsLeft =
-        s.toString().length < 2 ? "0" + s.toString() : s.toString();
+        s.toString().length < 2 ? "0$s" : s.toString();
     String result = h > 0
         ? "$hourLeft:$minuteLeft:$secondsLeft"
         : "$minuteLeft:$secondsLeft";

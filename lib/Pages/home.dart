@@ -1,6 +1,4 @@
-import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
-import 'package:flutter/services.dart';
 import "package:musicplayer_app/Pages/permission.dart";
 import "package:musicplayer_app/index.dart";
 import "package:on_audio_query/on_audio_query.dart";
@@ -63,7 +61,7 @@ class Homepage extends StatelessWidget {
   }
 
   Future<Widget> _checkPermission() async {
-    var status;
+    PermissionStatus status;
     int sdkVersion = await DeviceInfoPlugin()
         .androidInfo
         .then((info) => info.version.sdkInt);
@@ -87,7 +85,7 @@ class Homepage extends StatelessWidget {
           forceMaterialTransparency: true,
           leading: GestureDetector(
             onTap: () {},
-            child: Container(
+            child: SizedBox(
                 height: 40,
                 width: 40,
                 child: CircleAvatar(
@@ -299,11 +297,11 @@ class Homepage extends StatelessWidget {
                                         child: Container(
                                           width: 88.0,
                                           height: 88.0,
-                                          child: Image.asset(music["image"]),
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(10.0),
                                               color: Colors.grey),
+                                          child: Image.asset(music["image"]),
                                         ),
                                       ),
                                       Expanded(
@@ -317,11 +315,11 @@ class Homepage extends StatelessWidget {
                                             Text(music["name"]),
                                             Text(
                                               music["artist"],
-                                              style: TextStyle(fontSize: 13),
+                                              style: const TextStyle(fontSize: 13),
                                             ),
                                             Text(
                                               music["views"],
-                                              style: TextStyle(fontSize: 13),
+                                              style: const TextStyle(fontSize: 13),
                                             ),
                                           ],
                                         ),

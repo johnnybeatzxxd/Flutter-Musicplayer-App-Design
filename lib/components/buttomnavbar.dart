@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
-import "package:musicplayer_app/Providers/mainProvider.dart";
 import "package:musicplayer_app/index.dart";
 import "package:provider/provider.dart";
-import "package:permission_handler/permission_handler.dart";
 
 class ButtomNavBar extends StatelessWidget {
   int currentIndex = 0;
@@ -41,7 +39,7 @@ class ButtomNavBar extends StatelessWidget {
                   .currentPageIndex == 4 ? 1 : Provider.of<MainProvider>(context, listen: true).currentPageIndex,
               selectedLabelStyle:
                   const TextStyle(color: Color.fromRGBO(97, 86, 226, 1)),
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                     activeIcon: MyCustomIcon('assets/icons/home.svg',
                         color: Color.fromRGBO(97, 86, 226, 1)),

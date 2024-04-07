@@ -7,7 +7,7 @@ class MyCustomIcon extends StatelessWidget {
   final double width; 
   final double height; 
 
-  MyCustomIcon(this.imagePath, {this.color = Colors.grey,this.width = 20,this.height = 20}); // Default color
+  const MyCustomIcon(this.imagePath, {super.key, this.color = Colors.grey,this.width = 20,this.height = 20}); // Default color
 
   @override
   Widget build(BuildContext context) {

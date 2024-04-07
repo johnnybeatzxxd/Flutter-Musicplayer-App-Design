@@ -1,14 +1,10 @@
 import "package:flutter/material.dart";
-import 'package:musicplayer_app/components/playlistUi.dart';
-import "package:musicplayer_app/components/myicons.dart";
 import "package:on_audio_query/on_audio_query.dart";
 import "package:permission_handler/permission_handler.dart";
 import "package:provider/provider.dart";
 import "package:musicplayer_app/index.dart";
-import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 
 class MusicsPage extends StatefulWidget {
   MusicsPage({super.key});
@@ -18,7 +14,7 @@ class MusicsPage extends StatefulWidget {
 }
 
 class _MusicsPageState extends State<MusicsPage> {
-  final PageStorageKey _musicsPageKey = PageStorageKey('musicsPageKey');
+  final PageStorageKey _musicsPageKey = const PageStorageKey('musicsPageKey');
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +166,7 @@ class _MusicsPageState extends State<MusicsPage> {
   }
 
   Future<List<SongModel>> _checkPermissionAndQuerySongs() async {
-    var status;
+    PermissionStatus status;
     int sdkVersion = await DeviceInfoPlugin()
         .androidInfo
         .then((info) => info.version.sdkInt);
@@ -185,7 +181,7 @@ class _MusicsPageState extends State<MusicsPage> {
     if (status == PermissionStatus.denied) {
       print("permission denied");
       openAppSettings();
-      await Future.delayed(Duration(
+      await Future.delayed(const Duration(
           seconds: 5)); // Wait for the user to potentially allow permission
       if (await Permission.storage.isPermanentlyDenied ||
           await Permission.audio.isPermanentlyDenied) {

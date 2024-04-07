@@ -39,10 +39,10 @@ class PermissionHandler extends StatelessWidget {
                   _requestPermission(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+                  backgroundColor: Colors.deepPurple,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  textStyle: TextStyle(fontSize: 18),
+                  textStyle: const TextStyle(fontSize: 18),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
@@ -60,7 +60,7 @@ class PermissionHandler extends StatelessWidget {
   }
 
   Future<void> _requestPermission(BuildContext context) async {
-    var status;
+    PermissionStatus status;
     int sdkVersion = await DeviceInfoPlugin()
         .androidInfo
         .then((info) => info.version.sdkInt);

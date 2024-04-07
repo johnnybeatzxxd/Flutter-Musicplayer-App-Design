@@ -11,8 +11,8 @@ Future showPlaylists(context, playlists, songId) {
     builder: (BuildContext context) {
       return Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Text(
               'Playlists',
               style: TextStyle(
@@ -32,8 +32,8 @@ Future showPlaylists(context, playlists, songId) {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: ListTile(
                     title: Text(
-                      '${playlists[num].playlist.toString()}',
-                      style: TextStyle(
+                      playlists[num].playlist.toString(),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -46,15 +46,15 @@ Future showPlaylists(context, playlists, songId) {
                         Provider.of<MainProvider>(context,listen: false)
                             .currentPage(currentPageIndex);
                       },
-                      child: const Text(
-                        'Add',
-                        style: TextStyle(color: Colors.white),
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
+                      ),
+                      child: const Text(
+                        'Add',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -69,16 +69,16 @@ Future showPlaylists(context, playlists, songId) {
                   Provider.of<MainProvider>(context,listen: false).currentPageIndex;
               Provider.of<MainProvider>(context,listen: false).currentPage(currentPageIndex);
             },
-            child: Text(
-              'Create New Playlist',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromRGBO(97, 86, 226, 1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Text(
+              'Create New Playlist',
+              style: TextStyle(
+                color: Colors.white,
               ),
             ),
           ),

@@ -1,13 +1,10 @@
 import "package:flutter/material.dart";
-import "package:musicplayer_app/Providers/playgroundProvider.dart";
-import "package:musicplayer_app/components/myicons.dart";
 import "package:musicplayer_app/index.dart";
-import "package:on_audio_query/on_audio_query.dart";
 import "package:provider/provider.dart";
 import 'dart:math';
 
 class PlaygroundPage extends StatelessWidget {
-  PlaygroundPage({super.key});
+  const PlaygroundPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class PlaygroundPage extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -73,7 +70,7 @@ class PlaygroundPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
-                      (musicPlayer.currentTrack?.displayNameWOExt?.length ?? 0) >
+                      (musicPlayer.currentTrack?.displayNameWOExt.length ?? 0) >
                               25
                           ? '${musicPlayer.currentTrack?.displayNameWOExt.substring(0, min(29, musicPlayer.currentTrack?.displayNameWOExt.length ?? 0))}...'
                           : musicPlayer.currentTrack?.displayNameWOExt ??
@@ -94,7 +91,7 @@ class PlaygroundPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min, // Restrict column height
                     children: [
                       Slider(
-                        activeColor: Color.fromRGBO(97, 86, 226, 1),
+                        activeColor: const Color.fromRGBO(97, 86, 226, 1),
                         value: musicPlayer.position.inSeconds.toDouble(),
                         onChanged: (value) => musicPlayer
                             .seekTo(Duration(seconds: value.toInt())),
@@ -114,7 +111,7 @@ class PlaygroundPage extends StatelessWidget {
                               .toDouble()
                               .toInt())),
                           Text(musicPlayer.intToTime(
-                              (musicPlayer.songDuration! / 1000).toInt() ?? 0)),
+                              musicPlayer.songDuration! ~/ 1000 ?? 0)),
                         ],
                       ),
                     ],
@@ -137,14 +134,14 @@ class PlaygroundPage extends StatelessWidget {
                         },
                       ),
                       IconButton(
-                        icon: Icon(Icons.skip_previous_outlined, size: 40),
+                        icon: const Icon(Icons.skip_previous_outlined, size: 40),
                         onPressed: () {
                           int? index = musicPlayer.currentTrackIndex;
                           List? songCollection = musicPlayer.songCollection;
-                          if (index != null && index > 0) {
+                          if (index! > 0) {
                             musicPlayer
-                                .setCurrentTrack(songCollection?[index - 1]);
-                            musicPlayer.setCurrentTrackIndex(index! - 1);
+                                .setCurrentTrack(songCollection![index - 1]);
+                            musicPlayer.setCurrentTrackIndex(index - 1);
                             musicPlayer.setCurrentArtwork();
                             musicPlayer.playTrack(
                                 musicPlayer.currentTrack!.uri!, Duration.zero);

@@ -2,14 +2,12 @@
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'index.dart';
-import 'package:hive/hive.dart';
 import "package:hive_flutter/hive_flutter.dart";
-import 'dart:io';
 
 void main() async {
   await Hive.initFlutter();
   var box = await Hive.openBox('Musics');
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -34,7 +32,7 @@ class MyApp extends StatelessWidget {
     MusicsPage(),
     FavoritePage(),
     Homepage(),
-    PlaygroundPage()
+    const PlaygroundPage()
   ];
   MyApp({super.key});
 
